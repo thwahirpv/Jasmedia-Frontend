@@ -3,8 +3,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AdminRoutes from "./AdminRoutes";
 import UserRoutes from "./UserRoutes";
 import NotFound from "../pages/common/NotFound";
-import UserLayout from "./UserLayout";
-import AdminLayout from "./AdminLayout";
+import AdminLayout from "../Layout/adminLayout";
+import UserLayout from "../Layout/userLayout";
 
 const AppRoutes = () => {
   return (
@@ -12,12 +12,14 @@ const AppRoutes = () => {
       <Routes>
         {/* User routes */}
         <Route path="/" element={<UserLayout />}>
-          <Route path="*" element={<UserRoutes />} />
+          <Route index element={<UserRoutes />} />
+          <Route path="*" element={<NotFound />} />
         </Route>
-        
+
         {/* Admin routes */}
-        <Route path="/admin" element={<AdminLayout />} >
-          <Route path="*" element={<AdminRoutes />} />
+        <Route path="/admin" element={<AdminLayout />}>
+          <Route index element={<AdminRoutes />} />
+          <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
     </Router>

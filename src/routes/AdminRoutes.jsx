@@ -1,7 +1,6 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Home from "../pages/admin/Home";
-import AdminLayout from "./AdminLayout";
 import Login from '../pages/admin/Login'
 import NotFound from "../pages/common/NotFound";
 

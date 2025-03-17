@@ -1,10 +1,15 @@
 import React from 'react'
+import HomeOne from '../../components/userComponent/Home/Home'
+import Gap from '../../components/userComponent/Home/Gap'
+
 
 const Home = () => {
   return (
-    <div>
-      <h1 className='text-3xl'>Hello Home</h1>
-    </div>
+    <>
+    <HomeOne></HomeOne>
+    <Gap></Gap>
+    </>
+  
   )
 }
 
