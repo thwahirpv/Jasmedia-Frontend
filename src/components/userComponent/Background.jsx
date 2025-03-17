@@ -14,6 +14,8 @@ export default function BackgroundComponent() {
   if (!mounted) return null
 
   return (
+    <>
+    
     <div className="fixed inset-0 top-[navbar-height] w-full overflow-hidden pointer-events-none -z-10">
       {/* Fixed background container */}
       <div className="absolute inset-0 bg-black">
@@ -63,7 +65,10 @@ export default function BackgroundComponent() {
         </footer>
 
         {/* WhatsApp button - absolutely positioned */}
-        <div className="fixed bottom-6 right-6 z-20 pointer-events-auto">
+        
+      </div>
+    </div>
+    <div className="fixed bottom-6 right-6 z-20 pointer-events-auto">
           <Link
             to="https://wa.me/yourphonenumber"
             className="flex items-center justify-center w-14 h-14 bg-green-500 rounded-full hover:bg-green-600 transition-colors"
@@ -73,8 +78,9 @@ export default function BackgroundComponent() {
             </svg>
           </Link>
         </div>
-      </div>
-    </div>
+
+
+    </>
   )
 }
 

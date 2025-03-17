@@ -1,5 +1,5 @@
 import React from 'react'
-import HomeOne from '../../components/userComponent/Home/Home'
+import HomeOne from '../../components/userComponent/Home/FirstSlider'
 import Gap from '../../components/userComponent/Home/Gap'
 
 
