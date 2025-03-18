@@ -1,6 +1,8 @@
 import React from 'react'
 import HomeOne from '../../components/userComponent/Home/FirstSlider'
 import Gap from '../../components/userComponent/Home/Gap'
+import SecondSlider from '../../components/userComponent/Home/SecondSlider'
+import FeaturedProjects from '../../components/userComponent/Home/LastSlider'
 
 
 const Home = () => {
@@ -8,6 +10,9 @@ const Home = () => {
     <>
     <HomeOne></HomeOne>
     <Gap></Gap>
+    <SecondSlider></SecondSlider>
+    <Gap></Gap>
+    <FeaturedProjects></FeaturedProjects>
     </>
   
   )
