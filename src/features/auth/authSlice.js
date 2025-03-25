@@ -7,7 +7,9 @@ const logIn = createAsyncThunk(
     "auth/login", 
     async (data, { rejectWithValue }) => {
         try{
-            const response = await api.post('api', data)
+            console.log(data)
+            const response = await api.post('/login', data)
+            console.log(response)
             return response.data
         }catch (error) {
             const message = error.response?.data?.detail || "Login failed !"
@@ -39,6 +41,7 @@ const authSlice = createSlice({
         .addCase(logIn.fulfilled, (state, action) => {
             state.isLoading= false
             state.error = null
+            console.log(action.payload)
             state.user = action.payload
         })
         .addCase(logIn.rejected, (state, action) => {

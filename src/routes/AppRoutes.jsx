@@ -5,6 +5,7 @@ import UserRoutes from "./UserRoutes";
 import NotFound from "../pages/common/NotFound";
 import UserLayout from "./UserLayout";
 import AdminLayout from "./AdminLayout";
+import Login from "../pages/admin/Login";
 
 const AppRoutes = () => {
   return (
@@ -16,6 +17,7 @@ const AppRoutes = () => {
         </Route>
         
         {/* Admin routes */}
+        <Route path="/admin/login" element={<Login />} /> 
         <Route path="/admin" element={<AdminLayout />} >
           <Route path="*" element={<AdminRoutes />} />
         </Route>

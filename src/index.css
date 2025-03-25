@@ -1,6 +1,16 @@
 @import "tailwindcss";
 
 @theme {
-    --color-primary: oklch(100% 0 360);
-    --color-secondary: oklch(94.27% 0 334.16 / 73.72%);
+    --color-light-white: oklch(100% 0 360);
+    --color-light-gray-950: oklch(0.13 0.028 261.692);
+    --color-light-gray-800: oklch(0.278 0.033 256.848);
+    --color-light-gray-300: oklch(94.27% 0 334.16 / 73.72%);
+    --color-dark-blue-900: oklch(21.36% 0.0322 262.44);
+    --color-dark-blue-600: oklch(28.08% 0.0286 252.97);
+    --color-dark-blue-400: oklch(34.09% 0.0266 255.11);
+    --color-dark-gray: oklch(78.33% 0.0143 255.11);
+    --color-dark-white: oklch(95.54% 0.0118 255.11);
+    --color-error: oklch(0.577 0.245 27.325);
 }
+
+@custom-variant dark (&:where(.dark, .dark *));

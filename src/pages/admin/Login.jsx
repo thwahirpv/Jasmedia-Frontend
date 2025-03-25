@@ -3,8 +3,9 @@ import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { logIn } from "../../features/auth/authSlice";
-
-
+import ScaleLoader from "react-spinners/ScaleLoader";
+import { useNavigate } from "react-router-dom";
+import ThemeToggle from "../../components/common/ThemeToggle";
 
 const Login = () => {
   // Hooks
@@ -12,9 +13,10 @@ const Login = () => {
   const [isPasswordFocus, setIsPasswordFocus] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isShowPassword, setIsShowPassword] = useState(false)
-  const dispatch = useDispatch()
-  const { isLoading, user, error } = useSelector((state) => state.auth)
+  const [isShowPassword, setIsShowPassword] = useState(false);
+  const dispatch = useDispatch();
+  const { isLoading, user, error } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
 
   // Email
   const emailFocus = () => setIsEmailFocus(true);
@@ -37,20 +39,33 @@ const Login = () => {
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
   };
-  const showPassword = () => setIsShowPassword(!isShowPassword)
+  const showPassword = () => setIsShowPassword(!isShowPassword);
 
   // Form Submit
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    // await dispatch(logIn({email: email, password: password}))
-  }
+    e.preventDefault();
+    try {
+      const res = await dispatch(logIn({ email: email, password: password }));
+      console.log(res, 'from frontend')
+      if (res.type == "auth/login/fulfilled") {
+        navigate("/admin/dashboard");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
-    <div className="w-full h-[100vh] bg-primary flex justify-center items-center">
-      <div className="bg-secondary space-y-8 py-7 px-6 pb- rounded-sm">
-        <h1 className="text-xl md:text-2xl font-semibold text-gray-950">Login</h1>
+    <div className="relative w-full h-[100vh] bg-light-white dark:bg-dark-blue-900 flex justify-center items-center">
+      <div className="absolute top-6 right-6">
+        <ThemeToggle />
+      </div>
+      <div className="bg-light-gray-300 dark:bg-dark-blue-600 space-y-8 py-7 px-6 pb- rounded-sm">
+        <h1 className="text-xl md:text-2xl font-semibold text-light-gray-950 dark:text-dark-white">
+          Login
+        </h1>
         <form className="space-y-2" action="" onSubmit={handleSubmit}>
-          {/* <p className="text-sm text-red-600 font-[500]">Invalid email !</p> */}
+          {/* <p className="text-sm text-error font-[500]">Invalid email !</p> */}
           <div className="flex flex-col gap-7">
             {/* Email */}
             <div className="relative">
@@ -59,14 +74,14 @@ const Login = () => {
                 onChange={handleEmailChange}
                 onFocus={emailFocus}
                 onBlur={emailUnfocus}
-                className="w-[250px] md:w-[300px] border-2 border-black px-2 py-1 rounded-sm focus:outline-0 focus:border-2 focus:border-gray-600"
+                className="w-[250px] md:w-[300px] dark:text-dark-white border-2 border-black dark:border-dark-gray px-2 py-1 rounded-sm focus:outline-0 focus:border-2 focus:border-gray-600"
                 type="email"
               />
               <span
                 className={
                   isEmailFocus
-                    ? "absolute text-[12px] left-2 -top-2.5 bg-[#ececec] px-1 text-center pointer-events-none"
-                    : "absolute text-sm text-gray-800 left-2 top-1.5 bg-secondary text-center pointer-events-none"
+                    ? "absolute text-[12px] left-2 -top-2.5 text-light-gray-800 dark:text-dark-gray bg-[#ececec] dark:dark:bg-dark-blue-600 px-1 text-center pointer-events-none"
+                    : "absolute text-sm text-light-gray-800 dark:text-dark-gray left-2 top-1.5 text-center pointer-events-none"
                 }
               >
                 Email
@@ -80,29 +95,42 @@ const Login = () => {
                 onChange={handlePasswordChange}
                 onFocus={passwordFocus}
                 onBlur={passwordUnfocus}
-                className="w-[250px] md:w-[300px] border-2 border-black px-2 py-1 rounded-sm focus:outline-0 focus:border-2 focus:border-gray-600"
+                className="w-[250px] md:w-[300px] border-2 dark:text-dark-white border-black dark:border-dark-gray px-2 py-1 rounded-sm focus:outline-0 focus:border-2 focus:border-gray-600"
                 type={isShowPassword ? "text" : "password"}
               />
               <span
                 className={
                   isPasswordFocus
-                    ? "absolute text-[12px] left-2 -top-2.5 bg-[#ececec] px-1 text-center pointer-events-none"
-                    : "absolute text-sm text-gray-800 left-2 top-1.5 bg-secondary text-center pointer-events-none"
+                    ? "absolute text-[12px] left-2 -top-2.5 text-light-gray-800 dark:text-dark-gray bg-[#ececec] dark:dark:bg-dark-blue-600 px-1 text-center pointer-events-none"
+                    : "absolute text-sm text-light-gray-800 dark:text-dark-gray left-2 top-1.5 text-center pointer-events-none"
                 }
               >
                 Password
               </span>
-              <p 
-              onClick={showPassword}
-              className="absolute top-2.5 right-2.5 cursor-pointer text-gray-800">
-                {
-                  isShowPassword ? <FaEyeSlash /> : <FaEye />
-                }
+              <p
+                onClick={showPassword}
+                className="absolute top-2.5 right-2.5 cursor-pointer text-light-gray-800 dark:text-dark-gray"
+              >
+                {isShowPassword ? <FaEyeSlash /> : <FaEye />}
               </p>
             </div>
 
             {/* Submit button */}
-          <button type="submit" className="bg-blue-500 text-gray-950 text-sm py-1 rounded-sm font-[500] cursor-pointer">Submit</button>
+            <button
+              type="submit"
+              className="bg-dark-blue-900 dark:bg-dark-gray text-dark-white dark:text-dark-blue-400 text-sm py-1.5 rounded-sm font-[600] cursor-pointer text-center"
+            >
+              {isLoading ? (
+                <ScaleLoader
+                  color="#030712"
+                  loading={isLoading}
+                  height={15}
+                  width={4}
+                />
+              ) : (
+                "Submit"
+              )}
+            </button>
           </div>
         </form>
       </div>
