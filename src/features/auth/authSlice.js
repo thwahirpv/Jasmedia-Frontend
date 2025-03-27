@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import api from "../../utils/api";
+import AdminApi from '../../utils/api'
 import Login from "../../pages/admin/Login";
 
 
@@ -7,13 +7,13 @@ const logIn = createAsyncThunk(
     "auth/login", 
     async (data, { rejectWithValue }) => {
         try{
-            console.log(data)
-            const response = await api.post('/login', data)
-            console.log(response)
+            const response = await AdminApi.post('/login', data)
+            console.log(response, 'from slice')
             return response.data
         }catch (error) {
-            const message = error.response?.data?.detail || "Login failed !"
-            rejectWithValue(message)
+            console.log(error, 'its from error part of slice')
+            const message = error.response?.data?.error?.message || "Login failed !"
+            return rejectWithValue(message)
         }
         
     }
@@ -41,7 +41,6 @@ const authSlice = createSlice({
         .addCase(logIn.fulfilled, (state, action) => {
             state.isLoading= false
             state.error = null
-            console.log(action.payload)
             state.user = action.payload
         })
         .addCase(logIn.rejected, (state, action) => {

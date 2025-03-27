@@ -22,10 +22,10 @@ const ThemeToggle = () => {
         type="checkbox"
         checked={isChecked}
         className="sr-only"
-        onClick={handleToggle}
+        onChange={handleToggle}
       />
-      <label htmlFor="toggle_box" className="cursor-pointer">
-        <div>
+      <label htmlFor="toggle_box" className="cursor-pointer ">
+        <div className="transition-all">
           {isChecked ? (
             <MdSunny size={20} className="text-dark-white" />
           ) : (

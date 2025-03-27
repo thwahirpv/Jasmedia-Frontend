@@ -45,11 +45,12 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await dispatch(logIn({ email: email, password: password }));
-      console.log(res, 'from frontend')
-      if (res.type == "auth/login/fulfilled") {
-        navigate("/admin/dashboard");
-      }
+      await dispatch(logIn({ email: email, password: password })).then((res) => {
+        // console.log(res)
+        if (res.type == "auth/login/fulfilled") {
+          navigate("/admin/dashboard");
+        }
+      });
     } catch (err) {
       console.log(err);
     }
@@ -65,7 +66,7 @@ const Login = () => {
           Login
         </h1>
         <form className="space-y-2" action="" onSubmit={handleSubmit}>
-          {/* <p className="text-sm text-error font-[500]">Invalid email !</p> */}
+          <p className={`text-sm text-error font-[400] ${error ? "block" : "hidden"}`}>{error}</p>
           <div className="flex flex-col gap-7">
             {/* Email */}
             <div className="relative">
@@ -74,7 +75,8 @@ const Login = () => {
                 onChange={handleEmailChange}
                 onFocus={emailFocus}
                 onBlur={emailUnfocus}
-                className="w-[250px] md:w-[300px] dark:text-dark-white border-2 border-black dark:border-dark-gray px-2 py-1 rounded-sm focus:outline-0 focus:border-2 focus:border-gray-600"
+                autoComplete="username"
+                className="w-[250px] md:w-[300px] dark:bg-dark-blue-600 focus:dark:bg-dark-blue-600 fo dark:text-dark-white border-2 border-black dark:border-dark-gray px-2 py-1 rounded-sm focus:outline-0 focus:border-2 focus:border-gray-600"
                 type="email"
               />
               <span
@@ -95,6 +97,7 @@ const Login = () => {
                 onChange={handlePasswordChange}
                 onFocus={passwordFocus}
                 onBlur={passwordUnfocus}
+                autoComplete="current-password"
                 className="w-[250px] md:w-[300px] border-2 dark:text-dark-white border-black dark:border-dark-gray px-2 py-1 rounded-sm focus:outline-0 focus:border-2 focus:border-gray-600"
                 type={isShowPassword ? "text" : "password"}
               />

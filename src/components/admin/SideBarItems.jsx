@@ -1,20 +1,24 @@
 import React, { useContext } from 'react'
-import { SideBarContext } from './SideBar'
+import { SideBarContext } from '../../routes/AdminLayout';
 
 const SideBarItems = ({icon, text}) => {
-    const { isOpen } = useContext(SideBarContext)
+    const {isOpen} = useContext(SideBarContext)
   return (
-    <li className={`relative flex font-[500] px-5 py-2 text-sm rounded-md text-light-gray-950 hover:bg-light-gray-300 dark:text-dark-gray dark:hover:bg-dark-blue-900 cursor-pointer group ${isOpen && "space-x-4"}`}>
-        {icon}
-        <span className={`transition-all ${isOpen ? "block" : "hidden"}`}>{text}</span>
+    <li className='relative flex md:justify-start hover:bg-light-gray-300 dark:hover:bg-dark-blue-400 rounded-md py-4 md:py-2.5 px-2.5 cursor-pointer group'>   
+        <span className='text-light-gray-950 dark:text-dark-white'>
+            {icon}
+        </span>
+        <p className={`overflow-hidden transition-all text-light-gray-950 dark:text-dark-gray text-sm font-[450] text-[16px] md:text-[14px] ${isOpen ? "ml-3 w-[100px]" : "ml-0 w-0"}`}>
+            {text}
+        </p>
         {
-            !isOpen && (
-                <div className={`absolute left-full ml-6 z-10 px-2 py-1 bg-light-gray-950 text-light-gray-300 dark:bg-dark-blue-600 dark:text-dark-white
-                    rounded-md -translate-x-3 opacity-20 invisible transition-all group-hover:visible group-hover:opacity-100 group-hover:translate-x-0`}>
-                   {text}
-               </div>
-            ) 
+            !isOpen && 
+            <p className={`hidden md:block absolute left-full ml-7 py-1 px-2 rounded-md bg-light-gray-950 dark:bg-dark-white text-light-white dark:text-dark-blue-900
+                -translate-x-3 opacity-20 invisible transition-all group-hover:visible group-hover:opacity-100 group-hover:-translate-x-0`}>
+                {text}
+            </p>
         }
+        
     </li>
   )
 }
