@@ -6,20 +6,21 @@ import { BsTextIndentRight } from "react-icons/bs";
 import { MdSpaceDashboard } from "react-icons/md";
 import { FaNetworkWired } from "react-icons/fa";
 import { MdFeedback } from "react-icons/md";
+import { BiCategory } from "react-icons/bi";
+
 
 export const SideBarContext = createContext();
 
 const AdminLayout = () => {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <div className="relative flex">
-      
-
-      <SideBarContext.Provider value={{ isOpen, setIsOpen }}>
+    <div className="relative flex"> 
+     <SideBarContext.Provider value={{ isOpen, setIsOpen }}>
           <SideBar>
-            <SideBarItems icon={<MdSpaceDashboard size={25} />} text="Dashboard" />
-            <SideBarItems icon={<FaNetworkWired size={25} />} text="Porfolio" />
-            <SideBarItems icon={<MdFeedback size={25} />} text="Feedback" />
+            <SideBarItems icon={<MdSpaceDashboard size={25} />} text="Dashboard" destination="/admin/dashboard" />
+            <SideBarItems icon={<BiCategory size={25} />} text="Category" destination="/admin/category" />
+            <SideBarItems icon={<FaNetworkWired size={25} />} text="Porfolio" destination="/admin/portfolio" />
+            <SideBarItems icon={<MdFeedback size={25} />} text="Feedback" destination="/admin/feedback" />
           </SideBar>
       </SideBarContext.Provider>
       <div className={`${isOpen && "hidden md:block"} w-full`}>

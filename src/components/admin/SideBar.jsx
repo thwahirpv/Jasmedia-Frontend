@@ -9,9 +9,9 @@ const SideBar = ({ children }) => {
   return (
     <>
       {isOpen == false && (
-        <div className="absolute md:hidden top-6 left-6">
+        <div className="absolute md:hidden top-6 left-6 z-50">
           <button
-            className="cursor-pointer bg-light-gray-300 dark:bg-dark-blue-400 dark:text-dark-white p-1.5 rounded-md"
+            className="cursor-pointer bg-light-white text-light-gray-950 dark:bg-dark-blue-400 dark:text-dark-white p-1.5 rounded-md"
             onClick={() => setIsOpen(!isOpen)}
           >
             <BsTextIndentLeft size={25} />
@@ -44,7 +44,7 @@ const SideBar = ({ children }) => {
             </button>
           </div>
 
-          <ul className="pb-4 border-b-2 border-b-light-gray-300 dark:border-b-dark-blue-400 ">{children}</ul>
+          <ul className="pb-4 border-b-2 border-b-light-gray-300 dark:border-b-dark-blue-400 space-y-1">{children}</ul>
         </div>
 
         <div
