@@ -1,114 +1,65 @@
 import React from 'react'
+import Category from '../../pages/admin/Category';
+import default_no_image from '../../assets/images/no_picture_image.jpg'
 
-const CategoryList = ({setIsModalOpen,  isModalOpen}) => {
+const PortfolioList = ({setIsModalOpen,  isModalOpen}) => {
     const demo_data = [
         {
           id: 2,
-          name: "Videography",
-          total: 32,
+          title: "Nabh",
+          Category: "Videography",
           status: true,
         },
+        
         {
           id: 3,
-          name: "Photograpphy",
-          total: 20,
+          title: "Omas",
+          Category: "Photography",
           status: true,
         },
+        
         {
           id: 4,
-          name: "Audiography",
-          total: 5,
-          status: false,
-        },
-        {
-          id: 5,
-          name: "Website",
-          total: 10,
+          title: "Zudio",
+          Category: "Website",
           status: true,
         },
+        
         {
-          id: 5,
-          name: "Website",
-          total: 10,
+          id: 6,
+          title: "Teachaya",
+          Category: "Videography",
           status: true,
         },
+        
         {
-          id: 5,
-          name: "Website",
-          total: 10,
+          id: 9,
+          title: "ZilZol",
+          Category: "Videography",
           status: true,
         },
+        
         {
-          id: 5,
-          name: "Website",
-          total: 10,
+          id: 23,
+          title: "Baby",
+          Category: "Videography",
           status: true,
         },
-        {
-          id: 5,
-          name: "Website",
-          total: 10,
-          status: true,
-        },
-        {
-          id: 5,
-          name: "Website",
-          total: 10,
-          status: true,
-        },
-        {
-          id: 5,
-          name: "Website",
-          total: 10,
-          status: true,
-        },
-        {
-          id: 5,
-          name: "Website",
-          total: 10,
-          status: true,
-        },
-        {
-          id: 5,
-          name: "Website",
-          total: 10,
-          status: true,
-        },
-        {
-          id: 5,
-          name: "Website",
-          total: 10,
-          status: true,
-        },
-        {
-          id: 5,
-          name: "Website",
-          total: 10,
-          status: true,
-        },
-        {
-          id: 5,
-          name: "Website",
-          total: 10,
-          status: true,
-        },
-        {
-          id: 5,
-          name: "Website",
-          total: 10,
-          status: true,
-        },
+        
       ];
   return (
     <div className="w-full h-[80%] overflow-auto scroll-smooth scrollbar-thin scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-thumb-light-gray-800 scrollbar-track-light-gray-300 dark:scrollbar-thumb-dark-blue-900 dark:scrollbar-track-dark-blue-300">
           <table className="relative w-full text-sm text-left rtl:text-right text-light-gray-950 dark:text-dark-white">
             <thead className="sticky top-0 text-xs text-light-gray-950 uppercase bg-light-gray-300 dark:bg-dark-blue-600 dark:text-dark-gray ">
               <tr>
-                <th scope="col" className="px-6 py-3">
-                  Name
+              <th scope="col" className="px-6 py-3">
+                  Content
                 </th>
                 <th scope="col" className="px-6 py-3">
-                  Total
+                  Title
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Category
                 </th>
                 <th scope="col" className="px-6 py-3">
                   Status
@@ -125,9 +76,15 @@ const CategoryList = ({setIsModalOpen,  isModalOpen}) => {
                     scope="row"
                     className="px-6 py-4 font-medium text-light-gray-950 whitespace-nowrap dark:text-dark-white"
                   >
-                    {data.name}
+                    <img className='cursor-pointer rounded-md w-[30px]' src={default_no_image} alt="" />
                   </th>
-                  <td className="px-6 py-4">{data.total}</td>
+                  <th
+                    scope="row"
+                    className="px-6 py-4 font-medium text-light-gray-950 whitespace-nowrap dark:text-dark-white"
+                  >
+                    {data.title}
+                  </th>
+                  <td className="px-6 py-4">{data.Category}</td>
                   <td className="px-6 py-4">
                     {data.status ? (
                       <div className="flex items-center">
@@ -171,4 +128,4 @@ const CategoryList = ({setIsModalOpen,  isModalOpen}) => {
   )
 }
 
-export default CategoryList
+export default PortfolioList

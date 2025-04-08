@@ -24,7 +24,7 @@ const SideBarItems = ({ icon, text, destination }) => {
         </p>
         {!isOpen && (
           <p
-            className={`hidden md:block absolute left-full ml-7 py-1 px-2 rounded-md bg-light-gray-950 dark:bg-dark-white text-light-white dark:text-dark-blue-900
+            className={`hidden md:block absolute z-50 left-full ml-7 py-1 px-2 rounded-md bg-light-gray-950 dark:bg-dark-white text-light-white dark:text-dark-blue-900
                 -translate-x-3 opacity-20 invisible transition-all group-hover:visible group-hover:opacity-100 group-hover:-translate-x-0`}
           >
             {text}
