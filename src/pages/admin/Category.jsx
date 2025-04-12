@@ -9,8 +9,8 @@ const Category = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState("All");
   const [isModalOpen, setIsModalOpen] = useState(false)
+  
   const options = ["All", "Active", "Deactive"];
-
   
 
   return (
@@ -89,8 +89,7 @@ const Category = () => {
       {/* {
         isModalOpen && 
       } */}
-      <CategoryForm setIsModalOpen={setIsModalOpen} isModalOpen={isModalOpen} />
-      
+      <CategoryForm setIsModalOpen={setIsModalOpen} isModalOpen={isModalOpen} role='create' />
     </div>
   );
 };
