@@ -6,6 +6,8 @@ import NotFound from "../pages/common/NotFound";
 import UserLayout from "./UserLayout";
 import AdminLayout from "./AdminLayout";
 import Login from "../pages/admin/Login";
+import ForgetPassword from "../pages/admin/ForgetPassword";
+import Otp from "../pages/admin/Otp";
 
 const AppRoutes = () => {
   return (
@@ -19,6 +21,8 @@ const AppRoutes = () => {
 
         {/* Admin routes */}
         <Route path="/admin/login" element={<Login />} /> 
+        <Route path="/admin/forgot-password" element={ <ForgetPassword />} />
+        <Route path="/admin/otp" element={ <Otp />} />
         <Route path="/admin" element={<AdminLayout />} >
           <Route path="*" element={<AdminRoutes />} />
         </Route>

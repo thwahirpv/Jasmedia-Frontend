@@ -22,13 +22,17 @@ const logIn = createAsyncThunk(
 const authSlice = createSlice({
     name: 'auth', 
     initialState: {
-        user: null, 
+        username: '', 
+        email: '',
+        isAuthenticated: false,
         isLoading: false, 
         error: null
     }, 
     reducers: {
         logOut: (state) => {
-
+            state.isAuthenticated = false
+            state.username = ''
+            state.email = ''
         }
     }, 
     extraReducers: (builder) => {
@@ -40,7 +44,9 @@ const authSlice = createSlice({
         .addCase(logIn.fulfilled, (state, action) => {
             state.isLoading= false
             state.error = null
-            state.user = action.payload
+            state.username = 'Admin'
+            state.email = action.payload.adminDetails.emailAddress
+            state.isAuthenticated = true
         })
         .addCase(logIn.rejected, (state, action) => {
             state.isLoading = false

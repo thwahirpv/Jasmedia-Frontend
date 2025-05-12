@@ -9,6 +9,7 @@ const Category = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState("All");
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [searchTerm, setSearchTerm] = useState('')
   
   const options = ["All", "Active", "Deactive"];
   
@@ -67,7 +68,7 @@ const Category = () => {
                 </button>
             </div>
           </div>
-          <label for="table-search" className="sr-only">
+          <label htmlFor="table-search" className="sr-only">
             Search
           </label>
           <div className="relative">
@@ -81,10 +82,11 @@ const Category = () => {
               id="table-search-users"
               className="block p-2 ps-10 text-sm text-light-gray-950 border border-gray-300 rounded-lg w-80 bg-light-white focus:ring-light-gray-300 focus:light-gray-300 dark:bg-dark-blue-600 dark:border-dark-blue-400 dark:placeholder-gray-400 dark:text-dark-white dark:focus:ring-dark-blue-600 dark:focus:border-dark-blue-400 focus:outline-0"
               placeholder="Search category"
+              onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
         </div>
-        <CategoryList setIsModalOpen={setIsModalOpen} isModalOpen={isModalOpen} />
+        <CategoryList setIsModalOpen={setIsModalOpen} isModalOpen={isModalOpen} selected={selected} searchTerm={searchTerm} />
       </div>
       {/* {
         isModalOpen && 

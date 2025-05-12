@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import AdminApi from '../../utils/api'
-import { FaSleigh } from "react-icons/fa6";
 
 
 const updateCategoty = createAsyncThunk(

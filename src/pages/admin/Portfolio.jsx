@@ -1,17 +1,47 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ThemeToggle from "../../components/common/ThemeToggle";
 import { FaAngleDown } from "react-icons/fa6";
 import { IoMdSearch } from "react-icons/io";
 import PortfolioList from "../../components/admin/PortfolioList";
 import PortfolioForm from "../../components/admin/PortfolioForm";
+import useTheme from "../../hook/useTheme";
+import { listCategory } from "../../features/category/categoryListing";
+import withReactContent from "sweetalert2-react-content";
+import Swal from "sweetalert2";
+import { useDispatch } from "react-redux";
+
+
+const portfolioSwal = withReactContent(Swal)
+
 
 const Portfolio = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selected, setSelected] = useState("All");
+  const [isCategoryOpen, setIsCategoryOpen] = useState(false)
+  const [statusSelected, setStatusSelected] = useState("All");
+  const [categorySelected, setCategorySelected] = useState('')
+  const [categorySelectedName, setCategorySelectedName] = useState('All')
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [searchTerms, setSearchTerms] = useState('')
+  const [categories, setCategories] = useState([])
+  const [theme, setTheme] = useTheme()
+  const dispatch = useDispatch()
+
   const options = ["All", "Active", "Deactive"];
 
+  const fetchCategory = async () =>{
+      try {
+            const response = await dispatch(listCategory()).unwrap()
+            setCategories(response.category)
+          }
+          catch (error) {
+            console.log(error)
+          }
+    }
+
   
+    useEffect(() => {
+      fetchCategory()
+    }, [])
 
   return (
     <div className="relative w-full h-[100vh] bg-light-gray-300 dark:bg-dark-blue-900 pb-[20px] pt-[100px] px-[15px] md:pt-[100px] md:px-[100px]">
@@ -22,6 +52,7 @@ const Portfolio = () => {
       <div className="relative h-[100%] rounded-lg">
         <div className="flex items-center justify-between flex-column flex-wrap md:flex-row space-y-4 md:space-y-0 pb-4">
           <div className="flex w-full md:w-0 md:space-x-6 justify-between md:justify-baseline">
+            {/* status toggle */}
             <div className="relative inline-block text-left">
               <button
                 onClick={() => setIsOpen(!isOpen)}
@@ -29,7 +60,7 @@ const Portfolio = () => {
                 type="button"
               >
                 <span className="sr-only">Action button</span>
-                {selected}
+                {statusSelected}
                 <span className="w-2.5 h-2.5 ms-2.5">
                   <FaAngleDown />
                 </span>
@@ -42,11 +73,11 @@ const Portfolio = () => {
                       <li key={index}>
                         <button
                           onClick={() => {
-                            setSelected(option);
+                            setStatusSelected(option);
                             setIsOpen(false);
                           }}
                           className={`cursor-pointer block px-4 py-2 w-full text-left hover:bg-light-gray-100 dark:hover:bg-dark-blue-600 dark:hover:text-white ${
-                            selected === option
+                            statusSelected === option
                               ? "bg-light-gray-300 dark:bg-dark-blue-300"
                               : ""
                           }`}
@@ -59,6 +90,65 @@ const Portfolio = () => {
                 </div>
               )}
             </div>
+
+            {/* category toggle */}
+            <div className="relative inline-block text-left">
+              <button
+                onClick={() => setIsCategoryOpen(!isCategoryOpen)}
+                className="ml-1 inline-flex items-center text-light-gray-950  bg-light-white border border-gray-300 focus:outline-none hover:bg-light-gray-300 focus:ring-4 focus:ring-light-gray-300 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-dark-blue-600 dark:text-dark-white dark:border-dark-blue-400 dark:hover:bg-dark-blue-400 dark:focus:ring-dark-blue-600"
+                type="button"
+              >
+                <span className="sr-only">Action button</span>
+                {categorySelectedName}
+                <span className="w-2.5 h-2.5 ms-2.5">
+                  <FaAngleDown />
+                </span>
+              </button>
+              {/* Dropdown menu */}
+              {isCategoryOpen && (
+                <div className="absolute h-[300px] overflow-scroll z-10 bg-light-white divide-y divide-light-gray-300 rounded-lg shadow-sm w-44 dark:bg-dark-blue-400 dark:divide-dark-blue-400 mt-2">
+                  <ul className="py-1 text-sm text-light-gray-950 dark:text-dark-white">
+                    <li>
+                        <button
+                          onClick={() => {
+                            setCategorySelected('');
+                            setCategorySelectedName('All')
+                            setIsCategoryOpen(false);
+                          }}
+                          className={`cursor-pointer block px-4 py-2 w-full text-left hover:bg-light-gray-100 dark:hover:bg-dark-blue-600 dark:hover:text-white ${
+                            categorySelected === 'All'
+                              ? "bg-light-gray-300 dark:bg-dark-blue-300"
+                              : ""
+                          }`}
+                        >
+                          All
+                        </button>
+                      </li>
+                    {
+                    categories.map((category, index) => (
+                      <li key={category._id}>
+                        <button
+                          onClick={() => {
+                            setCategorySelected(category._id);
+                            setCategorySelectedName(category.name)
+                            setIsCategoryOpen(false);
+                          }}
+                          className={`cursor-pointer block px-4 py-2 w-full text-left hover:bg-light-gray-100 dark:hover:bg-dark-blue-600 dark:hover:text-white ${
+                            categorySelectedName === category.name
+                              ? "bg-light-gray-300 dark:bg-dark-blue-300"
+                              : ""
+                          }`}
+                        >
+                          {category.name}
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+
+            {/* add botton */}
             <div className="mr-1">
                 <button 
                 onClick={() => setIsModalOpen(!isModalOpen)}
@@ -81,15 +171,16 @@ const Portfolio = () => {
               id="table-search-users"
               className="block p-2 ps-10 text-sm text-light-gray-950 border border-gray-300 rounded-lg w-80 bg-light-white focus:ring-light-gray-300 focus:light-gray-300 dark:bg-dark-blue-600 dark:border-dark-blue-400 dark:placeholder-gray-400 dark:text-dark-white dark:focus:ring-dark-blue-600 dark:focus:border-dark-blue-400 focus:outline-0"
               placeholder="Search category"
+              onChange={(e) => setSearchTerms(e.target.value)}
             />
           </div>
         </div>
-        <PortfolioList setIsModalOpen={setIsModalOpen} isModalOpen={isModalOpen} />
+        <PortfolioList setIsModalOpen={setIsModalOpen} isModalOpen={isModalOpen} statusSelected={statusSelected} searchTerms={searchTerms} categorySelected={categorySelected} />
       </div>
       {/* {
         isModalOpen && 
       } */}
-      <PortfolioForm setIsModalOpen={setIsModalOpen} isModalOpen={isModalOpen} />
+      <PortfolioForm setIsModalOpen={setIsModalOpen} isModalOpen={isModalOpen} role='create' />
       
     </div>
   );

@@ -4,18 +4,26 @@
 
 @theme {
     --color-light-white: oklch(100% 0 360);
+    /* #030712 */
     --color-light-gray-950: oklch(0.13 0.028 261.692);
     --color-light-gray-800: oklch(0.278 0.033 256.848);
+    /* #ecececbc - --color-light-gray-300 */
     --color-light-gray-300: oklch(94.27% 0 334.16 / 73.72%);
+    /* #ecececf5 - --color-light-gray-400 */
+    --color-light-gray-400: oklch(94.27% 0 334.16 / 91.72%);
     --color-light-gray-100: oklch(94.27% 0 334.16 / 59.56%);
     --color-light-gray-50: oklch(0.94 0 334.16 / 36.43%);
+    /* #111928 - --color-dark-blue-900 */
     --color-dark-blue-900: oklch(21.36% 0.0322 262.44);
-    --color-dark-blue-600: oklch(28.08% 0.0286 252.97);
+    /* #1f2a37 - -color-dark-blue-600 */
+    --color-dark-blue-600: oklch(28.08% 0.0286 252.97); 
+    /* #2f3946 */
     --color-dark-blue-400: oklch(34.09% 0.0266 255.11);
     --color-dark-blue-300: oklch(50.09% 0.0266 255.11 / 70.64%);
     --color-dark-blue-100: oklch(0.28 0.0286 252.97 / 44.93%);
     /* --color-dark-blue-100: oklch(0.21 0.0322 262.44 / 44.93%); */
     --color-dark-gray: oklch(78.33% 0.0143 255.11);
+    /* #ebf1f8 - --color-dark-white */
     --color-dark-white: oklch(95.54% 0.0118 255.11);
     --color-error: oklch(0.577 0.245 27.325);
 }

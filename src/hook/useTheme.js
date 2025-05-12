@@ -43,7 +43,7 @@ const useTheme = () => {
     }, [theme])
 
 
-    // For trach system mode change
+    // For track system mode change
     useEffect(() => {
         const systemModeChangeHandler = (e) => {
             if(!("theme" in localStorage)){

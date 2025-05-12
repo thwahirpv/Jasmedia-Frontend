@@ -3,9 +3,23 @@ import default_logo from "../../assets/images/default_logo.png";
 import default_admin from "../../assets/images/default_admin.jpg";
 import { BsTextIndentLeft, BsTextIndentRight } from "react-icons/bs";
 import { SideBarContext } from "../../routes/AdminLayout";
+import { useSelector, useDispatch } from "react-redux";
+import { TbLogout2 } from "react-icons/tb";
+import { logOut } from "../../features/auth/authSlice";
+import store from "../../store/store";
+import { persistStore } from "redux-persist";
+
 
 const SideBar = ({ children }) => {
   const { isOpen, setIsOpen } = useContext(SideBarContext);
+  const { username, email, isAuthenticated } = useSelector((state) => state.auth)
+  const dispatch = useDispatch()
+
+  const handleLogOut = () => {
+    dispatch(logOut())
+    persistStore(store).purge()
+    localStorage.clear()
+  }
   return (
     <>
       {isOpen == false && (
@@ -45,6 +59,20 @@ const SideBar = ({ children }) => {
           </div>
 
           <ul className="pb-4 border-b-2 border-b-light-gray-300 dark:border-b-dark-blue-400 space-y-1">{children}</ul>
+
+          <div>
+            <button className={`transition-all bg-red-500 hover:bg-red-600  text-light-gray-950 text-sm font-medium rounded-md cursor-pointer
+              ${isOpen ? 'py-4 md:py-2.5 px-2.5 w-full' : 'py-4 md:py-2.5 px-2.5' }`}
+              onClick={handleLogOut}
+              >
+              {
+                isOpen ? 
+                'Logout' 
+                :
+                <TbLogout2 size={18} />
+              }
+            </button>
+          </div>
         </div>
 
         <div
@@ -57,10 +85,10 @@ const SideBar = ({ children }) => {
             }`}
           >
             <h1 className="font-semibold text-light-gray-950 dark:text-dark-white">
-              Rashid
+              {username}
             </h1>
             <p className="text-xs text-light-gray-800 dark:text-dark-gray">
-              rashid@gmail.com
+              {email}
             </p>
           </div>
         </div>

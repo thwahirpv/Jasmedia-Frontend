@@ -46,7 +46,7 @@ const Login = () => {
     e.preventDefault();
     try {
       await dispatch(logIn({ email: email, password: password })).then((res) => {
-        // console.log(res)
+        console.log(res, 'from login')
         if (res.type == "auth/login/fulfilled") {
           navigate("/admin/dashboard");
         }
@@ -115,6 +115,12 @@ const Login = () => {
                 className="absolute top-2.5 right-2.5 cursor-pointer text-light-gray-800 dark:text-dark-gray"
               >
                 {isShowPassword ? <FaEyeSlash /> : <FaEye />}
+              </p>
+
+              <p className="text-gray-500 dark:text-dark-gray cursor-pointer text-[13px] text-right mt-1"
+                onClick={() => navigate('/admin/forgot-password')}
+              >
+                Forgot password ?
               </p>
             </div>
 

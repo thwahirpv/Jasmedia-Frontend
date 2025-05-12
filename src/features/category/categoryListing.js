@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import AdminApi from '../../utils/api'
-import CategoryList from "../../components/admin/CategoryList";
 
 
 const listCategory = createAsyncThunk(
@@ -10,7 +9,6 @@ const listCategory = createAsyncThunk(
             const response = await AdminApi.get('/getcategory')
             return response.data
         } catch (error) {
-            console.log('its come on catch')
             const message = error.response?.data?.error?.message || "something wrong!"
             throw new Error(message) 
         }
