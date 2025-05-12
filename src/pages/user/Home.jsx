@@ -1,10 +1,20 @@
 import React from 'react'
+import HomeOne from '../../components/userComponent/Home/FirstSlider'
+import Gap from '../../components/userComponent/Home/Gap'
+import SecondSlider from '../../components/userComponent/Home/SecondSlider'
+import FeaturedProjects from '../../components/userComponent/Home/LastSlider'
+
 
 const Home = () => {
   return (
-    <div>
-      <h1 className='text-3xl'>Hello Home</h1>
-    </div>
+    <>
+    <HomeOne></HomeOne>
+    <Gap></Gap>
+    <SecondSlider></SecondSlider>
+    <Gap></Gap>
+    <FeaturedProjects></FeaturedProjects>
+    </>
+  
   )
 }
 

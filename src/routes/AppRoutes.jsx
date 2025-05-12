@@ -13,9 +13,10 @@ const AppRoutes = () => {
       <Routes>
         {/* User routes */}
         <Route path="/" element={<UserLayout />}>
-          <Route path="*" element={<UserRoutes />} />
+          <Route index element={<UserRoutes />} />
+          <Route path="*" element={<NotFound />} />
         </Route>
-        
+
         {/* Admin routes */}
         <Route path="/admin/login" element={<Login />} /> 
         <Route path="/admin" element={<AdminLayout />} >
