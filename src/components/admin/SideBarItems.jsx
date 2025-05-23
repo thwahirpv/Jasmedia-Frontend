@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { SideBarContext } from "../../routes/AdminLayout";
+import { SideBarContext } from "../../layout/AdminLayout";
 import { NavLink } from "react-router-dom";
 
 const SideBarItems = ({ icon, text, destination }) => {

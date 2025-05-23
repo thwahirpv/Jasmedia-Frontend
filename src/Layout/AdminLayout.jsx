@@ -7,6 +7,8 @@ import { MdSpaceDashboard } from "react-icons/md";
 import { FaNetworkWired } from "react-icons/fa";
 import { MdFeedback } from "react-icons/md";
 import { BiCategory } from "react-icons/bi";
+import { MdAdminPanelSettings } from "react-icons/md";
+
 
 
 export const SideBarContext = createContext();
@@ -21,6 +23,7 @@ const AdminLayout = () => {
             <SideBarItems icon={<BiCategory size={25} />} text="Category" destination="/admin/category" />
             <SideBarItems icon={<FaNetworkWired size={25} />} text="Porfolio" destination="/admin/portfolio" />
             <SideBarItems icon={<MdFeedback size={25} />} text="Feedback" destination="/admin/feedback" />
+            <SideBarItems icon={<MdAdminPanelSettings size={25} />} text="Admins" destination="/admin/admins" />
           </SideBar>
       </SideBarContext.Provider>
       <div className={`${isOpen && "hidden md:block"} w-full`}>

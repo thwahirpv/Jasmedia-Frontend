@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState } from "react";
 import default_logo from "../../assets/images/default_logo.png";
 import default_admin from "../../assets/images/default_admin.jpg";
 import { BsTextIndentLeft, BsTextIndentRight } from "react-icons/bs";
-import { SideBarContext } from "../../routes/AdminLayout";
+import { SideBarContext } from "../../layout/AdminLayout";
 import { useSelector, useDispatch } from "react-redux";
 import { TbLogout2 } from "react-icons/tb";
 import { logOut } from "../../features/auth/authSlice";

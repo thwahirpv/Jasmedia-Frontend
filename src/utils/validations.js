@@ -36,3 +36,13 @@ export const isValidFileSize = (file, maxSize) => {
     const sizeInMd = file.size / (1024 * 1024)
     return sizeInMd <= maxSize
 }
+
+export function isNotValidEmail(email) {
+  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return !regex.test(email);
+}
+
+export function isNotValidPassword(password) {
+  const pattern = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+=<>?])[A-Za-z\d!@#$%^&*()_+=<>?,]{8,}$/;
+  return !pattern.test(password);
+}

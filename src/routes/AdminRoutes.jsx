@@ -1,6 +1,6 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import AdminLayout from "./AdminLayout";
+import AdminLayout from "../layout/AdminLayout";
 import Login from "../pages/admin/Login";
 import NotFound from "../pages/common/NotFound";
 import Dashboard from "../pages/admin/Dashboard";
@@ -8,6 +8,7 @@ import Category from "../pages/admin/Category";
 import Portfolio from "../pages/admin/Portfolio";
 import Feedbak from "../pages/admin/Feedbak";
 import Protected from "./Protected";
+import Admins from "../pages/admin/Admins";
 
 const AdminRoutes = () => {
   return (
@@ -41,6 +42,14 @@ const AdminRoutes = () => {
         element={
           <Protected>
             <Feedbak />
+          </Protected>
+        }
+      />
+      <Route
+        path="/admins"
+        element={
+          <Protected>
+            <Admins />
           </Protected>
         }
       />

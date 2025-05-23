@@ -6,8 +6,8 @@ const verifyEmailThunk = createAsyncThunk(
     "auth/verifyEmail", 
     async (data, {rejectWithValue}) => {
         try {
-            const response = AdminApi.post('something', data)
-            return response.data
+            const response = await AdminApi.get('/forgotPassword', data)
+            return response
         } catch (error) {
             console.log(error, 'its from error part of slice')
             const message = error.response?.data?.error?.message || "Login failed !"

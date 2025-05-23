@@ -6,6 +6,7 @@ import { verifyEmailThunk } from "../../features/auth/verifyEmailSlice";
 const ForgetPassword = () => {
   const [email, setEmail] = useState("");
   const dispatch = useDispatch()
+  const { isAdminCreateLoading } = useSelector((state) => state.createAdmin)
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -13,20 +14,20 @@ const ForgetPassword = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-
+    console.log('I am here to submit')
     const data = {
-      'email': email
+      'emailAddress': email
     }
 
     try {
       const response = await dispatch(verifyEmailThunk(data)).unwrap()
-      console.log(response)
+      console.log(response, 'response')
     } catch (error) {
-
+      console.log(error, 'error from front')
     }
   }
 
-
+ 
   return (
     <div className="relative w-full h-[100vh] bg-light-white dark:bg-dark-blue-900 flex justify-center items-center">
       <div className="absolute top-6 right-6">
@@ -36,7 +37,7 @@ const ForgetPassword = () => {
         <h1 className="text-xl md:text-2xl font-semibold text-light-gray-950 dark:text-dark-white">
           Email
         </h1>
-        <form className="flex flex-col space-y-2" action="">
+        <form className="flex flex-col space-y-2" onSubmit={handleSubmit} action="">
           <div className="flex flex-col space-y-0.5">
             <label
               htmlFor=""
@@ -58,7 +59,17 @@ const ForgetPassword = () => {
           className="bg-dark-blue-900 dark:bg-dark-gray text-dark-white dark:text-dark-blue-400 text-sm py-1.5 rounded-sm font-[600] cursor-pointer text-center"
           onClick={handleSubmit}
           >
-                Sent OTP
+            {
+              isAdminCreateLoading ?
+              <ScaleLoader
+              color="#030712"
+              loading={isAdminCreateLoading}
+              height={10}
+              width={4} 
+            />
+            :
+            "Sent OTP"
+            }
         </button>
         </form>
       </div>

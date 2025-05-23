@@ -19,6 +19,8 @@ import listFeedbackReducer from '../features/feedback/feedbackList'
 import updateFeedbackReducer from '../features/feedback/updateFeedback'
 import deleteFeedbackReducer from '../features/feedback/deleteFeedback'
 import totalCountReducer from '../features/dashboard/totalCount'
+import createAdminReducer from '../features/admin/createAdminSlice'
+import listAdminReducer from '../features/admin/listAdminsSlice'
 
 
 const rootReducer = combineReducers({
@@ -40,6 +42,8 @@ const rootReducer = combineReducers({
     feedbackUpdate: updateFeedbackReducer,
     feedbackDelete: deleteFeedbackReducer,
     dashboardTotal: totalCountReducer,
+    createAdmin: createAdminReducer,
+    listAdmin: listAdminReducer,
 })
 
 const persistConfig = {

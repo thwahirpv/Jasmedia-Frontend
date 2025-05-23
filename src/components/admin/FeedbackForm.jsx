@@ -97,6 +97,7 @@ const FeedbackForm = ({isModalOpen, setIsModalOpen, role, data={}, setUpdateData
           const dataUpdate = {
               'feedback': updataData
           }
+          console.log(updataData, 'its for form')
           console.log(dataUpdate.feedback._id)
           const response = await dispatch(updateFeedbackThunk(dataUpdate)).unwrap()
           console.log(response, 'from frond res')
@@ -138,19 +139,6 @@ const FeedbackForm = ({isModalOpen, setIsModalOpen, role, data={}, setUpdateData
             return 
         }
 
-        // For role
-        if(isEmpty(roleData)){
-            setRoleError('Role is required!')
-            return 
-        }
-        if(isNotString(roleData)){
-            setRoleError('Enter valid Role!')
-            return 
-        }
-        if(isNotValidString(roleData)){
-            setRoleError('Enter valid Role!')
-            return 
-        }
 
         if(role == 'create') {
           const feedbackData = {

@@ -45,7 +45,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await dispatch(logIn({ email: email, password: password })).then((res) => {
+      await dispatch(logIn({ emailAddress: email, password: password })).then((res) => {
         console.log(res, 'from login')
         if (res.type == "auth/login/fulfilled") {
           navigate("/admin/dashboard");
