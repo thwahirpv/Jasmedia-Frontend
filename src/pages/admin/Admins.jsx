@@ -5,6 +5,7 @@ import { FaAngleDown } from 'react-icons/fa6';
 import { IoMdSearch } from 'react-icons/io';
 import AdminsList from '../../components/admin/AdminsList';
 import AdminsForm from '../../components/admin/AdminsForm';
+// hello
 
 const Admins = () => {
   const [isOpen, setIsOpen] = useState(false)
