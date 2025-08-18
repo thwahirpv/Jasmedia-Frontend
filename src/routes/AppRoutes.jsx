@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AdminRoutes from "./AdminRoutes";
 import UserRoutes from "./UserRoutes";
 import NotFound from "../pages/common/NotFound";
-import UserLayout from "../layout/UserLayout.jsx";
+import UserLayout from "../layout/UserLayout";
 import AdminLayout from "../layout/AdminLayout";
 import Login from "../pages/admin/Login";
 import ForgetPassword from "../pages/admin/ForgetPassword";
