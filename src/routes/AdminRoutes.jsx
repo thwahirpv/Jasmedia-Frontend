@@ -53,7 +53,6 @@ const AdminRoutes = () => {
           </Protected>
         }
       />
-      
       <Route path="*" element={<NotFound role="admin" />} />
     </Routes>
   );

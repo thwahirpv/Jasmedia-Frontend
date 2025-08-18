@@ -6,11 +6,9 @@ const deleteFeedbackThunk = createAsyncThunk(
     async (data, {rejectWithValue}) => {
         try {
             const response = await AdminApi.delete('/deleteFeedback', {data: data})
-            console.log(response, 'from slice')
             return 
         } catch (error) {
-            console.log(error, 'from slice error')
-            const message = error.response.data.error.message || error.message || error.response.data.message || error.response.message || 'Something wrong!'
+            const message = error?.response?.data?.message || 'Something wrong!'
             return rejectWithValue(message)
         }
     }
@@ -40,8 +38,7 @@ const deleteFeedbackSlice = createSlice({
         })
         .addCase(deleteFeedbackThunk.rejected, (state, action) => {
             state.isFBDeleteLoadnig = false
-            state.isFBDeleteError = action.payload || action.error.message || 'Something wrong!'
-            console.log(state.isFBDeleteError, 'from reject')
+            state.isFBDeleteError = action.payload
         })
     }
 })

@@ -1,11 +1,15 @@
 import axios from "axios";
-import { BASE_URL } from "../constants/constants";
+import { BASE_URL, USER_URL } from "../constants/constants";
 import { ACCESS_TOKEN } from "../constants/constants";
 import storage from 'redux-persist/lib/storage'
 
 const AdminApi = axios.create({
     baseURL: BASE_URL,
     withCredentials: true
+})
+
+export const userApi = axios.create({
+    baseURL: USER_URL
 })
 
 AdminApi.interceptors.response.use(
@@ -26,5 +30,6 @@ AdminApi.interceptors.response.use(
 )
 
 export default AdminApi
+
 
 

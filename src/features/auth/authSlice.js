@@ -7,11 +7,10 @@ const logIn = createAsyncThunk(
     async (data, { rejectWithValue }) => {
         try{
             const response = await AdminApi.post('/login', data)
-            console.log(response, 'from slice')
             return response.data
         }catch (error) {
             console.log(error, 'its from error part of slice')
-            const message = error.response?.data?.error?.message || "Login failed !"
+            const message = error.response?.data?.error?.message || error.response?.data?.message || "Login failed !"
             return rejectWithValue(message)
         }
         
@@ -24,6 +23,8 @@ const authSlice = createSlice({
     initialState: {
         username: '', 
         email: '',
+        isRootAdmin: false,
+        isBlocked: false,
         isAuthenticated: false,
         isLoading: false, 
         error: null
@@ -33,6 +34,7 @@ const authSlice = createSlice({
             state.isAuthenticated = false
             state.username = ''
             state.email = ''
+            state.isRootAdmin = false
         }
     }, 
     extraReducers: (builder) => {
@@ -42,15 +44,18 @@ const authSlice = createSlice({
             state.error = null
         })
         .addCase(logIn.fulfilled, (state, action) => {
+            console.log(action.payload)
             state.isLoading= false
             state.error = null
-            state.username = 'Admin'
-            state.email = action.payload.adminDetails.emailAddress
             state.isAuthenticated = true
+            state.email = action.payload?.email
+            state.username = action.payload?.name
+            state.isRootAdmin = action.payload?.isRootAdmin
         })
         .addCase(logIn.rejected, (state, action) => {
             state.isLoading = false
             state.error = action.payload
+            console.log(action, 'is from reject')
         })
     }
 })

@@ -24,10 +24,10 @@ const AdminsForm = ({ setIsModalOpen, isModalOpen }) => {
   const [nameError, setNameError] = useState("");
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
-  const [roleData, setRoleData] = useState('');
+  const [roleData, setRoleData] = useState("");
   const [roleError, setRoleError] = useState("");
-  const [password, setPassword] = useState();
-  const [passwordError, setPasswordError] = useState();
+  const [password, setPassword] = useState("");
+  const [passwordError, setPasswordError] = useState("");
   const [theme, setTheme] = useTheme();
   const dispatch = useDispatch();
   const { isAdminCreateLoading, adminCreateError } = useSelector((state) => state.createAdmin)
@@ -68,6 +68,7 @@ const AdminsForm = ({ setIsModalOpen, isModalOpen }) => {
     setEmailError("");
   };
 
+  // Role validation
   const onAdminRoleChange = (e) => {
     const value = e.target.value;
     setRoleData(value);
@@ -78,6 +79,7 @@ const AdminsForm = ({ setIsModalOpen, isModalOpen }) => {
     setRoleError("");
   };
 
+  // Password validation
   const onPasswordChange = (e) => {
     const value = e.target.value 
     setPassword(value)
@@ -299,7 +301,7 @@ const AdminsForm = ({ setIsModalOpen, isModalOpen }) => {
                 onChange={onAdminRoleChange}
                 id=""
               >
-                <option defaultValue={true} value="">
+                <option defaultValue={false} value="">
                   Select
                 </option>
                 <option value={true}>Root admin</option>

@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { SideBarContext } from "../../layout/AdminLayout";
 import { NavLink } from "react-router-dom";
 
-const SideBarItems = ({ icon, text, destination }) => {
+const   SideBarItems = ({ icon, text, destination }) => {
   const { isOpen } = useContext(SideBarContext);
   return (
     <li className="relative flex md:justify-start group">

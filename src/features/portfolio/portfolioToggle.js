@@ -8,7 +8,8 @@ const portfolioToggleThunk = createAsyncThunk(
             const response = await AdminApi.put('/togglePortfolio', data)
             return response.data
         } catch (error) {
-            console.log(error)
+            const message = error.response?.data?.error?.message || error.response?.data?.message || 'Something wrong!'
+            return rejectWithValue(message)
         }
     }
 )

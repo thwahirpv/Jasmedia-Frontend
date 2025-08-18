@@ -15,7 +15,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [isShowPassword, setIsShowPassword] = useState(false);
   const dispatch = useDispatch();
-  const { isLoading, user, error } = useSelector((state) => state.auth);
+  const { isLoading, user, error, isBlocked } = useSelector((state) => state.auth);
   const navigate = useNavigate();
 
   // Email
@@ -45,14 +45,11 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await dispatch(logIn({ emailAddress: email, password: password })).then((res) => {
-        console.log(res, 'from login')
-        if (res.type == "auth/login/fulfilled") {
-          navigate("/admin/dashboard");
-        }
-      });
+      const response = await dispatch(logIn({ emailAddress: email, password: password })).unwrap()
+      navigate("/admin/dashboard");
     } catch (err) {
-      console.log(err);
+      // console.log(err);
+      console.log(isBlocked, 'is blcoked')
     }
   };
 
@@ -114,7 +111,7 @@ const Login = () => {
                 onClick={showPassword}
                 className="absolute top-2.5 right-2.5 cursor-pointer text-light-gray-800 dark:text-dark-gray"
               >
-                {isShowPassword ? <FaEyeSlash /> : <FaEye />}
+                {isShowPassword ? <FaEye /> : <FaEyeSlash />}
               </p>
 
               <p className="text-gray-500 dark:text-dark-gray cursor-pointer text-[13px] text-right mt-1"

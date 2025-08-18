@@ -6,6 +6,10 @@ import store, { persistor } from "./store/store.js";
 import { PersistGate } from "redux-persist/integration/react";
 import { Provider } from "react-redux";
 import ContextProvider from "./context/APIContext.jsx";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+
 
 createRoot(document.getElementById("root")).render(
   <PersistGate persistor={persistor}>

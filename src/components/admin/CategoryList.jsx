@@ -2,10 +2,19 @@ import React, { useEffect, useState } from "react";
 import { listCategory } from "../../features/category/categoryListing";
 import { useDispatch, useSelector } from "react-redux";
 import PuffLoader from "react-spinners/PuffLoader";
+import ClipLoader from "react-spinners/ClipLoader"
 import CategoryForm from "./CategoryForm";
 import { categoryStatusToggle } from "../../features/category/categoryBlock";
 import useDebounce from "../../hook/useDebounce";
 import noDataPng from '../../assets/images/no_data.png'
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+import useTheme from '../../hook/useTheme'
+import CategoryPreview from "./CategoryPreview";
+import { VscPreview } from "react-icons/vsc";
+import { setCategoryPreview } from "../../features/category/categoryPreview";
+
+const categorySwal = withReactContent(Swal)
 
 const CategoryList = ({ isModalOpen, selected, searchTerm }) => {
   const [categories, setCategories] = useState([]);
@@ -13,7 +22,13 @@ const CategoryList = ({ isModalOpen, selected, searchTerm }) => {
   const [isModalOpenU, setIsModalOpenU] = useState(false);
   const dispatch = useDispatch();
   const { isLoading, error } = useSelector((state) => state.categoryList);
+  const { isToggleLoading, categoryError } = useSelector((state) => state.categoryStatus);
+  const { isRootAdmin } = useSelector((state) => state.auth)
   const debouncedSearchTerm = useDebounce(searchTerm, 500)
+  const [theme, setTheme] = useTheme()
+  const [isPreview, setIsPreview] = useState(false) 
+  const [togglingCategoryId, setTogglingCategoryId] = useState(null)
+
 
   const fetchCategoryList = async () => {
     try {
@@ -39,12 +54,27 @@ const CategoryList = ({ isModalOpen, selected, searchTerm }) => {
   }, [isModalOpenU, isModalOpen, selected, debouncedSearchTerm]);
 
   const categoryToggle = async (category_id) => {
+    setTogglingCategoryId(category_id)
     try {
       await dispatch(categoryStatusToggle({'categoryId': category_id})).unwrap()
       fetchCategoryList()
     } catch (error) {
-      console.log(error, 'from front side')
+      categorySwal.fire({
+        title: 'Toggle failed',
+        text: `${categoryError}`,
+        icon: 'error',
+        confirmButtonText: 'OK',
+        background: theme == 'dark' ? '#2f3946' : '#ecececf5',
+        color: theme == 'dark' ? "#ebf1f8" : '#030712',
+      });
+    } finally {
+      setTogglingCategoryId(null)
     }
+  } 
+
+  const NavigatePreviwe = (category) => {
+    dispatch(setCategoryPreview(category))
+    setIsPreview(!isPreview)
   }
 
   return (
@@ -52,6 +82,9 @@ const CategoryList = ({ isModalOpen, selected, searchTerm }) => {
       <table className="relative w-full text-sm text-left rtl:text-right text-light-gray-950 dark:text-dark-white">
         <thead className="sticky top-0 text-xs text-light-gray-950 uppercase bg-light-gray-300 dark:bg-dark-blue-600 dark:text-dark-gray ">
           <tr>
+            <th scope="col" className="px-6 py-3">
+              Preview
+            </th>
             <th scope="col" className="px-6 py-3">
               Name
             </th>
@@ -83,22 +116,30 @@ const CategoryList = ({ isModalOpen, selected, searchTerm }) => {
               {error}
             </p>
           )}
-          {
-            categories.length > 0 ?
+          {categories.length > 0 ? (
             categories.map((category, index) => (
               <tr
                 key={category._id}
                 className="odd:bg-light-white odd:dark:bg-dark-blue-900 even:bg-light-gray-100 even:dark:bg-dark-blue-400 border-b dark:border-dark-blue-300 border-light-gray-100"
               >
-                <th
+                <td
+                  scope="row"
+                  className="px-6 py-4 font-medium text-light-gray-950 whitespace-nowrap dark:text-dark-white"
+                >
+                  <p
+                    className="cursor-pointer text-light-gray-950 dark:text-dark-white"
+                    onClick={() => NavigatePreviwe(category)}
+                  >
+                    <VscPreview size={18} />
+                  </p>
+                </td>
+                <td
                   scope="row"
                   className="px-6 py-4 font-medium text-light-gray-950 whitespace-nowrap dark:text-dark-white"
                 >
                   {category.name}
-                </th>
-                <td className="px-6 py-4">
-                  {category.totolPortfolio}
                 </td>
+                <td className="px-6 py-4">{category.totolPortfolio}</td>
                 <td className="px-6 py-4">
                   {category.status ? (
                     <div className="flex items-center">
@@ -118,31 +159,42 @@ const CategoryList = ({ isModalOpen, selected, searchTerm }) => {
                     onClick={() => {
                       setIsModalOpenU(!isModalOpenU);
                       setUpdateCategoryData({
-                        '_id': category._id,
-                        'name': category.name,
+                        _id: category._id,
+                        name: category.name,
                       });
                     }}
                   >
                     Edit
                   </p>
-  
-                  <p
-                    href="#"
-                    className={`cursor-pointer font-medium ${
-                      category.status ? "text-red-500" : "text-green-500"
-                    }`}
-                    onClick={() => categoryToggle(category._id)}
-                  >
-                    {category.status ? "Block" : "Unblock"}
-                  </p>
+
+                  {isRootAdmin && (
+                    <p
+                      className={`cursor-pointer font-medium ${
+                        category.status ? "text-red-500" : "text-green-500"
+                      }`}
+                      onClick={() => categoryToggle(category._id)}
+                    >
+                      {togglingCategoryId === category._id ? (
+                        <ClipLoader
+                          color={theme == 'dark' ? "#ebf1f8" : '#030712'}
+                          loading={true}
+                          size={13}
+                        />
+                      ) : category.status ? (
+                        "Block"
+                      ) : (
+                        "Unblock"
+                      )}
+                    </p>
+                  )}
                 </td>
               </tr>
             ))
-            :
+          ) : (
             <div className="absolute w-fit top-[70px] left-[47%] bg-light-gray-400 dark:bg-dark-blue-300 p-3.5 rounded-full">
               <img className="w-[70px]" src={noDataPng} alt="" />
             </div>
-          }
+          )}
         </tbody>
       </table>
       <CategoryForm
@@ -152,6 +204,8 @@ const CategoryList = ({ isModalOpen, selected, searchTerm }) => {
         data={updateCategoryData}
         setUpdateCategoryData={setUpdateCategoryData}
       />
+
+      <CategoryPreview isPreview={isPreview} setIsPreview={setIsPreview} />
     </div>
   );
 };

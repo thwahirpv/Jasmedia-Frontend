@@ -10,9 +10,8 @@ const portfolioDeleteThunk = createAsyncThunk(
             console.log(response, 'from thunk')
             return response.data
         } catch (error) {
-            console.log(error)
             console.log(error, 'from thunk')
-            const message = error.response.data.error || error.response.message || 'Internet issue!'
+            const message = error?.response?.data?.error || error?.response?.data?.message || 'Something wrong!'
             return rejectWithValue(message) 
         }
     }
@@ -41,7 +40,7 @@ const portfolioDeleteSlice = createSlice({
         })
         .addCase(portfolioDeleteThunk.rejected, (state, action) => {
             state.isPortfolioDeleteLoading = false
-            state.portfolioDeleteError = action.payload.message
+            state.portfolioDeleteError = action.payload
         })
     }
 })

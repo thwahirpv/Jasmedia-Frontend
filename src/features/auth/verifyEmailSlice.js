@@ -6,7 +6,7 @@ const verifyEmailThunk = createAsyncThunk(
     "auth/verifyEmail", 
     async (data, {rejectWithValue}) => {
         try {
-            const response = await AdminApi.get('/forgotPassword', data)
+            const response = await AdminApi.post('/forgotPassword', data)
             return response
         } catch (error) {
             console.log(error, 'its from error part of slice')
@@ -20,8 +20,17 @@ const verifyEmailThunk = createAsyncThunk(
 const verifyEmailSlice = createSlice({
     name: 'verifyEmail', 
     initialState: {
+        OtpEmail: null,
         isEmailVerifyLoading: false,
         errorEmailVerify: null
+    },
+    reducers:{
+        clearEmailVerifyError: (state, action) => {
+            state.errorEmailVerify = null
+        }, 
+        setOtpEmail: (state, actoin) => {
+            state.OtpEmail = actoin.payload
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -42,4 +51,5 @@ const verifyEmailSlice = createSlice({
 })
 
 export default verifyEmailSlice.reducer
+export const { clearEmailVerifyError, setOtpEmail } = verifyEmailSlice.actions
 export { verifyEmailThunk } 

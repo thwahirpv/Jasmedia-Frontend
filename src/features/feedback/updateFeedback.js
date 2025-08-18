@@ -6,11 +6,9 @@ const updateFeedbackThunk = createAsyncThunk(
     async (data, {rejectWithValue}) => {
         try {
             console.log('ready to update')
-            const response = await AdminApi.put('/editFeedbac', data)
-            console.log(response)
+            const response = await AdminApi.put('/editFeedback', data)
             return response.data
         } catch (error) {
-            console.log(error, 'from slice')
             const message = error.message || error.response.data.message || error.response.message || 'Something wrong!'
             return rejectWithValue(message) 
         }

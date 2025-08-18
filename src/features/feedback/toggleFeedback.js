@@ -7,8 +7,7 @@ const toggleFeedbackThunk = createAsyncThunk(
         try {
             const reponse = await AdminApi.put('/togglefeedback', {'feedbackId': feedbackId})
         } catch (error) {
-            console.log(error, 'from slice')
-            const message = error.message || error.response.data.message || error.response.message || 'Something wrong!'
+            const message = error?.response?.data?.message || 'Something wrong!'
             return rejectWithValue(message)
         }
     }
@@ -32,7 +31,7 @@ const toggleFeedbackSlice = createSlice({
         })
         .addCase(toggleFeedbackThunk.rejected, (state, action) => {
             state.isFbToggleLoading = false
-            state.isFbError = action.payload || action.error.message || 'Something wrong!'
+            state.isFbError = action.payload
         })
     }
 })

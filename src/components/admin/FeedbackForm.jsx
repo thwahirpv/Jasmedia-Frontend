@@ -55,10 +55,6 @@ const FeedbackForm = ({isModalOpen, setIsModalOpen, role, data={}, setUpdateData
             setFeedbackError('Enter valid Feedback!')
             return 
         }
-        if(isNotValidString(value)){
-            setFeedbackError('Enter valid Feedback!')
-            return 
-        }
         setFeedbackError('')
     }
     const onRoleChange = (e) => {
@@ -97,10 +93,7 @@ const FeedbackForm = ({isModalOpen, setIsModalOpen, role, data={}, setUpdateData
           const dataUpdate = {
               'feedback': updataData
           }
-          console.log(updataData, 'its for form')
-          console.log(dataUpdate.feedback._id)
           const response = await dispatch(updateFeedbackThunk(dataUpdate)).unwrap()
-          console.log(response, 'from frond res')
           return response
       } catch (error) {
           console.log(error, 'from frond')
@@ -133,11 +126,7 @@ const FeedbackForm = ({isModalOpen, setIsModalOpen, role, data={}, setUpdateData
         if(isNotString(feedback)){
             setFeedbackError('Enter valid Feedback!')
             return 
-        }
-        if(isNotValidString(feedback)){
-            setFeedbackError('Enter valid Feedback!')
-            return 
-        }
+        }   
 
 
         if(role == 'create') {

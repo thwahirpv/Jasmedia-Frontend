@@ -6,10 +6,10 @@ const categoryStatusToggle = createAsyncThunk(
     async (data, {rejectWithValue}) => {
         try {
             const response = await AdminApi.put('/blockCategory', data)
-            console.log(response, 'from slice sucess')
             return response.data
         } catch (error) {
-            console.log(error, 'from slice catch')
+            const message = error.response?.data?.error?.message || error.response?.data?.message || 'Something wrong!'
+            return rejectWithValue(message)
         }
     }
 )
@@ -19,21 +19,21 @@ const blockCategorySlice = createSlice({
     name: 'categoryBlock', 
     initialState: {
         isToggleLoading: false,
-        error: null
+        categoryError: null
     },
     extraReducers: (builder) => {
         builder
         .addCase(categoryStatusToggle.pending, (state, action) => {
             state.isToggleLoading = true
-            state.error = null
+            state.categoryError = null
         })
         .addCase(categoryStatusToggle.fulfilled, (state, action) => {
-            state.isToggleLoading = true
-            state.error = null
+            state.isToggleLoading = false
+            state.categoryError = null
         })
         .addCase(categoryStatusToggle.rejected, (state, action) => {
             state.isToggleLoading = false
-            state.error = action.payload
+            state.categoryError = action.payload
         })
     }
 })

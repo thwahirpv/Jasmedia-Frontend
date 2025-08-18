@@ -166,7 +166,6 @@ const PortfolioForm = ({ setIsModalOpen, isModalOpen, role, data={}, setPortfoli
   const titleOnChange = (e) => {
     const value = e.target.value;
     setTitle(value);
-    console.log(value)
     if(isEmpty(value)){
         setTitleError("Title is mandatory!")
     }
@@ -263,7 +262,8 @@ const PortfolioForm = ({ setIsModalOpen, isModalOpen, role, data={}, setPortfoli
   const handleFileSubmit = async (e) => {
     e.preventDefault();
     // Final validation 
-    if(!file){
+    // File validation
+    if(!file && !role == 'update'){
         setFileError("Select file!")
         return 
     }
@@ -279,12 +279,12 @@ const PortfolioForm = ({ setIsModalOpen, isModalOpen, role, data={}, setPortfoli
       }
 
     // description validation
-    if(discriptoin){
-        if (isNotValidString(discriptoin)) {
-            setDiscriptoinError("Enter valid Description.");
-            return;
-        }
-    }
+      // if(discriptoin){
+      //     if (isNotValidString(discriptoin)) {
+      //         setDiscriptoinError("Enter valid Description.");
+      //         return;
+      //     }
+      // }
 
     // File type validatoin
     if(isEmpty(select)){
@@ -316,15 +316,19 @@ const PortfolioForm = ({ setIsModalOpen, isModalOpen, role, data={}, setPortfoli
           "signedUrl": signedUrl,
           "formData": formData
         }
-        const response = await dispatch(uplaodToCloudinary(data, {signal: controllerRef.current.signal})).unwrap()
+        let response = null
+        if(file){
+          response = await dispatch(uplaodToCloudinary(data, {signal: controllerRef.current.signal})).unwrap()
+        }
         const portfolio = {
           'title': title, 
           'description': discriptoin,
           'type': Filetype,
           'category': category,
-          'publicId': response.public_id,
-          'secureUrl': response.secure_url
+          'publicId': publicId,
+          'secureUrl': response?.secure_url || data?.secureUrl
         }
+        
         setPortfolioData(portfolio)
         setIsModalOpen(!isModalOpen)
         if(role == 'create'){

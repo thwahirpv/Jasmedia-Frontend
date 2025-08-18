@@ -3,6 +3,7 @@ import { format } from 'date-fns';
 
 
 const initialState = {
+    portfolioId: '',
     title: '',
     description: '',
     type: '',
@@ -18,6 +19,7 @@ const portfolioPreviewSlice = createSlice({
     initialState,
     reducers: {
         setportfolioPreview: (state, action) => {
+            state.portfolioId = action.payload._id
             state.title = action.payload.title
             state.description = action.payload.description
             state.type = action.payload.type

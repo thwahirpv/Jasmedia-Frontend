@@ -83,7 +83,8 @@ const Feedbak = () => {
               type="text"
               id="table-search-users"
               className="block p-2 ps-10 text-sm text-light-gray-950 border border-gray-300 rounded-lg w-80 bg-light-white focus:ring-light-gray-300 focus:light-gray-300 dark:bg-dark-blue-600 dark:border-dark-blue-400 dark:placeholder-gray-400 dark:text-dark-white dark:focus:ring-dark-blue-600 dark:focus:border-dark-blue-400 focus:outline-0"
-              placeholder="Search category"
+              placeholder="Search feedback"
+              value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>

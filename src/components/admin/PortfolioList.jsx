@@ -17,6 +17,7 @@ import { Navigate, useNavigate} from 'react-router-dom'
 import { setportfolioPreview, clearPortfolioPreview } from "../../features/portfolio/portfolioPreview";
 import PortPreview from "./PortPreview";
 import { VscPreview } from "react-icons/vsc";
+import ClipLoader from "react-spinners/ClipLoader";
 
 
 
@@ -30,9 +31,12 @@ const PortfolioList = ({ setIsModalOpen, isModalOpen, statusSelected, searchTerm
   const [portfolioData, setPortfolioData] = useState({});
   const debouncedSearchTerm = useDebounce(searchTerms, 300)
   const { isPortfolioDeleteLoading, portfolioDeleteError } = useSelector((state) => state.portfolioDelete)
+  const { isportfolioToogleLoading, portfolioToggleError } = useSelector((state) => state.togglePortfolio)
   const [theme, setTheme] = useTheme()
   const navigate = useNavigate()
   const [isPreview, setIsPreview] = useState(false)
+  const { isRootAdmin } = useSelector((state) => state.auth)
+  const [togglingPortfolioId, setTogglingPortfolioId] = useState(null)
   
   
   const NavigatePreviwe = (portfolio) =>{
@@ -59,21 +63,27 @@ const PortfolioList = ({ setIsModalOpen, isModalOpen, statusSelected, searchTerm
     }
   };
 
-  useEffect(() => {
-    console.log(portfolios)
-  }, [portfolios])
+ 
   const portfolioToggle = async (portfolio_id) => {
-    
+    setTogglingPortfolioId(portfolio_id)
     try { 
       await dispatch(portfolioToggleThunk({'portfolioId': portfolio_id})).unwrap()
       fetchPortfolioList()
     } catch (error) {
-      console.log(error)
+      portfolioSwal.fire({
+        title: 'Toggle failed',
+        text: `${portfolioToggleError}`,
+        icon: 'error',
+        confirmButtonText: 'OK',
+        background: theme == 'dark' ? '#2f3946' : '#ecececf5',
+        color: theme == 'dark' ? "#ebf1f8" : '#030712',
+      });
+    } finally {
+      setTogglingPortfolioId(null)
     }
   }
 
   const portfolioDelete = async (portfolio_id, title) => {
-    try { 
       portfolioSwal.fire({
         title: 'Are you sure ?',
         icon: 'warning',
@@ -87,33 +97,23 @@ const PortfolioList = ({ setIsModalOpen, isModalOpen, statusSelected, searchTerm
         background: theme == 'dark' ? '#2f3946' : '#ecececf5',
         color: theme == 'dark' ? "#ebf1f8" : '#030712',
       }).then(async (res) => {
-        if(res.isConfirmed){
-          await dispatch(portfolioDeleteThunk({portfolioId: portfolio_id})).unwrap()
-          fetchPortfolioList()
+        try{
+          if(res.isConfirmed){
+            await dispatch(portfolioDeleteThunk({portfolioId: portfolio_id})).unwrap()
+            fetchPortfolioList()
+          }
+        } catch (error) {
+          portfolioSwal.fire({
+            title: 'Delete failed',
+            text: `${portfolioDeleteError}`,
+            icon: 'error',
+            confirmButtonText: 'OK',
+            background: theme == 'dark' ? '#2f3946' : '#ecececf5',
+            color: theme == 'dark' ? "#ebf1f8" : '#030712',
+          })
         }
       })
-    } catch (error) {
-      console.log(error, 'error from front')
-    }
   }
-
-  useEffect(() => {
-    if(portfolioDeleteError){
-      portfolioSwal.fire({
-        title: 'Delete failed!',
-        icon: 'error',
-        text: portfolioDeleteError,
-        allowOutsideClick: false,
-        allowEscapeKey: false,
-        showConfirmButton: true,
-        confirmButtonText: 'Try once more',
-        background: theme == 'dark' ? '#2f3946' : '#ecececf5',
-        color: theme == 'dark' ? "#ebf1f8" : '#030712',
-      }).then((res) => {
-        dispatch(setPortfolioError())
-      })
-    }
-  }, [portfolioDeleteError])
 
 
   useEffect(() => {
@@ -148,7 +148,7 @@ const PortfolioList = ({ setIsModalOpen, isModalOpen, statusSelected, searchTerm
             portfolios.length > 0 ? 
             portfolios.map((portfolio, index) => (
               <tr kay={portfolio._id} className="odd:bg-light-white odd:dark:bg-dark-blue-900 even:bg-light-gray-100 even:dark:bg-dark-blue-400 border-b dark:border-dark-blue-300 border-light-gray-100">
-                <th
+                <td
                   scope="row"
                   className="px-6 py-4 font-medium text-light-gray-950 whitespace-nowrap dark:text-dark-white"
                 >
@@ -158,13 +158,13 @@ const PortfolioList = ({ setIsModalOpen, isModalOpen, statusSelected, searchTerm
                   >
                     <VscPreview  size={18}/>
                   </p>
-                </th>
-                <th
+                </td>
+                <td
                   scope="row"
                   className="px-6 py-4 font-medium text-light-gray-950 whitespace-nowrap dark:text-dark-white"
                 >
                   {portfolio.title}
-                </th>
+                </td>
                 <td className="px-6 py-4">{portfolio?.category?.name}</td>
                 <td className="px-6 py-4">
                   {portfolio.status ? (
@@ -199,21 +199,39 @@ const PortfolioList = ({ setIsModalOpen, isModalOpen, statusSelected, searchTerm
                     </p>
                   </div>
                   <div>
-                    <p
-                      className={`cursor-pointer font-medium ${
-                        portfolio.status ? "text-red-500" : "text-green-500"
-                      }`}
-                      onClick={() => portfolioToggle(portfolio._id)}
-                    >
-                      {portfolio.status ? "Block" : "Unblock"}
-                    </p>
+                    {
+                      isRootAdmin && 
+                      <p
+                        className={`cursor-pointer font-medium ${
+                          portfolio.status ? "text-red-500" : "text-green-500"
+                        }`}
+                        onClick={() => portfolioToggle(portfolio._id)}
+                      >
+                        {
+                          togglingPortfolioId == portfolio._id ? (
+                            <ClipLoader
+                              color={theme == 'dark' ? "#ebf1f8" : '#030712'}
+                              loading={isportfolioToogleLoading}
+                              size={13}
+                            />
+                          ) : portfolio.status ? ( 
+                            "Block"
+                          ) : (
+                            "Unblock"
+                          )
+                        }
+                      </p>
+                    }
                   </div>
                   <div>
-                    <button className="cursor-pointer text-red-500"
-                    onClick={() => portfolioDelete(portfolio._id, portfolio.title)}
-                    >
-                      <MdDelete size={18} />
-                    </button>
+                    {
+                      isRootAdmin && 
+                      <button className="cursor-pointer text-red-500"
+                      onClick={() => portfolioDelete(portfolio._id, portfolio.title)}
+                      >
+                        <MdDelete size={18} />
+                      </button>
+                    }
                   </div>
                 </td>
               </tr>

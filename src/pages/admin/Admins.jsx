@@ -5,13 +5,15 @@ import { FaAngleDown } from 'react-icons/fa6';
 import { IoMdSearch } from 'react-icons/io';
 import AdminsList from '../../components/admin/AdminsList';
 import AdminsForm from '../../components/admin/AdminsForm';
+import { useEffect } from 'react';
 // hello
 
 const Admins = () => {
-  const [isOpen, setIsOpen] = useState(false)
+    const [isOpen, setIsOpen] = useState(false)
     const [statusSelected, setStatusSelected] = useState("All");
     const [isModalOpen, setIsModalOpen] = useState(false)
-    const [searchTerm, setSearchTerm] = useState('')
+    const [searchTerm, setSearchTerm] = useState("")
+
 
     const options = ["All", "Active", "Deactive"];
   return (
@@ -44,8 +46,8 @@ const Admins = () => {
                       <li key={index}>
                         <button
                           onClick={() => {
-                            setStatusSelected(option);
-                            setIsOpen(false);
+                            setStatusSelected(option)
+                            setIsOpen(false)
                           }}
                           className={`cursor-pointer block px-4 py-2 w-full text-left hover:bg-light-gray-100 dark:hover:bg-dark-blue-600 dark:hover:text-white ${
                             statusSelected === option
@@ -85,7 +87,8 @@ const Admins = () => {
               type="text"
               id="table-search-users"
               className="block p-2 ps-10 text-sm text-light-gray-950 border border-gray-300 rounded-lg w-80 bg-light-white focus:ring-light-gray-300 focus:light-gray-300 dark:bg-dark-blue-600 dark:border-dark-blue-400 dark:placeholder-gray-400 dark:text-dark-white dark:focus:ring-dark-blue-600 dark:focus:border-dark-blue-400 focus:outline-0"
-              placeholder="Search category"
+              placeholder="Search admin"
+              value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
