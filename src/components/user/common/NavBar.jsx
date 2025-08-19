@@ -59,6 +59,9 @@ const NavBar = () => {
       case '/contact':
         setCurrentOption('contact');
         break;
+      case '/admin/login':
+        setCurrentOption('admin')
+        break;
       default:
         setCurrentOption('home');
     }
@@ -127,6 +130,16 @@ const NavBar = () => {
                     <FcBusinessContact />
                   </span>
                   Contact Us
+                </NavLink>
+            </li>
+            <li className='' onClick={onOptionClick}>
+                <NavLink to="/admin/login"
+                className={({ isActive }) => 
+                ("text-[15px] md:text-sm px-4 py-2 md:py-1.5 ransition-all duration-300 ease-in-out flex items-center text-center " + (isActive ? `bg-user-pale rounded-md md:rounded-full ${isNavOpen ? "text-gray-950" : 'text-green'}` : "text-gray-950 md:text-user-gray-100"))}>
+                  <span className='mr-2 block md:hidden'>
+                    <FcBusinessContact />
+                  </span>
+                  Admin
                 </NavLink>
             </li>
           </ul>
