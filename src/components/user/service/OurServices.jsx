@@ -4,7 +4,7 @@ import photographyImg from "../../../assets/images/photography.png";
 import videographyImg from "../../../assets/images/videography.png";
 import brandingImg from "../../../assets/images/branding.png";
 import motionDesign from "../../../assets/images/motionDesign.png";
-import ScrollSection from "./scrollSection";
+import ScrollSection from "./ScrollSection";
 
 const sections = [
   {
