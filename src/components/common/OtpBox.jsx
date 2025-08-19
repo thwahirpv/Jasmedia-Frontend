@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { verifyOtpThunk, clearOtpError } from '../../features/auth/verifyOtpSlice'
-import { setOtpEmail } from '../../features/auth/verifyEmailSlice'
 import { useNavigate } from 'react-router-dom'
 import ScaleLoader from 'react-spinners/ScaleLoader'
 

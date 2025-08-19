@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React from "react";
 import OtpBox from "../../components/common/OtpBox";
 import ThemeToggle from "../../components/common/ThemeToggle";
 

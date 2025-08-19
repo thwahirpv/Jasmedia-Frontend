@@ -4,9 +4,7 @@ import { IoCloudUploadOutline } from "react-icons/io5";
 import { AiFillFileImage } from "react-icons/ai";
 import { MdDelete } from "react-icons/md";
 import {
-  isString,
   isEmpty,
-  isNumber,
   isNotString,
   isNotValidString,
   isNotImage,
@@ -15,10 +13,7 @@ import {
 } from "../../utils/validations";
 import { cloudinaryDetails, setCDetailsIsError } from "../../features/portfolio/cloudinaryDetails";
 import { useDispatch, useSelector } from "react-redux";
-import default_image from "../../assets/images/default_admin.jpg";
-import upload_complete from "../../assets/images/upload_complete.png";
-import { uplaodToCloudinary, offIsUploadCancel, clearAllUploadData } from "../../features/portfolio/UploadToCloudinary";
-import axios from "axios";
+import { uplaodToCloudinary, clearAllUploadData } from "../../features/portfolio/UploadToCloudinary";
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import useTheme from "../../hook/useTheme";

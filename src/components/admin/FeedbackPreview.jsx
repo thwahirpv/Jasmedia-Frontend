@@ -146,7 +146,7 @@ const FeedbackPreview = ({ isPreview, setIsPreview }) => {
                 )}
                 {collectionHistory.length > 0 &&
                   collectionHistory.map((history, index) => (
-                    <li className="px-4">
+                    <li className="px-4" key={index}>
                       <div className="flex justify-between  py-1.5 space-x-7 border-b border-gray-400 dark:border-gray-600">
                         <div>
                           <p className="text-light-gray-950 dark:text-dark-white text-sm font-[500] text-left">

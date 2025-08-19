@@ -33,7 +33,7 @@ const TeamMembers = () => {
       </h1>
       <div className="w-full flex flex-col md:flex-row justify-center items-center gap-8">
         {memberData.map((member, index) => (
-          <div className="bg-green rounded-xl pb-2" data-aos="fade-up">
+          <div className="bg-green rounded-xl pb-2" data-aos="fade-up" key={index}>
             <div className="w-[220px] h-[220px] rounded-xl overflow-hidden shadow-md hover:scale-105 transition-transform duration-300 cursor-pointer">
               <img
                 src={member.profile}

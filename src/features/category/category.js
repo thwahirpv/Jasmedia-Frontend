@@ -4,7 +4,7 @@ import AdminApi from '../../utils/api'
 
 const createCategory = createAsyncThunk(
     "category/create",
-    async (data, {  }) => {
+    async (data, {rejectWithValue}) => {
         try {
             const response = await AdminApi.post('/addCategory', data)
         } catch (error) {

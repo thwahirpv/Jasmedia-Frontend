@@ -1,6 +1,5 @@
-import { bindActionCreators, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import AdminApi from '../../utils/api'
-import { constructNow } from "date-fns";
 
 
 const verifyOtpThunk = createAsyncThunk(
