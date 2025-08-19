@@ -3,7 +3,7 @@ import ThemeToggle from '../../components/common/ThemeToggle';
 import { FaAngleDown } from 'react-icons/fa6';
 import { IoMdSearch } from 'react-icons/io';
 import FeedbackList from '../../components/admin/FeedbackList';
-import FeedbackForm from '../../components/admin/feedbackForm';
+import FeedbackForm from '../../components/admin/FeedbackForm';
 
 const Feedbak = () => {
     const [isOpen, setIsOpen] = useState(false)
