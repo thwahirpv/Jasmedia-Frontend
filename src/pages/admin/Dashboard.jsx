@@ -22,10 +22,6 @@ const Dashboard = () => {
     fetchTotal()
   }, [])
 
-  useEffect(() => {
-    console.log(totals.totalCategory, totals.totalportfolio, totals.totalFeedback)
-  }, [totals])
-
   return (
     <div className='w-full h-[100vh] bg-light-gray-300 dark:bg-dark-blue-900'>
       <div className="absolute top-6 right-6">
