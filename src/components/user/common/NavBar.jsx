@@ -61,6 +61,7 @@ const NavBar = () => {
         break;
       default:
         setCurrentOption('home');
+        break;
     }
   }, [location.pathname]);
 

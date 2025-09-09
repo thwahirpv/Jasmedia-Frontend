@@ -42,9 +42,9 @@ const HomeIntro = () => {
         </div>
       </div>
  
-      <div className="absolute left-1/2 z-40 translate-x-[-50%] bottom-[-130px] md:bottom-[-230px] lg:bottom-[-240px] w-[200px] md:w-[500px] lg:w-[500px] h-[300px] md:h-[400px] lg:h-[500px] rounded-full bg-white opacity-20 blur-3xl"></div>
+      {/* <div className="absolute left-1/2 z-40 translate-x-[-50%] bottom-[-130px] md:bottom-[-230px] lg:bottom-[-240px] w-[200px] md:w-[500px] lg:w-[500px] h-[300px] md:h-[400px] lg:h-[500px] rounded-full bg-white opacity-20 blur-3xl"></div>
       <Globe className="absolute left-1/2 z-40 translate-x-[-50%] bottom-[-130px] md:bottom-[-230px] lg:bottom-[-240px] max-w-[300px] sm:max-w-[400px] md:max-w-[500px] " />
-      
+       */}
       <motion.img
         className='absolute top-[9%] md:top-[6%] lg:top-[11%] left-[12%] md:left-[10%] lg:left-[14%] w-auto h-[50px] rotate-[35deg]'
         src={megaphone}

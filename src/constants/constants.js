@@ -1,7 +1,7 @@
 export const ACCESS_TOKEN='access_token';
 export const REFRESH_TOKEN='refresh_token';
-export const BASE_URL='https://jasmedia.onrender.com/admin';
-export const USER_URL='https://jasmedia.onrender.com/user'
+export const BASE_URL='https://jasmedia-backend.onrender.com/admin';
+export const USER_URL='https://jasmedia-backend.onrender.com/user'
 
 
 export const EMAIL='email'
