@@ -4,7 +4,7 @@ import { ACCESS_TOKEN } from "../constants/constants";
 import storage from 'redux-persist/lib/storage'
 
 const AdminApi = axios.create({
-    baseURL: process.env.VITE_API_URL,
+    baseURL: BASE_URL,
     withCredentials: true
 })
 

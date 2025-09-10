@@ -3,6 +3,7 @@ import ThemeToggle from '../../components/common/ThemeToggle'
 import CountShow from '../../components/admin/CountShow'
 import { useDispatch, useSelector } from 'react-redux'
 import { totalCountThunk } from '../../features/dashboard/totalCount'
+import PuffLoader from 'react-spinners/PuffLoader'
 
 const Dashboard = () => {
   const dispatch = useDispatch()
@@ -28,9 +29,42 @@ const Dashboard = () => {
         <ThemeToggle />
       </div>
       <div className='w-full h-[100%] flex flex-col md:flex-row justify-evenly items-center'>
-        <CountShow title='Category' count={totals.totalCategory} isLoading={isTotalLoading} totalError={totalError} />
-        <CountShow title='Portfolio' count={totals.totalportfolio} isLoading={isTotalLoading} totalError={totalError} />
-        <CountShow title='Feedback' count={totals.totalFeedback} isLoading={isTotalLoading} totalError={totalError} />
+        {
+          isTotalLoading ? (
+            <PuffLoader
+                color=""
+                className="dark:text-dark-white text-light-gray-800"
+                loading={isTotalLoading}
+                height={10}
+                width={4}
+            />
+          ) : totalError ? (
+              <p className="text-red-500">Error loading dashboard data</p>
+          ) : totals ? (
+            <>
+            <CountShow
+              title="Category"
+              count={totals.totalCategory ?? 0}
+              isLoading={isTotalLoading}
+              totalError={totalError}
+            />
+            <CountShow
+              title="Portfolio"
+              count={totals.totalportfolio ?? 0}
+              isLoading={isTotalLoading}
+              totalError={totalError}
+            />
+            <CountShow
+              title="Feedback"
+              count={totals.totalFeedback ?? 0}
+              isLoading={isTotalLoading}
+              totalError={totalError}
+            />
+          </>
+          ) : (
+            <p className="text-white">No data found</p>
+          )
+        }
       </div>
     </div>
   )
