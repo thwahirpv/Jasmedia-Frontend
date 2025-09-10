@@ -10,20 +10,16 @@ const CountShow = ({ title, count, isLoading, totalError }) => {
         {title}
       </h1>
       <h1 className="text-center font-[500] text-light-gray-950 text-2xl dark:text-dark-gray">
-        {isLoading && (
-          <ScaleLoader
-            color="#030712"
-            loading={isLoading}
-            height={15}
-            width={4}
-          />
-        )}
-        {totalError ? (
-          <p className="text-red-500">
-            <MdError />
-          </p>
-        ) : (
-          <CountUp start={0} end={count} duration={3} />
+        {isLoading ? (
+            <ScaleLoader color="#030712" loading={isLoading} height={15} width={4} />
+          ) : totalError ? (
+            <p className="text-red-500">
+               <MdError />
+            </p>
+          ) : typeof count === "number" ? (
+            <CountUp start={0} end={count} duration={3} />
+          ) : (
+            <span>0</span>  
         )}
       </h1>
     </div>
