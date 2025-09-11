@@ -161,13 +161,14 @@ const AdminsForm = ({ setIsModalOpen, isModalOpen }) => {
         setIsModalOpen(false)
       })
     } catch (error) {
+      const errMessage = error?.message || "Admin create failed";
       if(error.errorType == EMAIL) {
-        setEmailError(error.message)
+        setEmailError(errMessage)
       }
       else {
         adminSwal.fire({
           title: 'Failed!',
-          text: error.message,
+          text: errMessage,
           icon: 'error',
           showConfirmButton: true,
           background: theme == 'dark' ? '#2f3946' : '#ecececf5',
