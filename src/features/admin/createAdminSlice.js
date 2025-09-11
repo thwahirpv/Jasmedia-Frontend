@@ -11,6 +11,7 @@ const createAdminThunk = createAsyncThunk(
             console.log(response)
             return response
         } catch (error) {
+            console.log(error)
             const message = error?.response?.data?.error?.message ? {'errorType': EMAIL, 'message': error?.response?.data?.error?.message}
             : {'errorType': NETWORK, 'message': 'Check network and try!'}
             return rejectWithValue(message)

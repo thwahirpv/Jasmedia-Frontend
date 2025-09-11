@@ -19,6 +19,7 @@ const SideBar = ({ children }) => {
     dispatch(logOut())
     persistStore(store).purge()
     localStorage.clear()
+    cookieStore.delete()
   }
   return (
     <>

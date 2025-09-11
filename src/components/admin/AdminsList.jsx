@@ -22,7 +22,7 @@ const AdminsList = ({isModalOpen, statusSelected, searchTerm}) => {
     const [updateData, setUpdateData] = useState({})
     const [theme, setTheme] = useTheme()
     const debouncedSearchTerm = useDebounce(searchTerm, 500)
-    const { isRootAdmin } = useSelector((state) => state.auth)
+    const { isRootAdmin, email } = useSelector((state) => state.auth)
 
     const fetchAdmins = async () => {
       try {
@@ -168,7 +168,7 @@ const AdminsList = ({isModalOpen, statusSelected, searchTerm}) => {
           )}
           {listAdminError && (
             <p className="text-error text-sm absolute left-[45%] top-[60px]">
-              {listAdminError}
+              {typeof listAdminError === "string" ? listAdminError : JSON.stringify(listAdminError)}
             </p>
           )}
           {
@@ -184,7 +184,16 @@ const AdminsList = ({isModalOpen, statusSelected, searchTerm}) => {
                 >
                   {admin.name}
                 </th>
-                <td className="px-6 py-4">{admin.emailAddress}</td>
+                <td className="px-6 py-4">
+                  {admin.emailAddress} 
+                  {
+                    admin.emailAddress == email && (
+                      <span className='bg-green-500 px-2 py-0.5 rounded-md text-[11px] font-semibold text-user-smokewhite ml-1.5'>
+                        You
+                      </span>
+                    )
+                  }
+                </td>
                 <td className="px-6 py-4">
                   {admin.isBlocked ? (
                     <div className="flex items-center">
@@ -199,23 +208,25 @@ const AdminsList = ({isModalOpen, statusSelected, searchTerm}) => {
                   )}
                 </td>
                 {
-                  isRootAdmin && 
-                  <td className="flex px-6 py-4 space-x-4"> 
-                    <p
-                      href="#"
-                      className={`cursor-pointer font-medium ${
-                        admin.isBlocked ? "text-green-500" : "text-red-500"
-                      }`}
-                      onClick={() => onToggleAdmin(admin._id)}
-                    >
-                      {admin.isBlocked ? "Unblock" : "Block"}
-                    </p>
-                    <button className="cursor-pointer text-red-500"
-                      onClick={() => onDeleteAdmin(admin._id, admin.emailAddress)}
-                    >
-                      <MdDelete size={18} />
-                    </button>
-                </td>
+                  isRootAdmin && admin.emailAddress !== email &&
+                  (
+                    <td className="flex px-6 py-4 space-x-4"> 
+                        <p
+                          href="#"
+                          className={`cursor-pointer font-medium ${
+                            admin.isBlocked ? "text-green-500" : "text-red-500"
+                          }`}
+                          onClick={() => onToggleAdmin(admin._id)}
+                        >
+                          {admin.isBlocked ? "Unblock" : "Block"}
+                        </p>
+                        <button className="cursor-pointer text-red-500"
+                          onClick={() => onDeleteAdmin(admin._id, admin.emailAddress)}
+                        >
+                          <MdDelete size={18} />
+                        </button>
+                    </td>
+                  )
                 }
               </tr>
             )) 

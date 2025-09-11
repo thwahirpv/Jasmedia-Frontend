@@ -8,6 +8,7 @@ const totalCountThunk = createAsyncThunk(
             const response = await AdminApi.get('/admindashboard')  
             return response.data.data
         } catch (error) {
+            console.log('dashboard error: ', error)
             const message = "something wrong!"
             throw new Error(message) 
         }
