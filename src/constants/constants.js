@@ -24,5 +24,4 @@ export const collection = {
     UPDATE: 'update',
     BLOCK: 'block',
     UNBLOCK: 'unblock',
-    UNBLOCK: 'unblock'
   }

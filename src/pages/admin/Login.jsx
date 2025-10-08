@@ -11,8 +11,8 @@ const Login = () => {
   // Hooks
   const [isEmailFocus, setIsEmailFocus] = useState(false);
   const [isPasswordFocus, setIsPasswordFocus] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("karnan.se@gmail.com");
+  const [password, setPassword] = useState("12341234");
   const [isShowPassword, setIsShowPassword] = useState(false);
   const dispatch = useDispatch();
   const { isLoading, user, error, isBlocked } = useSelector((state) => state.auth);
@@ -48,8 +48,7 @@ const Login = () => {
       const response = await dispatch(logIn({ emailAddress: email, password: password })).unwrap()
       navigate("/admin/dashboard");
     } catch (err) {
-      // console.log(err);
-      console.log(isBlocked, 'is blcoked')
+      console.log(err);
     }
   };
 
@@ -79,8 +78,8 @@ const Login = () => {
               <span
                 className={
                   isEmailFocus
-                    ? "absolute text-[12px] left-2 -top-2.5 text-light-gray-800 dark:text-dark-gray bg-[#ececec] dark:dark:bg-dark-blue-600 px-1 text-center pointer-events-none"
-                    : "absolute text-sm text-light-gray-800 dark:text-dark-gray left-2 top-1.5 text-center pointer-events-none"
+                    ? "absolute text-[12px] left-2 -top-2.5 text-light-gray-800 dark:text-dark-gray bg-[#ececec] dark:dark:bg-dark-blue-600 px-1 text-center pointer-events-none rounded-md"
+                    : "absolute text-sm text-light-gray-800 dark:text-dark-gray left-2 top-1.5 text-center pointer-events-none rounded-md"
                 }
               >
                 Email
@@ -101,8 +100,8 @@ const Login = () => {
               <span
                 className={
                   isPasswordFocus
-                    ? "absolute text-[12px] left-2 -top-2.5 text-light-gray-800 dark:text-dark-gray bg-[#ececec] dark:dark:bg-dark-blue-600 px-1 text-center pointer-events-none"
-                    : "absolute text-sm text-light-gray-800 dark:text-dark-gray left-2 top-1.5 text-center pointer-events-none"
+                    ? "absolute text-[12px] left-2 -top-2.5 text-light-gray-800 dark:text-dark-gray bg-[#ececec] dark:dark:bg-dark-blue-600 px-1 text-center pointer-events-none rounded-md"
+                    : "absolute text-sm text-light-gray-800 dark:text-dark-gray left-2 top-1.5 text-center pointer-events-none rounded-md"
                 }
               >
                 Password

@@ -5,14 +5,16 @@ import { FaAngleDown } from 'react-icons/fa6';
 import { IoMdSearch } from 'react-icons/io';
 import AdminsList from '../../components/admin/AdminsList';
 import AdminsForm from '../../components/admin/AdminsForm';
-import { useEffect } from 'react';
-// hello
+import { useSelector } from 'react-redux';
+
+
 
 const Admins = () => {
     const [isOpen, setIsOpen] = useState(false)
     const [statusSelected, setStatusSelected] = useState("All");
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [searchTerm, setSearchTerm] = useState("")
+    const { isRootAdmin, email } = useSelector((state) => state.auth)
 
 
     const options = ["All", "Active", "Deactive"];
@@ -65,7 +67,9 @@ const Admins = () => {
             </div>
 
             {/* add botton */}
-            <div className="mr-1">
+            {
+              isRootAdmin && 
+              <div className="mr-1">
                 <button 
                 className="cursor-pointer px-5 py-1.5 text-light-gray-950  bg-light-white border border-gray-300 hover:bg-light-gray-300 font-medium rounded-lg text-sm  dark:bg-dark-blue-600 dark:text-dark-white dark:border-dark-blue-400 dark:hover:bg-dark-blue-400"
                 onClick={() => setIsModalOpen(!isModalOpen)}
@@ -73,6 +77,8 @@ const Admins = () => {
                     Add
                 </button>
             </div>
+            }
+            
           </div>
           <label for="table-search" className="sr-only">
             Search
