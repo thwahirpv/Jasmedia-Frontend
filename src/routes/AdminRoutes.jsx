@@ -10,7 +10,6 @@ import Feedbak from "../pages/admin/Feedbak";
 import Protected from "./Protected";
 import Admins from "../pages/admin/Admins";
 import { Projector } from "lucide-react";
-import Movie from "@/pages/admin/Movie";
 
 const AdminRoutes = () => {
   return (
@@ -55,15 +54,7 @@ const AdminRoutes = () => {
           </Protected>
         }
       />
-
-      <Route 
-      path="/movies"
-        element={
-           <Protected>
-            <Movie />
-          </Protected>
-        }
-      />
+      
       <Route path="*" element={<NotFound role="admin" />} />
     </Routes>
   );
