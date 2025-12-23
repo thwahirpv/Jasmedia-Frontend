@@ -9,6 +9,8 @@ import Portfolio from "../pages/admin/Portfolio";
 import Feedbak from "../pages/admin/Feedbak";
 import Protected from "./Protected";
 import Admins from "../pages/admin/Admins";
+import { Projector } from "lucide-react";
+import Movie from "@/pages/admin/Movie";
 
 const AdminRoutes = () => {
   return (
@@ -50,6 +52,15 @@ const AdminRoutes = () => {
         element={
           <Protected>
             <Admins />
+          </Protected>
+        }
+      />
+
+      <Route 
+      path="/movies"
+        element={
+           <Protected>
+            <Movie />
           </Protected>
         }
       />
