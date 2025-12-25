@@ -10,6 +10,7 @@ import whatsappImg from "../../../assets/images/whatsapp.png";
 import facebookImg from "../../../assets/images/facebook.png";
 import linkedInImg from "../../../assets/images/linkedin.png";
 import { Particles } from "../../magicui/particles";
+import { Play, ArrowRight } from "lucide-react";
 
 const PortfolioList = () => {
   const [categories, setCategories] = useState([]);
@@ -88,34 +89,22 @@ const PortfolioList = () => {
   };
 
   return (
-    <div className="relative w-full min-h-screen bg-user-smokewhite flex justify-center py-32">
-      <Particles
-        className="absolute inset-0 z-0"
-        quantity={100}
-        ease={80}
-        color={"#1e3a32"}
-        refresh
-      />
-      <div className="space-y-20 h-fit">
-        <Particles
-          className="absolute inset-0 z-0"
-          quantity={500}
-          ease={80}
-          color={"#1e3a32"}
-          refresh
-        />
-        <div className="flex justify-center items-center gap-7 md:gap-10 flex-wrap">
+    <div className="relative w-full min-h-screen bg-white flex justify-center py-20 px-6">
+  
+      <div className="w-full max-w-7xl space-y-16">
+        
+        {/* Categories */}
+        <div className="flex justify-center items-center gap-4 flex-wrap">
           {categories.map((category, index) => (
             <motion.button
               key={index}
               onClick={() => onCategoryChange(category)}
-              data-aos="fade-up"
-              data-aos-delay={index * 100}
-              whileHover={{ scale: 1.08 }}
-              className={`px-5 py-1.5 md:py-2 md:px-6 text-sm font-montserrat font-medium cursor-pointer transition-all duration-300 ${
+              whileHover={{ y: -2 }}
+              whileTap={{ scale: 0.95 }}
+              className={`px-6 py-2 text-sm font-opensans font-bold rounded-full transition-all duration-300 border ${
                 currentCategory === category
-                  ? "bg-green text-white shadow-md scale-105 rounded-full"
-                  : "text-green border-b-2 border-green"
+                  ? "bg-agency-black text-white border-agency-black shadow-lg"
+                  : "bg-white text-gray-600 border-gray-200 hover:border-gray-400"
               }`}
             >
               {category}
@@ -123,17 +112,20 @@ const PortfolioList = () => {
           ))}
         </div>
 
-        <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 p-4 mx-auto">
-          <AnimatePresence>
+        {/* Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <AnimatePresence mode='popLayout'>
             {filteredPortfolios
               .slice(0, visibleCount)
               .map((portfolio, index) => (
                 <motion.div
                   key={portfolio._id}
                   layout
-                  data-aos="fade-up"
-                  data-aos-delay={index * 100}
-                  className="relative h-[18rem] w-full max-w-[18rem] md:h-[22rem] md:max-w-[22rem] lg:h-[24rem] lg:max-w-[24rem] mx-auto cursor-pointer rounded-xl overflow-hidden bg-white group transition-transform duration-300 transform hover:scale-[1.03] border hover:shadow-green-300"
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  transition={{ duration: 0.3 }}
+                  className="group relative aspect-[4/3] rounded-3xl overflow-hidden cursor-pointer shadow-sm hover:shadow-xl bg-white"
                   onClick={() => {
                     setSelectedMedia(portfolio);
                     setIsModalOpen(true);
@@ -143,177 +135,151 @@ const PortfolioList = () => {
                     <div className="relative w-full h-full">
                       <video
                         src={portfolio.secureUrl}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                         autoPlay
                         muted
                         loop
                         playsInline
                       />
-                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out">
-                        <IoPlay
-                          size={35}
-                          className="text-white text-3xl bg-black/70 p-2 rounded-full"
-                        />
+                       <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-300 flex items-center justify-center">
+                         <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transform scale-50 group-hover:scale-100 transition-all duration-300">
+                            <Play size={20} fill="currentColor" />
+                         </div>
                       </div>
                     </div>
                   ) : (
-                    <>
-                      <div className="relative w-full h-full transition-transform duration-500 ease-in-out group-hover:scale-110">
+                    <div className="w-full h-full relative">
                         <img
                           src={portfolio.secureUrl}
                           alt={portfolio.title}
-                          className="w-full h-full object-cover"
+                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                         />
-                        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out">
-                          <MdOutlineZoomOutMap
-                            size={35}
-                            className="text-white text-3xl bg-black/70 p-2 rounded-full"
-                          />
-                        </div>
-                      </div>
-                    </>
+                         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    </div>
                   )}
-                  <div className="absolute inset-0 bg-green/60 opacity-0 group-hover:opacity-60 transition-opacity duration-500 ease-in-out" />
-                  <div className="absolute bottom-[-50px] left-0 w-full text-center text-white opacity-0 group-hover:bottom-6 group-hover:opacity-100 transition-all duration-500 ease-in-out">
-                    <h3 className="text-lg font-semibold font-montserrat">
+                  
+                  {/* Overlay Info */}
+                   <div className="absolute bottom-0 left-0 w-full p-6 translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none">
+                    <h3 className="text-xl font-bold text-white mb-1 font-montserrat">
                       {portfolio.title}
                     </h3>
+                    <p className="text-sm text-gray-300 font-opensans">{portfolio?.category?.name}</p>
                   </div>
+                  
                 </motion.div>
               ))}
           </AnimatePresence>
         </div>
 
+        {visibleCount < filteredPortfolios.length && (
+          <div className="flex justify-center mt-10">
+            <button
+              onClick={handleLoadMore}
+              className="px-8 py-3 bg-white border border-gray-200 text-agency-black font-bold rounded-full hover:bg-agency-black hover:text-white transition-all shadow-sm hover:shadow-lg"
+            >
+              Load More Projects
+            </button>
+          </div>
+        )}
+
+        {/* Modal */}
         {isModalOpen && selectedMedia && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 w-full h-screen z-50 bg-green/90 flex items-center justify-center"
+            className="fixed inset-0 w-full h-screen z-50 bg-black/95 backdrop-blur-md flex items-center justify-center p-4"
+            onClick={() => setIsModalOpen(false)}
           >
-            <div className="relative w-full h-full flex items-center justify-center">
-              <motion.div
-                initial={{ scale: 0.9 }}
-                animate={{ scale: 1 }}
-                exit={{ scale: 0.9 }}
-                onClick={(e) => e.stopPropagation()}
-                className="max-w-5xl w-full h-screen rounded-lg overflow-hidden"
-              >
-                {/* Top Actions */}
-                <div className="absolute top-3 right-5 flex items-center justify-center gap-6 z-10">
-                  <button
-                    onClick={() => {
-                      const elem = document.getElementById("fullscreen-media");
-                      if (elem.requestFullscreen) elem.requestFullscreen();
-                    }}
-                    className="text-xl text-white hover:scale-110 transition cursor-pointer"
-                  >
-                    <FiMaximize2 />
-                  </button>
-
-                  <div className="relative" ref={shareRef}>
-                    <button
-                      onClick={() => setShowShareOptions((prev) => !prev)}
-                      className="text-xl text-white hover:scale-110 transition cursor-pointer"
+             <div 
+              className="relative w-full max-w-6xl h-full max-h-[90vh] flex flex-col items-center justify-center"
+              onClick={(e) => e.stopPropagation()}
+            >
+                {/* Actions Toolbar */}
+                <div className="absolute top-0 right-0 flex items-center gap-4 bg-black/50 backdrop-blur-md px-6 py-3 rounded-full border border-white/10 z-20">
+                     <button
+                      onClick={() => {
+                        const elem = document.getElementById("fullscreen-media");
+                        if (elem.requestFullscreen) elem.requestFullscreen();
+                      }}
+                       className="text-white/80 hover:text-white hover:scale-110 transition"
+                       title="Fullscreen"
                     >
-                      <FiShare2 />
+                      <FiMaximize2 size={20} />
                     </button>
-                    {showShareOptions && (
-                      <div className="absolute top-10 right-0 bg-white text-black rounded-md shadow-lg w-40 p-2 z-50 space-y-1">
+                    
+                     <div className="relative" ref={shareRef}>
                         <button
-                          onClick={() =>
-                            handleShareRedirect(
-                              "whatsapp",
-                              selectedMedia.secureUrl,
-                              selectedMedia.title
-                            )
-                          }
-                          className="w-full px-4 py-1 hover:bg-green-100 flex items-center justify-start gap-x-3 rounded-md"
+                          onClick={() => setShowShareOptions(!showShareOptions)}
+                          className="text-white/80 hover:text-white hover:scale-110 transition"
+                          title="Share"
                         >
-                          <img className="w-[20px]" src={whatsappImg} alt="" />
-                          <span>WhatsApp</span>
+                          <FiShare2 size={20} />
                         </button>
-                        <button
-                          onClick={() =>
-                            handleShareRedirect(
-                              "facebook",
-                              selectedMedia.secureUrl,
-                              selectedMedia.title
-                            )
-                          }
-                          className="w-full px-4 py-1 hover:bg-green-100 flex items-center justify-start gap-x-3 rounded-md"
-                        >
-                          <img className="w-[20px]" src={facebookImg} alt="" />
-                          <span>Facebook</span>
-                        </button>
-                        <button
-                          onClick={() =>
-                            handleShareRedirect(
-                              "linkedin",
-                              selectedMedia.secureUrl,
-                              selectedMedia.title
-                            )
-                          }
-                          className="w-full px-4 py-1 hover:bg-green-100 flex items-center justify-start gap-x-3 rounded-md"
-                        >
-                          <img className="w-[20px]" src={linkedInImg} alt="" />
-                          <span>LinkedIn</span>
-                        </button>
-                      </div>
-                    )}
-                  </div>
+                         {showShareOptions && (
+                          <div className="absolute top-10 right-0 bg-white text-black rounded-xl shadow-xl overflow-hidden w-40 z-50">
+                            {[
+                                { name: "WhatsApp", icon: whatsappImg, platform: "whatsapp" },
+                                { name: "Facebook", icon: facebookImg, platform: "facebook" },
+                                { name: "LinkedIn", icon: linkedInImg, platform: "linkedin" }
+                            ].map((item) => (
+                                <button
+                                  key={item.platform}
+                                  onClick={() => handleShareRedirect(item.platform, selectedMedia.secureUrl, selectedMedia.title)}
+                                  className="w-full px-4 py-3 hover:bg-gray-100 flex items-center gap-3 text-sm font-medium border-b border-gray-100 last:border-0"
+                                >
+                                  <img className="w-5" src={item.icon} alt={item.name} />
+                                  {item.name}
+                                </button>
+                            ))}
+                          </div>
+                        )}
+                     </div>
 
-                  <button
-                    onClick={() => handleDownload(selectedMedia.secureUrl)}
-                    className="text-xl text-white hover:scale-110 transition cursor-pointer"
-                  >
-                    <FiDownload />
-                  </button>
-                  <button
-                    onClick={() => {
-                      setIsModalOpen(false);
-                      setShowShareOptions(false);
-                    }}
-                    className="text-xl text-white font-bold ml-2 hover:scale-110 transition cursor-pointer"
-                  >
-                    ✕
-                  </button>
+                    <button
+                        onClick={() => handleDownload(selectedMedia.secureUrl)}
+                        className="text-white/80 hover:text-white hover:scale-110 transition"
+                        title="Download"
+                      >
+                        <FiDownload size={20} />
+                    </button>
+
+                     <button
+                      onClick={() => setIsModalOpen(false)}
+                      className="text-white hover:text-red-400 hover:scale-110 transition"
+                      title="Close"
+                    >
+                      ✕
+                    </button>
                 </div>
 
-                <div className="p-14 h-full">
-                  {selectedMedia.type === "Video" ? (
+                {/* Media Content */}
+                <div className="w-full h-full flex items-center justify-center rounded-2xl overflow-hidden bg-zinc-900 border border-white/10 shadow-2xl">
+                     {selectedMedia.type === "Video" ? (
                     <video
                       id="fullscreen-media"
                       src={selectedMedia.secureUrl}
                       controls
-                      className="w-full h-full object-contain rounded-lg"
+                      autoPlay
+                      className="w-full h-full object-contain"
                     />
                   ) : (
                     <img
                       id="fullscreen-media"
                       src={selectedMedia.secureUrl}
                       alt={selectedMedia.title}
-                      className="w-full h-full object-contain rounded-lg"
+                      className="w-full h-full object-contain"
                     />
                   )}
-                  <p className="text-center mt-4 font-semibold text-lg text-white">
-                    {selectedMedia.title}
-                  </p>
                 </div>
-              </motion.div>
+
+                {/* Title Caption */}
+                 <div className="mt-6 text-center">
+                    <h3 className="text-2xl font-bold text-white font-montserrat">{selectedMedia.title}</h3>
+                    <p className="text-white/60 font-opensans mt-1">{selectedMedia.category?.name}</p>
+                 </div>
             </div>
           </motion.div>
-        )}
-
-        {visibleCount < filteredPortfolios.length && (
-          <div className="flex justify-center mt-6">
-            <button
-              onClick={handleLoadMore}
-              className="px-6 py-2 bg-green text-white rounded-full font-montserrat hover:scale-105 transition-transform"
-            >
-              Load More
-            </button>
-          </div>
         )}
       </div>
     </div>

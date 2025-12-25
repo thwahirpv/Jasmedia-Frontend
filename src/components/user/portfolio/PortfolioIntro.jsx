@@ -1,22 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import { TextAnimate } from "@/components/magicui/text-animate";
-import FloatingDot from '../common/FloatingDot';
 import { motion } from 'motion/react'
-import megaphone from '../../../assets/images/megaphone.png'
-import { RiVipDiamondFill } from "react-icons/ri";
 import CountUp from 'react-countup';
-import { Marquee } from "@/components/magicui/marquee";
 import { useDispatch } from 'react-redux';
 import { getAllPortfolioThunk } from '@/features/portfolio/getFullPortfolio';
-
-
-
+import { Particles } from "@/components/magicui/particles";
+import { ChevronDown } from 'lucide-react';
 
 const PortfolioIntro = () => {
   const [portfolios, setPortfolios] = useState([])
   const dispatch = useDispatch()
-
-
 
   const getAllPortfolio = async () => {
     try {
@@ -27,104 +19,79 @@ const PortfolioIntro = () => {
     }
   }
 
-
   useEffect(() => {
     getAllPortfolio()
   }, [])
     
   return (
-    <div className="relative w-full h-screen bg-green flex flex-col justify-center">
-      <div className="space-y-[30px] transition-all flex flex-col items-center">
-        <div className="px-4">
-          <p className="text-user-pale text-[11px] flex items-center justify-center text-center mb-2">
-            <span className="mr-2">
-              <RiVipDiamondFill />
-            </span>
-            THE PORTFOLIO
-          </p>
-          <TextAnimate
-            duration={0.4}
-            animation="fadeIn"
-            by="line"
-            as="h1"
-            className="text-xl md:text-4xl font-bold font-russo text-center text-white leading-relaxed max-w-2xl mx-auto"
-          >
-            Explore Our Projects
-          </TextAnimate>
-        </div>
-
-        <div className="flex gap-3 items-center rounded-full border p-1 pr-4                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      ">
-          <div className="flex items-center bg-user-pale text-green rounded-full p-2 lg:p-3">
-            <CountUp
-              start={0}
-              end={100}
-              className="font-montserrat text-xl lg:text-3xl font-bold"
-            />
-            <p className="font-montserrat text-3xl font-bold">+</p>
-          </div>
-          <p className="text-user-white font-[500] font-montserrat text-[16px] lg:text-xl">
-            Projects Done
-          </p>
-        </div>
+    <div className="relative w-full min-h-[70vh] flex flex-col justify-center items-center bg-white overflow-hidden pt-20">
+      
+      <div className="absolute inset-0 z-0">
+          <Particles
+            className="absolute inset-0"
+            quantity={80}
+            staticity={50}
+            color="#0a0a0a" 
+            ease={50}
+          />
       </div>
 
-      {/* Carousel */}
-      {/* <div className="w-full space-y-6 flex flex-col justify-center items-center overflow-hidden lg:bg-transparent">
-        <Marquee pauseOnHover className="[--duration:20s]">
-          {portfolios.map((portfolio, index) => (
-            <div
-              key={index}
-              className="h-[150px] w-[200px] mx-3 flex justify-center items-center"
-            >
-              <img
-                src={portfolio.secureUrl}
-                alt=""
-                className="h-full w-full object-cover rounded-md"
-              />
-            </div>
-          ))}
-        </Marquee>
-        <Marquee reverse pauseOnHover className="[--duration:20s]">
-          {portfolios.map((portfolio, index) => (
-            <div
-              key={index}
-              className="h-[150px] w-[200px] mx-3 flex justify-center items-center"
-            >
-              <img
-                src={portfolio.secureUrl}
-                alt=""
-                className="h-full w-full object-cover rounded-md"
-              />
-            </div>
-          ))}
-        </Marquee>
-      </div> */}
+      <div className="relative z-10 container mx-auto px-4 flex flex-col items-center text-center space-y-10">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green/10 text-green text-xs md:text-sm font-bold uppercase tracking-wider"
+        >
+          Our Portfolio
+        </motion.div>
 
-      <motion.img
-        className="absolute top-[9%] md:top-[6%] lg:top-[11%] left-[12%] md:left-[10%] lg:left-[14%] w-auto h-[50px] rotate-[35deg]"
-        src={megaphone}
-        alt=""
-        animate={{
-          scale: [1, 1.1, 1],
-          rotate: [0, -2, 2, 0],
-        }}
-        transition={{
-          duration: 1,
-          ease: "easeInOut",
-          repeat: Infinity,
-        }}
-      />
+        <motion.h1 
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="text-4xl md:text-6xl font-russo text-agency-black leading-tight tracking-tight"
+        >
+          Selected <span className="text-transparent bg-clip-text bg-gradient-to-r from-green to-emerald-600">Works.</span>
+        </motion.h1>
 
-      <FloatingDot
-        position="top-[15%] right-[12%] translate-x-[50%] translate-y-[-50%]"
-        color="bg-user-pale"
-        size="p-1.5"
-      />
-      <FloatingDot
-        position="bottom-[30%] left-[10%] translate-x-[-20%] translate-y-[30%]"
-        color="bg-[#d99868]"
-        size="p-1"
-      />
+         <motion.p 
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="max-w-2xl text-base md:text-lg text-gray-600 font-opensans leading-relaxed"
+        >
+           A showcase of our finest digital experiences, from branding to web development.
+        </motion.p>
+
+        {/* Stats */}
+        <motion.div 
+           initial={{ opacity: 0, scale: 0.9 }}
+           animate={{ opacity: 1, scale: 1 }}
+           transition={{ duration: 0.8, delay: 0.6 }}
+           className="flex items-center gap-4 px-8 py-4 bg-gray-50 rounded-2xl border border-gray-100 shadow-sm mt-8"
+        >
+          <div className="text-4xl font-bold font-russo text-green">
+            <CountUp end={100} duration={3} />+
+          </div>
+          <div className="text-left">
+            <p className="text-sm font-bold text-gray-900 uppercase tracking-wide">Projects</p>
+            <p className="text-xs text-gray-500">Successfully Delivered</p>
+          </div>
+        </motion.div>
+      </div>
+
+       {/* Scroll Indicator */}
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1, y: [0, 10, 0] }}
+        transition={{ duration: 2, delay: 1, repeat: Infinity }}
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 text-gray-400 flex flex-col items-center gap-2"
+      >
+        <span className="text-xs uppercase tracking-widest">Scroll</span>
+        <ChevronDown size={20} />
+      </motion.div>
+
     </div>
   );
 }

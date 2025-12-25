@@ -8,87 +8,90 @@ import { TbLogout2 } from "react-icons/tb";
 import { logOut } from "../../features/auth/authSlice";
 import store from "../../store/store";
 import { persistStore } from "redux-persist";
+import { Link } from "react-router-dom";
 
 
 const SideBar = ({ children }) => {
   const { isOpen, setIsOpen } = useContext(SideBarContext);
-  const { username, email, isAuthenticated } = useSelector((state) => state.auth)
+  const { username, email } = useSelector((state) => state.auth)
   const dispatch = useDispatch()
 
   const handleLogOut = () => {
     dispatch(logOut())
     persistStore(store).purge()
     localStorage.clear()
-    cookieStore.delete()
+    // cookieStore.delete() // Commented out as it might not be available or needed
   }
+
   return (
     <>
       {isOpen == false && (
         <div className="absolute md:hidden top-6 left-6 z-50">
           <button
-            className="cursor-pointer bg-light-white text-light-gray-950 dark:bg-dark-blue-400 dark:text-dark-white p-1.5 rounded-md"
+            className="cursor-pointer bg-agency-black text-white p-2 rounded-full shadow-lg"
             onClick={() => setIsOpen(!isOpen)}
           >
-            <BsTextIndentLeft size={25} />
+            <BsTextIndentLeft size={20} />
           </button>
         </div>
       )}
       <div
-        className={`flex-col justify-between h-screen ${
-          isOpen ? "w-[100%] md:w-[300px] flex" : "hidden md:flex"
-        } bg-light-white dark:bg-dark-blue-600 px-[20px] pt-5 border-r-2 border-r-light-gray-300 dark:border-r-dark-blue-400 shadow-md shadow-light-gray-300 dark:shadow-dark-blue-400`}
+        className={`flex-col justify-between h-screen transition-all duration-300 ${
+          isOpen ? "w-[100%] md:w-[280px] flex" : "hidden md:flex w-[80px]"
+        } bg-agency-black px-4 pt-8 border-r border-gray-800`}
       >
-        <div className="flex flex-col space-y-[70px] md:space-y-16">
-          <div className="flex items-center justify-between">
-            <img
-              className={`overflow-hidden transition-all ${
-                isOpen ? "w-[45px] rounded-full" : "w-0 "
-              }`}
-              src={default_logo}
-              alt=""
-            />
+        <div className="flex flex-col space-y-12">
+          {/* Header / Logo */}
+          <div className="flex items-center justify-between px-2">
+            <div className={`overflow-hidden transition-all duration-300 ${
+                isOpen ? "opacity-100" : "opacity-0 w-0"
+              }`}>
+               <Link to="/admin/dashboard" className="cursor-pointer">
+                 <h1 className="text-xl font-russo text-white tracking-widest">JASMEDIA</h1>
+               </Link>
+            </div>
+            
             <button
-              className="cursor-pointer bg-light-gray-300 dark:bg-dark-blue-400 dark:text-dark-white p-1.5 rounded-md"
+              className="cursor-pointer text-gray-400 hover:text-white transition-colors"
               onClick={() => setIsOpen(!isOpen)}
             >
               {isOpen ? (
-                <BsTextIndentRight size={25} />
+                <BsTextIndentRight size={24} />
               ) : (
-                <BsTextIndentLeft size={25} />
+                <BsTextIndentLeft size={24} />
               )}
             </button>
           </div>
 
-          <ul className="pb-4 border-b-2 border-b-light-gray-300 dark:border-b-dark-blue-400 space-y-1">{children}</ul>
+          {/* Navigation */}
+          <ul className="space-y-2">{children}</ul>
 
+          {/* Logout */}
           <div>
-            <button className={`transition-all bg-red-500 hover:bg-red-600  text-light-gray-950 text-sm font-medium rounded-md cursor-pointer
-              ${isOpen ? 'py-4 md:py-2.5 px-2.5 w-full' : 'py-4 md:py-2.5 px-2.5' }`}
+            <button className={`transition-all flex items-center gap-3 text-red-500 hover:text-red-400 hover:bg-red-500/10 rounded-xl cursor-pointer font-bold font-montserrat
+              ${isOpen ? 'py-3 px-4 w-full' : 'py-3 px-2 justify-center' }`}
               onClick={handleLogOut}
               >
-              {
-                isOpen ? 
-                'Logout' 
-                :
-                <TbLogout2 size={18} />
-              }
+              <TbLogout2 size={24} />
+              <span className={`transition-all duration-300 ${isOpen ? "opacity-100" : "hidden opacity-0"}`}>Logout</span>
             </button>
           </div>
         </div>
 
+        {/* User Profile */}
         <div
-          className={`flex items-center leading-4 py-3 border-t-2 border-t-light-gray-300 dark:border-dark-blue-400`}
+          className={`flex items-center py-6 border-t border-gray-800 ${isOpen ? "justify-start px-2" : "justify-center"}`}
         >
-          <img className="w-[40px]" src={default_admin} alt="" />
+          <img className="w-10 h-10 rounded-full object-cover border-2 border-green/50" src={default_admin} alt="" />
           <div
-            className={`overflow-hidden transition-all ${
-              isOpen ? "md:w-[200px] ml-3" : "w-0"
+            className={`overflow-hidden transition-all duration-300 ${
+              isOpen ? "ml-4 w-auto opacity-100" : "w-0 opacity-0"
             }`}
           >
-            <h1 className="font-semibold text-light-gray-950 dark:text-dark-white">
+            <h1 className="font-bold text-white font-montserrat text-sm truncate">
               {username}
             </h1>
-            <p className="text-xs text-light-gray-800 dark:text-dark-gray">
+            <p className="text-xs text-gray-500 font-opensans truncate max-w-[150px]">
               {email}
             </p>
           </div>

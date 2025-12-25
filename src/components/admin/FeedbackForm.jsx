@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import ReactDOM from "react-dom";
 import { IoCloseSharp } from 'react-icons/io5';
 import { isEmpty, isNotString, isNotValidString } from '../../utils/validations';
 import { useSelector, useDispatch } from 'react-redux';
@@ -160,8 +161,9 @@ const FeedbackForm = ({isModalOpen, setIsModalOpen, role, data={}, setUpdateData
                 allowOutsideClick: true,
                 allowEscapeKey: true,
                 showConfirmButton: true,
-                background: theme == 'dark' ? '#2f3946' : '#ecececf5',
-                color: theme == 'dark' ? "#ebf1f8" : '#030712'
+                background: '#1a1a1a',
+                color: '#ffffff',
+                confirmButtonColor: '#ffffff'
             }).then((res) => {
                 setName('')
                 setFeedback('')
@@ -184,8 +186,9 @@ const FeedbackForm = ({isModalOpen, setIsModalOpen, role, data={}, setUpdateData
             showCancelButton: true,
             confirmButtonText: 'Try again',
             cancelButtonText: 'Cancel',
-            background: theme == 'dark' ? '#2f3946' : '#ecececf5',
-            color: theme == 'dark' ? "#ebf1f8" : '#030712'
+            background: '#1a1a1a',
+            color: '#ffffff',
+            confirmButtonColor: '#ffffff'
           }).then((res) => {
               if(res.isConfirmed) {
                 createFeedback(feedBackFormData)
@@ -209,8 +212,9 @@ const FeedbackForm = ({isModalOpen, setIsModalOpen, role, data={}, setUpdateData
             allowOutsideClick: true,
             allowEscapeKey: true,
             showConfirmButton: true,
-            background: theme == 'dark' ? '#2f3946' : '#ecececf5',
-            color: theme == 'dark' ? "#ebf1f8" : '#030712'
+            background: '#1a1a1a',
+            color: '#ffffff',
+            confirmButtonColor: '#ffffff'
           }).then((res) => {
               setName('')
               setFeedback('')
@@ -234,8 +238,9 @@ const FeedbackForm = ({isModalOpen, setIsModalOpen, role, data={}, setUpdateData
             showCancelButton: true,
             confirmButtonText: 'Try again',
             cancelButtonText: 'Cancel',
-            background: theme == 'dark' ? '#2f3946' : '#ecececf5',
-            color: theme == 'dark' ? "#ebf1f8" : '#030712'
+            background: '#1a1a1a',
+            color: '#ffffff',
+            confirmButtonColor: '#ffffff'
           }).then((res) => {
               if(res.isConfirmed) {
                 updateFeedback(data)
@@ -260,23 +265,21 @@ const FeedbackForm = ({isModalOpen, setIsModalOpen, role, data={}, setUpdateData
         }
     }, [data, role])
 
-  return (
+  if (typeof document === 'undefined') return null;
+
+  return ReactDOM.createPortal(
     <div
-      className={`absolute left-0 right-0 opacity-0 h-screen bg-light-gray-50 dark:bg-dark-blue-100 flex justify-center transition-all overflow-hidden
-    ${
-      isModalOpen
-        ? "bottom-0 items-center opacity-100 visible"
-        : "invisible bottom-full"
-    }`}
+      className={`fixed inset-0 z-50 bg-agency-black/90 backdrop-blur-sm flex justify-center items-center transition-all duration-300
+      ${isModalOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"}`}
     >
-      <div className="relative w-[300px] h-fit bg-light-gray-300 dark:bg-dark-blue-900 rounded-md py-6 px-7 flex flex-col items-center space-y-6">
-        <span className="absolute cursor-pointer top-2 right-2 text-light-gray-950 dark:text-dark-white">
+      <div className="relative w-[90%] max-w-md bg-[#1a1a1a] border border-white/10 rounded-2xl p-8 flex flex-col items-center space-y-6 shadow-2xl">
+        <span className="absolute top-4 right-4 text-gray-400 hover:text-white cursor-pointer transition-colors p-2 hover:bg-white/5 rounded-full">
           <IoCloseSharp
-            size={20}
+            size={24}
             onClick={() => setIsModalOpen(!isModalOpen)}
           />
         </span>
-        <h1 className="font-medium text-light-gray-950 dark:text-dark-white">
+        <h1 className="text-2xl font-bold font-russo text-white tracking-wide">
           {
             role == 'create' ? "Add Feedback" : "Edit Feedback"
           }
@@ -284,72 +287,77 @@ const FeedbackForm = ({isModalOpen, setIsModalOpen, role, data={}, setUpdateData
         <div className='w-full'>
           <form
             action=""
-            className="flex flex-col space-y-3"
+            className="flex flex-col space-y-5 w-full"
             onSubmit={handleSubmit}
           >
-            <div className="flex flex-col space-y-0.5">
+            <div className="space-y-1">
               {
-                nameError ? <p className="text-[11px] text-error">{nameError}</p> 
+                nameError ? <p className="text-red-500 text-xs pl-1">{nameError}</p> 
                 :
-                <label className="ml-1 text-[11px] text-light-gray-950 dark:text-dark-white" htmlFor="category_name">Name</label>
+                null
               }
               <input
-                id="category_name"
-                className="bg-light-white dark:bg-dark-blue-600 text-light-gray-950 dark:text-dark-white border border-gray-300 dark:border-dark-blue-400 rounded-md outline-0 focus:border-2 pl-2 py-1"
+                id="name"
+                className="w-full bg-agency-black/50 text-white placeholder-gray-500 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-white/50 focus:ring-1 focus:ring-white/50 transition-all"
                 type="text"
+                placeholder="Client Name"
                 value={name}
                 onChange={onNameChnage}
               />
               </div>
-            <div className="flex flex-col space-y-0.5">
+            
+            <div className="space-y-1">
               {
-                feedbackError ? <p className="text-[11px] text-error">{feedbackError}</p> 
+                roleError ? <p className="text-red-500 text-xs pl-1">{roleError}</p> 
                 :
-                <label className="ml-1 text-[11px] text-light-gray-950 dark:text-dark-white" htmlFor="category_name">Feedback</label>
-              }
-              <textarea
-                id="category_name"
-                className="bg-light-white dark:bg-dark-blue-600 text-light-gray-950 dark:text-dark-white border border-gray-300 dark:border-dark-blue-400 rounded-md outline-0 focus:border-2 pl-2 py-1"
-                placeholder="Feedback"
-                type="text"
-                value={feedback}
-                onChange={onFeedbackChange}
-              />
-              </div>
-            <div className="flex flex-col space-y-0.5">
-              {
-                roleError ? <p className="text-[11px] text-error">{roleError}</p> 
-                :
-                <label className="ml-1 text-[11px] text-light-gray-950 dark:text-dark-white" htmlFor="category_name">Role</label>
+                null
               }
               <input
-                id="category_name"
-                className="bg-light-white dark:bg-dark-blue-600 text-light-gray-950 dark:text-dark-white border border-gray-300 dark:border-dark-blue-400 rounded-md outline-0 focus:border-2 pl-2 py-1"
-                placeholder="Role"
+                id="role"
+                className="w-full bg-agency-black/50 text-white placeholder-gray-500 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-white/50 focus:ring-1 focus:ring-white/50 transition-all"
+                placeholder="Role / Designation"
                 type="text"
                 value={roleData}
                 onChange={onRoleChange}
               />
               </div>
+
+            <div className="space-y-1">
+              {
+                feedbackError ? <p className="text-red-500 text-xs pl-1">{feedbackError}</p> 
+                :
+                null
+              }
+              <textarea
+                id="feedback"
+                className="w-full bg-agency-black/50 text-white placeholder-gray-500 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-white/50 focus:ring-1 focus:ring-white/50 transition-all min-h-[100px] resize-none"
+                placeholder="Feedback Message"
+                type="text"
+                value={feedback}
+                onChange={onFeedbackChange}
+              />
+              </div>
+
             <button
-              className="cursor-pointer text-sm text-light-gray-300 dark:text-dark-blue-900 font-medium py-1.5 rounded-md px-2 bg-light-gray-950 dark:bg-dark-gray"
+               className="w-full bg-white hover:bg-gray-200 text-agency-black font-bold py-3.5 rounded-xl shadow-lg transition-all transform active:scale-95 cursor-pointer"
               type="submit"
             >
               {(isCreatePortfolioLoaing || isUpdateFeedbackLoading) ? (
                 <ScaleLoader
-                  color="#030712"
+                  color="#000000"
                   loading={isCreatePortfolioLoaing || isUpdateFeedbackLoading}
-                  height={10}
+                  height={15}
                   width={4}
                 />
               ) : (
-                role == 'create' ? "Add" : "Edit"
+                role == 'create' ? "Add Feedback" : "Save Changes"
               )}
             </button>
           </form>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   )
 }
 

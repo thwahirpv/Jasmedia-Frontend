@@ -17,7 +17,6 @@ const About = () => {
         <TeamSetupSteps />
         <TeamMembers />
         <GetStartedNow />
-        <Footer />
     </div>
   )
 }

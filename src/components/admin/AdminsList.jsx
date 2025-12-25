@@ -133,33 +133,33 @@ const AdminsList = ({isModalOpen, statusSelected, searchTerm}) => {
     }, [isModalOpen, statusSelected, debouncedSearchTerm])
     
   return (
-    <div className="w-full h-[80%] overflow-auto scroll-smooth scrollbar-thin scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-thumb-light-gray-800 scrollbar-track-light-gray-300 dark:scrollbar-thumb-dark-blue-900 dark:scrollbar-track-dark-blue-300">
-      <table className="relative w-full text-sm text-left rtl:text-right text-light-gray-950 dark:text-dark-white">
-        <thead className="sticky top-0 text-xs text-light-gray-950 uppercase bg-light-gray-300 dark:bg-dark-blue-600 dark:text-dark-gray ">
+    <div className="w-full h-[80%] overflow-auto scroll-smooth scrollbar-thin scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-thumb-gray-800 scrollbar-track-gray-900">
+      <table className="relative w-full text-sm text-left text-gray-300">
+        <thead className="sticky top-0 text-xs text-white uppercase bg-white/10">
           <tr>
-            <th scope="col" className="px-6 py-3">
+            <th scope="col" className="px-6 py-4 rounded-tl-lg">
               Name
             </th>
-            <th scope="col" className="px-6 py-3">
-              email
+            <th scope="col" className="px-6 py-4">
+              Email
             </th>
-            <th scope="col" className="px-6 py-3">
+            <th scope="col" className="px-6 py-4">
               Status
             </th>
             {
               isRootAdmin && 
-              <th scope="col" className="px-6 py-3">
+              <th scope="col" className="px-6 py-4 rounded-tr-lg">
                 Action
               </th>
             }
           </tr>
         </thead>
-        <tbody className="relative">
+        <tbody className="divide-y divide-white/5">
           {isListAdminLoading && (
             <span className="absolute left-[45%] top-[60px]">
               <PuffLoader
-                color=""
-                className="dark:text-dark-white text-light-gray-800"
+                color="#22c55e"
+                className="text-green"
                 loading={isListAdminLoading}
                 height={10}
                 width={4}
@@ -167,7 +167,7 @@ const AdminsList = ({isModalOpen, statusSelected, searchTerm}) => {
             </span>
           )}
           {listAdminError && (
-            <p className="text-error text-sm absolute left-[45%] top-[60px]">
+            <p className="text-red-500 text-sm absolute left-[45%] top-[60px]">
               {typeof listAdminError === "string" ? listAdminError : JSON.stringify(listAdminError)}
             </p>
           )}
@@ -176,51 +176,50 @@ const AdminsList = ({isModalOpen, statusSelected, searchTerm}) => {
             admins.map((admin, index) => (
               <tr
                 key={admin._id}
-                className="odd:bg-light-white odd:dark:bg-dark-blue-900 even:bg-light-gray-100 even:dark:bg-dark-blue-400 border-b dark:border-dark-blue-300 border-light-gray-100"
+                className="hover:bg-white/5 transition-colors border-b border-white/5"
               >
-                <th
+                <td
                   scope="row"
-                  className="px-6 py-4 font-medium text-light-gray-950 whitespace-nowrap dark:text-dark-white"
+                  className="px-6 py-4 font-semibold text-white whitespace-nowrap"
                 >
                   {admin.name}
-                </th>
-                <td className="px-6 py-4">
+                </td>
+                <td className="px-6 py-4 font-medium text-gray-300">
                   {admin.emailAddress} 
                   {
                     admin.emailAddress == email && (
-                      <span className='bg-green-500 px-2 py-0.5 rounded-md text-[11px] font-semibold text-user-smokewhite ml-1.5'>
+                      <span className='bg-green-500 px-2 py-0.5 rounded-md text-[10px] uppercase font-bold text-white ml-2 tracking-wide'>
                         You
                       </span>
                     )
                   }
                 </td>
                 <td className="px-6 py-4">
-                  {admin.isBlocked ? (
+                  {!admin.isBlocked ? (
                     <div className="flex items-center">
-                      <div className="h-2.5 w-2.5 rounded-full bg-red-500 me-2"></div>
-                      Inactive
+                      <div className="h-2.5 w-2.5 rounded-full bg-green-500 me-2 shadow-[0_0_10px_rgba(34,197,94,0.5)]"></div>
+                      <span className="text-green-500 font-medium">Active</span>
                     </div>
                   ) : (
                     <div className="flex items-center">
-                      <div className="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div>
-                      Active
+                      <div className="h-2.5 w-2.5 rounded-full bg-red-500 me-2"></div>
+                      <span className="text-red-500 font-medium">Blocked</span>
                     </div>
                   )}
                 </td>
                 {
                   isRootAdmin && admin.emailAddress !== email &&
                   (
-                    <td className="flex px-6 py-4 space-x-4"> 
+                    <td className="flex px-6 py-4 space-x-3"> 
                         <p
-                          href="#"
-                          className={`cursor-pointer font-medium ${
-                            admin.isBlocked ? "text-green-500" : "text-red-500"
+                          className={`cursor-pointer font-medium transition-colors ${
+                            admin.isBlocked ? "text-green-500 hover:text-green-400" : "text-red-500 hover:text-red-400"
                           }`}
                           onClick={() => onToggleAdmin(admin._id)}
                         >
                           {admin.isBlocked ? "Unblock" : "Block"}
                         </p>
-                        <button className="cursor-pointer text-red-500"
+                        <button className="cursor-pointer text-red-500/80 hover:text-red-500 transition-colors"
                           onClick={() => onDeleteAdmin(admin._id, admin.emailAddress)}
                         >
                           <MdDelete size={18} />
@@ -231,8 +230,8 @@ const AdminsList = ({isModalOpen, statusSelected, searchTerm}) => {
               </tr>
             )) 
             :
-            <div className="absolute w-fit top-[70px] left-[47%] bg-light-gray-400 dark:bg-dark-blue-300 p-3.5 rounded-full">
-              <img className="w-[40px] md:w-[50px]" src={noDataPng} alt="" />
+            <div className="absolute w-full flex justify-center mt-10 opacity-50">
+               <img className="w-[80px] grayscale invert" src={noDataPng} alt="No data" />
             </div>
           }
         </tbody>

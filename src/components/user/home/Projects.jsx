@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { latestPortfolioThunk } from '@/features/portfolio/latestPortfolio';
 import { motion } from "motion/react";
-import { Particles } from '../../magicui/particles';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { ArrowRight, Play } from 'lucide-react';
 
 const Projects = () => {
   const [latestPortfolio, setLatestPortfolio] = useState([]);
@@ -23,72 +23,86 @@ const Projects = () => {
   }, []);
 
   return (
-    <section className="relative w-full flex flex-col justify-center items-center bg-[#f3f6f4] px-6 py-24 gap-y-24">
-      <Particles
-        className="absolute inset-0 z-0"
-        quantity={300}
-        ease={80}
-        color={"#1e3a32"}
-        refresh
-      />
+    <section className="relative w-full py-24 bg-white flex flex-col justify-center items-center gap-y-16 px-6">
+      
       {/* Title */}
-      <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        viewport={{ once: true, amount: 0.2 }}
-      >
-        <h2 className="text-4xl font-bold text-gray-900 px-6 py-2 rounded-xl font-russo text-center">
-          Our Projects
-        </h2>
-      </motion.div>
+      <div className="w-full flex flex-col items-center text-center gap-4">
+        <motion.div
+           initial={{ opacity: 0, y: 20 }}
+           whileInView={{ opacity: 1, y: 0 }}
+           viewport={{ once: true }}
+           className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green/10 text-green text-xs font-bold uppercase tracking-wider"
+        >
+          Featured Work
+        </motion.div>
+        <motion.h2 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-3xl md:text-4xl font-bold font-russo text-agency-black"
+        >
+          Selected Projects
+        </motion.h2>
+      </div>
 
       {/* Portfolio Cards */}
-      <div className="w-full flex flex-col gap-y-14 justify-center items-center">
-        <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 p-4 mx-auto">
+      <div className="w-full max-w-7xl">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {latestPortfolio.map((portfolio, index) => (
             <motion.div
               key={portfolio._id}
-              data-aos="fade-up"
-              data-aos-delay={index * 100}
-              className="relative h-[18rem] w-full max-w-[18rem] md:h-[22rem] md:max-w-[22rem] lg:h-[24rem] lg:max-w-[24rem] mx-auto cursor-pointer rounded-xl overflow-hidden bg-white group transition-transform duration-300 transform hover:scale-[1.03] border hover:shadow-green-300"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.1 }}
+              viewport={{ once: true }}
+              className="group relative aspect-[4/3] rounded-3xl overflow-hidden cursor-pointer shadow-sm hover:shadow-xl transition-all duration-500"
             >
               {portfolio.type === "Video" ? (
-                <video
-                  src={portfolio.secureUrl}
-                  className="w-full h-full object-cover"
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                />
+                <div className="relative w-full h-full">
+                   <video
+                    src={portfolio.secureUrl}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                  />
+                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-300 flex items-center justify-center">
+                     <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transform scale-50 group-hover:scale-100 transition-all duration-300">
+                        <Play size={20} fill="currentColor" />
+                     </div>
+                  </div>
+                </div>
               ) : (
-                <>
-                  <div className="w-full h-full transition-transform duration-500 ease-in-out group-hover:scale-110">
-                    <img
-                      src={portfolio.secureUrl}
-                      alt={portfolio.title}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <div className="absolute inset-0 bg-green bg-opacity-60 opacity-0 group-hover:opacity-60 transition-opacity duration-500 ease-in-out" />
-                  <div className="absolute bottom-[-50px] left-0 w-full text-center text-white opacity-0 group-hover:bottom-6 group-hover:opacity-100 transition-all duration-500 ease-in-out">
-                    <h3 className="text-lg font-semibold font-montserrat">
-                      {portfolio.title}
-                    </h3>
-                  </div>
-                </>
+                <div className="w-full h-full">
+                  <img
+                    src={portfolio.secureUrl}
+                    alt={portfolio.title}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                  {/* Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </div>
               )}
+              
+              {/* Content Overlay */}
+              <div className="absolute bottom-0 left-0 w-full p-6 translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                <h3 className="text-xl font-bold text-white mb-1 font-montserrat">
+                  {portfolio.title}
+                </h3>
+                <p className="text-sm text-gray-300 font-opensans line-clamp-1">{portfolio.description || "Digital Marketing Campaign"}</p>
+              </div>
             </motion.div>
           ))}
         </div>
 
         {/* See More Button */}
-        <button className="w-fit mt-6 px-7 py-2 flex items-center font-montserrat cursor-pointer justify-center gap-2 bg-green text-user-gray-50 rounded-full text-sm font-medium transition-all duration-300 shadow-md">
-          <NavLink to="/portfolio">
-            See More
-          </NavLink>
-        </button>
+        <div className="w-full flex justify-center mt-16">
+          <Link to="/portfolio" className="group flex items-center gap-2 px-5 py-2 bg-white text-agency-black border border-gray-200 rounded-full font-bold text-sm hover:bg-agency-black hover:text-white transition-all duration-300 shadow-sm">
+             View All Projects
+             <ArrowRight className="group-hover:translate-x-1 transition-transform" size={16} />
+           </Link>
+        </div>
       </div>
     </section>
   );

@@ -10,6 +10,8 @@ import useTheme from "../../hook/useTheme";
 
 const categorySwal = withReactContent(Swal)
 
+import ReactDOM from "react-dom";
+
 const CategoryForm = ({ setIsModalOpen, isModalOpen, role, data={}, setUpdateCategoryData}) => {
   const [categoryName, setCategoryName] = useState("");
   const dispatch = useDispatch();
@@ -36,8 +38,9 @@ const CategoryForm = ({ setIsModalOpen, isModalOpen, role, data={}, setUpdateCat
           allowEscapeKey: false,
           showConfirmButton: true,
           confirmButtonText: 'Ok',
-          background: theme == 'dark' ? '#2f3946' : '#ecececf5',
-          color: theme == 'dark' ? "#ebf1f8" : '#030712',
+          background: '#1a1a1a',
+          color: '#ffffff',
+          confirmButtonColor: '#ffffff',
         })
       } catch (error) {
         setIsModalOpen(false)
@@ -50,8 +53,9 @@ const CategoryForm = ({ setIsModalOpen, isModalOpen, role, data={}, setUpdateCat
           allowEscapeKey: false,
           showConfirmButton: true,
           confirmButtonText: 'Try one more',
-          background: theme == 'dark' ? '#2f3946' : '#ecececf5',
-          color: theme == 'dark' ? "#ebf1f8" : '#030712',
+          background: '#1a1a1a',
+          color: '#ffffff',
+          confirmButtonColor: '#ffffff',
         })
       }
     } else {
@@ -68,23 +72,25 @@ const CategoryForm = ({ setIsModalOpen, isModalOpen, role, data={}, setUpdateCat
           allowEscapeKey: true,
           showConfirmButton: true,
           confirmButtonText: 'Ok',
-          background: theme == 'dark' ? '#2f3946' : '#ecececf5',
-          color: theme == 'dark' ? "#ebf1f8" : '#030712',
+          background: '#1a1a1a',
+          color: '#ffffff',
+          confirmButtonColor: '#ffffff',
         })
       } catch (error) {
         setIsModalOpen(false)
         setUpdateCategoryData({})
         setCategoryName('')
         categorySwal.fire({
-          title: 'Update failded!',
+          title: 'Update failed!',
           icon: 'error',
           text: updateError,
           allowOutsideClick: true,
           allowEscapeKey: true,
           showConfirmButton: true,
           confirmButtonText: 'Try one more',
-          background: theme == 'dark' ? '#2f3946' : '#ecececf5',
-          color: theme == 'dark' ? "#ebf1f8" : '#030712',
+          background: '#1a1a1a',
+          color: '#ffffff',
+          confirmButtonColor: '#ffffff',
         })
       }
     }
@@ -92,72 +98,70 @@ const CategoryForm = ({ setIsModalOpen, isModalOpen, role, data={}, setUpdateCat
 
   useEffect(() => {
     if(data && data.name){
-      console.log(data.name)
       setCategoryName(data.name)
     }
   }, [data])
   
-  return (
+  if (typeof document === 'undefined') return null;
+
+  return ReactDOM.createPortal(
     <div
-      className={`absolute left-0 right-0 opacity-0 h-screen bg-light-gray-50 dark:bg-dark-blue-100 flex justify-center transition-all overflow-hidden
-    ${
-      isModalOpen
-        ? "bottom-0 items-center opacity-100 visible"
-        : "invisible bottom-full"
-    }`}
+      className={`fixed inset-0 z-50 bg-agency-black/90 backdrop-blur-sm flex justify-center items-center transition-all duration-300
+      ${isModalOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"}`}
     >
-      <div className="relative h-fit bg-light-gray-300 dark:bg-dark-blue-900 rounded-md py-6 px-7 flex flex-col items-center space-y-6">
-        <span className="absolute cursor-pointer top-2 right-2 text-light-gray-950 dark:text-dark-white">
+      <div className="relative w-[90%] max-w-md bg-[#1a1a1a] border border-white/10 rounded-2xl p-8 flex flex-col items-center space-y-6 shadow-2xl">
+        <span className="absolute top-4 right-4 text-gray-400 hover:text-white cursor-pointer transition-colors p-2 hover:bg-white/5 rounded-full">
           <IoCloseSharp
-            size={20}
+            size={24}
             onClick={() => setIsModalOpen(!isModalOpen)}
           />
         </span>
-        <h1 className="font-medium text-light-gray-950 dark:text-dark-white">
+        <h1 className="text-2xl font-bold font-russo text-white tracking-wide">
           {
             role == 'create' ? "Add Category" : "Edit Category"
           }
         </h1>
-        <div>
+        <div className="w-full">
           <form
             action=""
-            className="flex flex-col space-y-3"
+            className="flex flex-col space-y-5 w-full"
             onSubmit={handleSubmit}
           >
-            <div className="flex flex-col space-y-0.5">
+            <div className="space-y-1">
               {
-                error ? <p className="text-[11px] text-error">{error}</p> 
+                error ? <p className="text-red-500 text-xs pl-1">{error}</p> 
                 :
-                <label className="text-[11px] text-light-gray-950 dark:text-dark-white" htmlFor="category_name">Category name</label>
+                null
               }
               <input
                 id="category_name"
-                className="bg-light-white dark:bg-dark-blue-600 text-light-gray-950 dark:text-dark-white border border-gray-300 dark:border-dark-blue-400 rounded-md outline-0 focus:border-2 pl-2 py-1"
-                placeholder="Category"
+                className="w-full bg-agency-black/50 text-white placeholder-gray-500 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-white/50 focus:ring-1 focus:ring-white/50 transition-all"
+                placeholder="Category Name"
                 type="text"
                 value={categoryName}
                 onChange={handleCategoryNameChange}
               />
               </div>
             <button
-              className="cursor-pointer text-sm text-light-gray-300 dark:text-dark-blue-900 font-medium py-1.5 rounded-md px-2 bg-light-gray-950 dark:bg-dark-gray"
+              className="w-full bg-white hover:bg-gray-200 text-agency-black font-bold py-3.5 rounded-xl shadow-lg transition-all transform active:scale-95 cursor-pointer"
               type="submit"
             >
               {isLoading || isUpdateLoading ? (
                 <ScaleLoader
-                  color="#030712"
+                  color="#000000"
                   loading={isLoading}
-                  height={10}
+                  height={15}
                   width={4}
                 />
               ) : (
-                role == 'create' ? "Add" : "Edit"
+                role == 'create' ? "Add Category" : "Save Changes"
               )}
             </button>
           </form>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
 

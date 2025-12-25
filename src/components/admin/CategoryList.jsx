@@ -78,33 +78,33 @@ const CategoryList = ({ isModalOpen, selected, searchTerm }) => {
   }
 
   return (
-    <div className="w-full h-[80%] overflow-auto scroll-smooth scrollbar-thin scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-thumb-light-gray-800 scrollbar-track-light-gray-300 dark:scrollbar-thumb-dark-blue-900 dark:scrollbar-track-dark-blue-300">
-      <table className="relative w-full text-sm text-left rtl:text-right text-light-gray-950 dark:text-dark-white">
-        <thead className="sticky top-0 text-xs text-light-gray-950 uppercase bg-light-gray-300 dark:bg-dark-blue-600 dark:text-dark-gray ">
+    <div className="w-full h-[80%] overflow-auto scroll-smooth scrollbar-thin scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-thumb-gray-800 scrollbar-track-gray-900">
+      <table className="relative w-full text-sm text-left text-gray-300">
+        <thead className="sticky top-0 text-xs text-white uppercase bg-white/10">
           <tr>
-            <th scope="col" className="px-6 py-3">
+            <th scope="col" className="px-6 py-4 rounded-tl-lg">
               Preview
             </th>
-            <th scope="col" className="px-6 py-3">
+            <th scope="col" className="px-6 py-4">
               Name
             </th>
-            <th scope="col" className="px-6 py-3">
+            <th scope="col" className="px-6 py-4">
               Total
             </th>
-            <th scope="col" className="px-6 py-3">
+            <th scope="col" className="px-6 py-4">
               Status
             </th>
-            <th scope="col" className="px-6 py-3">
+            <th scope="col" className="px-6 py-4 rounded-tr-lg">
               Action
             </th>
           </tr>
         </thead>
-        <tbody className="relative">
+        <tbody className="divide-y divide-white/5">
           {isLoading && (
             <span className="absolute right-1/2 top-[60px]">
               <PuffLoader
-                color=""
-                className="dark:text-dark-white text-light-gray-800"
+                color="#22c55e"
+                className="text-green"
                 loading={isLoading}
                 height={10}
                 width={4}
@@ -112,7 +112,7 @@ const CategoryList = ({ isModalOpen, selected, searchTerm }) => {
             </span>
           )}
           {error && (
-            <p className="text-error text-sm absolute right-1/2 top-[60px]">
+            <p className="text-red-500 text-sm absolute right-1/2 top-[60px]">
               {error}
             </p>
           )}
@@ -120,14 +120,14 @@ const CategoryList = ({ isModalOpen, selected, searchTerm }) => {
             categories.map((category, index) => (
               <tr
                 key={category._id}
-                className="odd:bg-light-white odd:dark:bg-dark-blue-900 even:bg-light-gray-100 even:dark:bg-dark-blue-400 border-b dark:border-dark-blue-300 border-light-gray-100"
+                className="hover:bg-white/5 transition-colors border-b border-white/5"
               >
                 <td
                   scope="row"
-                  className="px-6 py-4 font-medium text-light-gray-950 whitespace-nowrap dark:text-dark-white"
+                  className="px-6 py-4 font-medium text-white whitespace-nowrap"
                 >
                   <p
-                    className="cursor-pointer text-light-gray-950 dark:text-dark-white"
+                    className="cursor-pointer p-2 bg-white/5 rounded-lg hover:bg-white/10 transition-colors w-fit text-white"
                     onClick={() => NavigatePreviwe(category)}
                   >
                     <VscPreview size={18} />
@@ -135,7 +135,7 @@ const CategoryList = ({ isModalOpen, selected, searchTerm }) => {
                 </td>
                 <td
                   scope="row"
-                  className="px-6 py-4 font-medium text-light-gray-950 whitespace-nowrap dark:text-dark-white"
+                  className="px-6 py-4 font-semibold text-white whitespace-nowrap"
                 >
                   {category.name}
                 </td>
@@ -143,19 +143,19 @@ const CategoryList = ({ isModalOpen, selected, searchTerm }) => {
                 <td className="px-6 py-4">
                   {category.status ? (
                     <div className="flex items-center">
-                      <div className="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div>
-                      Active
+                      <div className="h-2.5 w-2.5 rounded-full bg-green-500 me-2 shadow-[0_0_10px_rgba(34,197,94,0.5)]"></div>
+                      <span className="text-green-500 font-medium">Active</span>
                     </div>
                   ) : (
                     <div className="flex items-center">
                       <div className="h-2.5 w-2.5 rounded-full bg-red-500 me-2"></div>
-                      Inactive
+                      <span className="text-red-500 font-medium">Inactive</span>
                     </div>
                   )}
                 </td>
-                <td className="flex px-6 py-4 space-x-4">
+                <td className="flex px-6 py-4 space-x-3">
                   <p
-                    className="cursor-pointer font-medium text-blue-600 dark:text-blue-500"
+                    className="cursor-pointer font-medium text-blue-400 hover:text-blue-300 transition-colors"
                     onClick={() => {
                       setIsModalOpenU(!isModalOpenU);
                       setUpdateCategoryData({
@@ -169,14 +169,14 @@ const CategoryList = ({ isModalOpen, selected, searchTerm }) => {
 
                   {isRootAdmin && (
                     <p
-                      className={`cursor-pointer font-medium ${
-                        category.status ? "text-red-500" : "text-green-500"
+                      className={`cursor-pointer font-medium transition-colors ${
+                        category.status ? "text-red-500 hover:text-red-400" : "text-green-500 hover:text-green-400"
                       }`}
                       onClick={() => categoryToggle(category._id)}
                     >
                       {togglingCategoryId === category._id ? (
                         <ClipLoader
-                          color={theme == 'dark' ? "#ebf1f8" : '#030712'}
+                          color={category.status ? "#ef4444" : "#22c55e"}
                           loading={true}
                           size={13}
                         />
@@ -191,8 +191,8 @@ const CategoryList = ({ isModalOpen, selected, searchTerm }) => {
               </tr>
             ))
           ) : (
-            <div className="absolute w-fit top-[70px] left-[47%] bg-light-gray-400 dark:bg-dark-blue-300 p-3.5 rounded-full">
-              <img className="w-[70px]" src={noDataPng} alt="" />
+            <div className="absolute w-full flex justify-center mt-10 opacity-50">
+               <img className="w-[100px] grayscale invert" src={noDataPng} alt="No data" />
             </div>
           )}
         </tbody>

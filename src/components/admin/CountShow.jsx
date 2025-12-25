@@ -5,23 +5,29 @@ import { MdError } from "react-icons/md";
 
 const CountShow = ({ title, count, isLoading, totalError }) => {
   return (
-    <div className="w-fitf flex flex-col justify-center items-center bg-light-white dark:bg-dark-blue-400 p-7 rounded-md shadow space-y-3">
-      <h1 className="font-[500] text-md text-light-gray-950 dark:text-dark-white ">
-        {title}
-      </h1>
-      <h1 className="text-center font-[500] text-light-gray-950 text-2xl dark:text-dark-gray">
+    <div className="w-full bg-white/5 p-6 rounded-2xl border border-white/10 flex flex-col items-start gap-4 transition-all hover:bg-white/10 hover:border-green/50 group backdrop-blur-sm">
+      <div className="w-full flex justify-between items-center">
+        <h1 className="font-montserrat font-semibold text-gray-400 text-sm uppercase tracking-wider">
+            {title}
+        </h1>
+        <div className="p-2 bg-white/5 rounded-lg group-hover:bg-green/20 transition-colors">
+             <div className="w-5 h-5 bg-green/50 rounded-full group-hover:bg-green transition-colors"></div>
+        </div>
+      </div>
+      
+      <div className="text-4xl font-russo font-bold text-white group-hover:text-green transition-colors">
         {isLoading ? (
-            <ScaleLoader color="#030712" loading={isLoading} height={15} width={4} />
+            <ScaleLoader color="#16a34a" loading={isLoading} height={25} width={4} />
           ) : totalError ? (
-            <p className="text-red-500">
+            <span className="text-red-500 text-2xl">
                <MdError />
-            </p>
+            </span>
           ) : typeof count === "number" ? (
-            <CountUp start={0} end={count} duration={3} />
+            <CountUp start={0} end={count} duration={2.5} separator="," />
           ) : (
             <span>0</span>  
         )}
-      </h1>
+      </div>
     </div>
   );
 };

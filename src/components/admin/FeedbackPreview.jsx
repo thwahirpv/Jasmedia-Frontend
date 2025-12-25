@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import ReactDOM from "react-dom";
 import { IoClose } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import PuffLoader from "react-spinners/PuffLoader";
@@ -56,125 +57,123 @@ const FeedbackPreview = ({ isPreview, setIsPreview }) => {
     }
   }, [isPreview]);
 
-  return (
+  return ReactDOM.createPortal(
     <div
-      className={`absolute left-0 right-0 opacity-10 h-screen py-10 transition-all overflow-hidden flex justify-center items-center
-    ${
-      isPreview
-        ? "bottom-0 items-center opacity-100 visible"
-        : "invisible bottom-full"
-    }`}
+      className={`fixed inset-0 z-50 bg-agency-black/90 backdrop-blur-sm flex justify-center items-center transition-all duration-300
+      ${isPreview ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"}`}
     >
-      <div className="relative w-fit bg-light-white dark:bg-dark-blue-600 rounded-md flex flex-col items-center px-[25px] md:px-[1  0px]">
-        <div
-          className="absolute text-light-gray-950 dark:text-dark-white top-4 right-4 cursor-pointer"
-          onClick={closePreview}
-        >
-          <IoClose size={20} />
+      <div className="relative w-[90%] max-w-2xl bg-[#1a1a1a] border border-white/10 rounded-2xl p-8 flex flex-col items-center shadow-2xl space-y-8">
+        <span className="absolute top-4 right-4 text-gray-400 hover:text-white cursor-pointer transition-colors p-2 hover:bg-white/5 rounded-full">
+          <IoClose
+            size={24}
+            onClick={closePreview}
+          />
+        </span>
+
+        <h1 className="text-2xl font-bold font-russo text-white tracking-wide">
+          {name}
+        </h1>
+
+        <div className="w-full">
+             <div className="bg-white/5 border border-white/10 rounded-xl p-6 mb-8">
+                <h3 className="text-lg font-bold text-white mb-2">Feedback</h3>
+                <p className="text-gray-300 italic text-center text-lg leading-relaxed">
+                  "{feedback}"
+                </p>
+             </div>
         </div>
 
-        <div className="py-[30px] flex flex-col justify-center items-center space-y-[80px]">
-          <div className="">
-            <h1 className="text-2xl font-semibold text-light-gray-950 dark:text-dark-white">
-              {name}
-            </h1>
-          </div>
-
-          <div className="px-[10px] md:px-[100px] flex justify-center items-center">
-            <p className="text-light-gray-950 dark:text-dark-gray text-wrap text-center">
-              {feedback}
-            </p>
-          </div>
-
-          <div className="flex flex-col md:flex-row gap-[50px]">
-            <div className="md:mt-[15px] m-auto bg-light-gray-50 dark:bg-dark-blue-400 rounded-md h-fit px-2 py-2">
-              <table className="border-separate border-spacing-y-2 border-spacing-x-4 text-sm text-left rtl:text-right text-light-gray-950 dark:text-dark-white">
-                <tbody>
-                  <tr>
-                    <td>Name:</td>
-                    <td>{name}</td>
-                  </tr>
-                  <tr>
-                    <td>Status:</td>
-                    <td>
-                      {status ? (
-                        <div className="flex items-center">
-                          <div className="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div>
-                          Active
-                        </div>
-                      ) : (
-                        <div className="flex items-center">
-                          <div className="h-2.5 w-2.5 rounded-full bg-red-500 me-2"></div>
-                          Inactive
-                        </div>
-                      )}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Role:</td>
-                    <td>{role}</td>
-                  </tr>
-                  <tr>
-                    <td>Created at:</td>
-                    <td>{createdAt}</td>
-                  </tr>
-                  <tr>
-                    <td>Updated at:</td>
-                    <td>{updatedAt}</td>
-                  </tr>
-                </tbody>
-              </table>
+        <div className="w-full flex flex-col md:flex-row gap-8">
+            {/* Details Table */}
+            <div className="flex-1 bg-white/5 border border-white/10 rounded-xl p-6">
+                <h3 className="text-lg font-bold text-white mb-4 border-b border-white/5 pb-2">Details</h3>
+               <table className="w-full text-sm text-left text-gray-300">
+                  <tbody className="divide-y divide-white/5">
+                      <tr className="border-b border-white/5">
+                          <td className="py-3 font-medium text-white">Name:</td>
+                          <td className="py-3 text-right">{name}</td>
+                      </tr>
+                      <tr className="border-b border-white/5">
+                          <td className="py-3 font-medium text-white">Role:</td>
+                          <td className="py-3 text-right">{role}</td>
+                      </tr>
+                      <tr className="border-b border-white/5">
+                          <td className="py-3 font-medium text-white">Status:</td>
+                          <td className="py-3 flex justify-end">
+                              {status ? (
+                                <div className="flex items-center text-green-500">
+                                  <div className="h-2 w-2 rounded-full bg-green-500 mr-2 shadow-[0_0_8px_rgba(34,197,94,0.5)]"></div>
+                                  Active
+                                </div>
+                              ) : (
+                                <div className="flex items-center text-red-500">
+                                  <div className="h-2 w-2 rounded-full bg-red-500 mr-2"></div>
+                                  Inactive
+                                </div>
+                              )}
+                          </td>
+                      </tr>
+                      <tr className="border-b border-white/5">
+                          <td className="py-3 font-medium text-white">Created at:</td>
+                          <td className="py-3 text-right">{createdAt}</td>
+                      </tr>
+                      <tr>
+                          <td className="py-3 font-medium text-white">Updated at:</td>
+                          <td className="py-3 text-right">{updatedAt}</td>
+                      </tr>
+                  </tbody>
+               </table>
             </div>
 
-            <div className="min-h-[150px] max-h-[250px] min-w-[200px] flex justify-center items-center rounded-md overflow-y-scroll scroll-smooth scrollbar-thin scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-thumb-light-gray-800 scrollbar-track-light-gray-300 dark:scrollbar-thumb-dark-blue-900 dark:scrollbar-track-dark-blue-300">
-              <ul className="flex flex-col h-full justify-center items-center">
-                {isHistoryLoading && (
-                  <span className="absolute right-1/2 top-[60px]">
-                    <PuffLoader
-                      color=""
-                      className="dark:text-dark-white text-light-gray-800"
-                      loading={isHistoryLoading}
-                      height={10}
-                      width={4}
-                    />
-                  </span>
-                )}
-                {historyError && (
-                  <p className="text-[12px] text-error text-wrap text-center">
-                    {historyError}
-                  </p>
-                )}
-                {collectionHistory.length > 0 &&
-                  collectionHistory.map((history, index) => (
-                    <li className="px-4" key={index}>
-                      <div className="flex justify-between  py-1.5 space-x-7 border-b border-gray-400 dark:border-gray-600">
-                        <div>
-                          <p className="text-light-gray-950 dark:text-dark-white text-sm font-[500] text-left">
-                            {history?.updatedBy?.name || "Admin"}
-                          </p>
-                          <p className="text-gray-700 dark:text-dark-gray text-[12px] text-left">
-                            {history?.updatedBy?.emailAddress}
-                          </p>
+            {/* History Section */}
+            <div className="flex-1 bg-white/5 border border-white/10 rounded-xl flex flex-col h-[300px]">
+                <div className="p-4 border-b border-white/10">
+                   <h3 className="text-white font-bold text-center">History</h3>
+                </div>
+                <div className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
+                  <ul className="flex flex-col p-4 space-y-3">
+                    {isHistoryLoading && (
+                        <div className="flex justify-center items-center h-full">
+                           <PuffLoader color="#ffffff" size={30} />
                         </div>
-                        <div>
-                          <p
-                            className={`text-sm font-[500] text-right text-${history?.action}`}
-                          >
-                            {formatAction(history?.action)}
-                          </p>
-                          <p className="text-[11px] text-right text-light-gray-950 dark:text-dark-white">
-                            {formatDateTime(history?.createdAt)}
-                          </p>
-                        </div>
-                      </div>
-                    </li>
-                  ))}
-              </ul>
+                    )}
+                    {historyError && (
+                        <p className="text-red-500 text-center text-xs">{historyError}</p>
+                    )}
+                    {collectionHistory.length > 0 ? (
+                      collectionHistory.map((history, index) => (
+                        <li key={index} className="flex justify-between items-start border-b border-white/5 last:border-0 pb-2">
+                          <div>
+                            <p className="text-white text-sm font-semibold">
+                              {history?.updatedBy?.name || 'Admin'}
+                            </p>
+                            <p className="text-gray-400 text-xs">
+                              {history?.updatedBy?.emailAddress}
+                            </p>
+                          </div>
+                          <div className="text-right">
+                            <p className={`text-sm font-semibold ${
+                                history?.action === 'create' ? 'text-green-500' : 
+                                history?.action === 'update' ? 'text-blue-400' : 'text-red-500'
+                            }`}>
+                              {formatAction(history?.action)}
+                            </p>
+                            <p className="text-gray-500 text-[10px]">
+                              {formatDateTime(history?.createdAt)}
+                            </p>
+                          </div>
+                        </li>
+                      ))
+                    ) : (
+                        !isHistoryLoading && <p className="text-gray-500 text-center text-sm py-10">No history found</p>
+                    )}
+                  </ul>
+                </div>
             </div>
-          </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
 

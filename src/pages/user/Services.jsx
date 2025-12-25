@@ -12,7 +12,6 @@ const Services = () => {
       <OurServices />
       <Testimonial />
       <GetStartedNow />
-      <Footer/>
     </div>
   )
 }

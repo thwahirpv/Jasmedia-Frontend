@@ -53,87 +53,95 @@ const Login = () => {
   };
 
   return (
-    <div className="relative w-full h-[100vh] bg-light-white dark:bg-dark-blue-900 flex justify-center items-center">
-      <div className="absolute top-6 right-6">
-        <ThemeToggle />
-      </div>
-      <div className="bg-light-gray-300 dark:bg-dark-blue-600 space-y-8 py-7 px-6 pb- rounded-sm">
-        <h1 className="text-xl md:text-2xl font-semibold text-light-gray-950 dark:text-dark-white">
-          Login
-        </h1>
-        <form className="space-y-2" action="" onSubmit={handleSubmit}>
-          <p className={`text-sm text-error font-[400] ${error ? "block" : "hidden"}`}>{error}</p>
-          <div className="flex flex-col gap-7">
+    <div className="relative w-full h-screen bg-agency-black flex justify-center items-center p-6">
+      
+      {/* Background Ornament */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-green/5 rounded-full blur-[100px] pointer-events-none" />
+
+      <div className="relative z-10 w-full max-w-md bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 shadow-2xl">
+        <div className="mb-8 text-center">
+            <h1 className="text-3xl font-russo text-white tracking-widest mb-2">JAS<span className="text-white">MEDIA</span></h1>
+            <p className="text-gray-400 text-sm font-opensans">Admin Portal Login</p>
+        </div>
+
+        <form className="space-y-6" action="" onSubmit={handleSubmit}>
+          <p className={`text-sm text-red-500 font-medium text-center ${error ? "block" : "hidden"}`}>{error}</p>
+          
+          <div className="flex flex-col gap-5">
             {/* Email */}
-            <div className="relative">
+            <div className="relative group">
               <input
                 name="email"
                 onChange={handleEmailChange}
                 onFocus={emailFocus}
                 onBlur={emailUnfocus}
                 autoComplete="username"
-                className="w-[250px] md:w-[300px] dark:bg-dark-blue-600 focus:dark:bg-dark-blue-600 fo dark:text-dark-white border-2 border-black dark:border-dark-gray px-2 py-1 rounded-sm focus:outline-0 focus:border-2 focus:border-gray-600"
+                value={email}
+                className="w-full bg-[#1a1a1a] text-white border border-white/10 px-4 py-3 rounded-xl focus:outline-none focus:border-green focus:ring-1 focus:ring-green transition-all placeholder-transparent"
                 type="email"
+                id="email"
               />
-              <span
-                className={
-                  isEmailFocus
-                    ? "absolute text-[12px] left-2 -top-2.5 text-light-gray-800 dark:text-dark-gray bg-[#ececec] dark:dark:bg-dark-blue-600 px-1 text-center pointer-events-none rounded-md"
-                    : "absolute text-sm text-light-gray-800 dark:text-dark-gray left-2 top-1.5 text-center pointer-events-none rounded-md"
-                }
+              <label
+                htmlFor="email"
+                className={`absolute left-4 transition-all pointer-events-none text-gray-500
+                  ${isEmailFocus || email.length > 0 ? "-top-2.5 text-xs bg-[#1a1a1a] px-1 text-green" : "top-3.5 text-sm"}`}
               >
-                Email
-              </span>
+                Email Address
+              </label>
             </div>
 
             {/* Password */}
-            <div className="relative">
+            <div className="relative group">
               <input
                 name="password"
                 onChange={handlePasswordChange}
                 onFocus={passwordFocus}
                 onBlur={passwordUnfocus}
                 autoComplete="current-password"
-                className="w-[250px] md:w-[300px] border-2 dark:text-dark-white border-black dark:border-dark-gray px-2 py-1 rounded-sm focus:outline-0 focus:border-2 focus:border-gray-600"
+                value={password}
+                className="w-full bg-[#1a1a1a] text-white border border-white/10 px-4 py-3 rounded-xl focus:outline-none focus:border-green focus:ring-1 focus:ring-green transition-all"
                 type={isShowPassword ? "text" : "password"}
+                id="password"
               />
-              <span
-                className={
-                  isPasswordFocus
-                    ? "absolute text-[12px] left-2 -top-2.5 text-light-gray-800 dark:text-dark-gray bg-[#ececec] dark:dark:bg-dark-blue-600 px-1 text-center pointer-events-none rounded-md"
-                    : "absolute text-sm text-light-gray-800 dark:text-dark-gray left-2 top-1.5 text-center pointer-events-none rounded-md"
-                }
+               <label
+                htmlFor="password"
+                className={`absolute left-4 transition-all pointer-events-none text-gray-500
+                  ${isPasswordFocus || password.length > 0 ? "-top-2.5 text-xs bg-[#1a1a1a] px-1 text-green" : "top-3.5 text-sm"}`}
               >
                 Password
-              </span>
-              <p
+              </label>
+              
+              <div
                 onClick={showPassword}
-                className="absolute top-2.5 right-2.5 cursor-pointer text-light-gray-800 dark:text-dark-gray"
+                className="absolute top-3.5 right-4 cursor-pointer text-gray-400 hover:text-white transition-colors"
               >
-                {isShowPassword ? <FaEye /> : <FaEyeSlash />}
-              </p>
+                {isShowPassword ? <FaEye size={18} /> : <FaEyeSlash size={18} />}
+              </div>
+            </div>
 
-              <p className="text-gray-500 dark:text-dark-gray cursor-pointer text-[13px] text-right mt-1"
+            <div className="flex justify-end">
+              <p className="text-gray-400 hover:text-green cursor-pointer text-sm transition-colors"
                 onClick={() => navigate('/admin/forgot-password')}
               >
-                Forgot password ?
+                Forgot password?
               </p>
             </div>
 
             {/* Submit button */}
             <button
               type="submit"
-              className="bg-dark-blue-900 dark:bg-dark-gray text-dark-white dark:text-dark-blue-400 text-sm py-1.5 rounded-sm font-[600] cursor-pointer text-center"
+              disabled={isLoading}
+              className="w-full bg-white text-agency-black py-3 rounded-xl font-bold font-montserrat hover:bg-gray-200 transition-all duration-300 shadow-lg cursor-pointer transform hover:scale-[1.02] active:scale-[0.98]"
             >
               {isLoading ? (
                 <ScaleLoader
-                  color="#030712"
+                  color="#000000"
                   loading={isLoading}
                   height={15}
                   width={4}
                 />
               ) : (
-                "Submit"
+                "Sign In"
               )}
             </button>
           </div>

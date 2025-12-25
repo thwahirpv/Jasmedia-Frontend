@@ -1,58 +1,73 @@
 import React from "react";
 import founderIMG from "../../../assets/images/founder.webp";
 import managerIMG from "../../../assets/images/manager.jpeg";
-import { Particles } from "../../magicui/particles";
+import { Particles } from "@/components/magicui/particles";
 
 const TeamMembers = () => {
   const memberData = [
     {
-      name: "Jhone",
+      name: "Jhone Doe",
       profile: founderIMG,
-      position: "Founder",
+      position: "Founder & CEO",
     },
     {
-      name: "Thomas",
+      name: "Thomas Smith",
       profile: managerIMG,
-      position: "Manager",
+      position: "Creative Director",
     },
+     // Added more placeholders if needed or stick to 2
   ];
   return (
-    <div className="relative w-full flex flex-col bg-user-smokewhite justify-center items-center py-28 space-y-14">
+    <section className="relative w-full bg-gray-50 py-24 px-6">
       <Particles
         className="absolute inset-0 z-0"
-        quantity={200}
-        ease={80}
-        color={"#1e3a32"}
+        quantity={80}
+        ease={50}
+        color={"#0a0a0a"}
         refresh
       />
-      <h1
-        className="text-3xl md:text-4xl font-bold leading-tight text-gray-900 font-russo text-center"
-        data-aos="fade-up"
-      >
-        Team Members
-      </h1>
-      <div className="w-full flex flex-col md:flex-row justify-center items-center gap-8">
-        {memberData.map((member, index) => (
-          <div className="bg-green rounded-xl pb-2" data-aos="fade-up" key={index}>
-            <div className="w-[220px] h-[220px] rounded-xl overflow-hidden shadow-md hover:scale-105 transition-transform duration-300 cursor-pointer">
-              <img
-                src={member.profile}
-                alt="Team Member"
-                className="w-full h-full object-cover"
-              />
+      <div className="max-w-7xl mx-auto space-y-16 relative z-10">
+        <div className="text-center">
+             <h2 
+                className="text-3xl md:text-4xl font-bold font-russo text-agency-black mb-4"
+                data-aos="fade-up"
+             >
+                Meet The Team
+             </h2>
+             <p className="text-gray-500 font-opensans">
+                 The creative minds behind the magic.
+             </p>
+        </div>
+
+        <div className="flex flex-wrap justify-center gap-10">
+          {memberData.map((member, index) => (
+            <div 
+                className="group relative w-full max-w-sm bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300" 
+                data-aos="fade-up" 
+                data-aos-delay={index * 100}
+                key={index}
+            >
+              <div className="aspect-[4/5] overflow-hidden">
+                <img
+                  src={member.profile}
+                  alt={member.name}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+              </div>
+              
+              <div className="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black/90 to-transparent pt-20">
+                <h3 className="text-2xl font-bold text-white font-russo">
+                  {member.name}
+                </h3>
+                <p className="text-green font-medium font-montserrat">
+                  {member.position}
+                </p>
+              </div>
             </div>
-            <div className="text-center mt-4">
-              <h3 className="text-lg font-semibold text-user-white font-montserrat">
-                {member.name}
-              </h3>
-              <p className="text-sm text-user-gray-100 font-montserrat">
-                {member.position}
-              </p>
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 

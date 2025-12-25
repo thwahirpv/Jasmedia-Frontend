@@ -1,69 +1,22 @@
 import React, { useRef, useState } from 'react'
-import { Particles } from '../../magicui/particles';
 import { useDispatch, useSelector } from 'react-redux';
 import { contactFormThunk } from '@/features/auth/ContactFormSlice';
 import { ScaleLoader } from 'react-spinners';
 import { FAILED, SUCCESS } from '@/constants/constants';
 import Popup from './PopUp';
+import { Send } from 'lucide-react';
+import { motion } from 'motion/react';
 
 const ContactForm = () => {
-    const [isNameFocus, setIsNameFocus] = useState(false)
-    const [isEmailFocus, setisEmailFocus] = useState(false)
-    const [isPhoneNumberFocus, setIsPhoneNumberFocus] = useState(false)
-    const [isMessageFocus, setIsMessageFocus] = useState(false)
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [phoneNumber, setPhoneNumber] = useState('')
     const [message, setMessage] = useState('')
     const [popup, setPopUp] = useState({show: false, type: "", message: ""})
-    const nameRef = useRef()
-    const emailRef = useRef()
-    const phoneNumberRef = useRef()
-    const messageRef = useRef()
-    const dispatch = useDispatch()
-    const { isFormLoading, formError } = useSelector((state) => state.contactForm)
     
-
-    const onNameFocus = () => {
-        setIsNameFocus(true)
-        nameRef.current.focus()
-    }
-    const onNameUnfocus = () => {
-        if(name.length == 0) {
-            setIsNameFocus(false)
-        }
-    }
-
-    const onEmailFocus = () => {
-        setisEmailFocus(true)
-        emailRef.current.focus()
-    }
-    const onEmailUnfocus = () => {
-        if(email.length == 0) {
-            setisEmailFocus(false)
-        }
-    }
-
-    const onPhoneNumberFocus = () => {
-        setIsPhoneNumberFocus(true)
-        phoneNumberRef.current.focus()
-    }
-    const onPhoneNumberUnFocus = () => {
-        if(phoneNumber.length == 0) {
-            setIsPhoneNumberFocus(false)
-        }
-    }
-
-    const onMessageFocus = () => {
-        setIsMessageFocus(true)
-        messageRef.current.focus()
-    }
-    const onMessageUnfocus = () => {
-        if(message.length == 0) {
-            setIsMessageFocus(false)
-        }
-    }
-
+    const dispatch = useDispatch()
+    const { isFormLoading } = useSelector((state) => state.contactForm)
+    
     const onFormSubmit = async (e) => {
         e.preventDefault()
 
@@ -80,9 +33,14 @@ const ContactForm = () => {
                 type: SUCCESS,
                 message: 'Message sent successfully!'
             })
-            console.log('success :', response)
+            // Reset form
+            setName('')
+            setEmail('')
+            setPhoneNumber('')
+            setMessage('')
+            
         } catch (error) {
-            console.log('failer :', error)
+            console.log('failure :', error)
             setPopUp({
                 show: true,
                 type: FAILED,
@@ -96,115 +54,80 @@ const ContactForm = () => {
     }
 
   return (
-    <div className="relative w-full bg-user-smokewhite px-6 py-24 flex flex-col justify-center items-center gap-y-14">
-      <Particles
-        className="absolute inset-0 z-0"
-        quantity={300}
-        ease={80}
-        color={"#1e3a32"}
-        refresh
-      />
-      <h1
-        className="text-3xl md:text-5xl font-russo font-bold text-gray-900 text-center leading-relaxed "
-        data-aos="fade-up"
-        data-aos-delay={1 * 100}
-      >
-        Let's Connect
-      </h1>
-      <div className="relative w-10/12 lg:w-7/12 flex justify-center items-center">
-        <Popup show={popup.show} type={popup.type} message={popup.message} />
-        <form className="w-full space-y-12" onSubmit={onFormSubmit}>
-          <div className="relative">
-            <input
-              ref={nameRef}
-              className="w-full py-1 px-2  outline-0 border-b-2 border-b-green font-montserrat"
-              type="text"
-              onFocus={onNameFocus}
-              onBlur={onNameUnfocus}
-              onChange={(e) => setName(e.target.value)}
-            />
-            <span
-              onClick={onNameFocus}
-              className={`absolute left-2 font-montserrat transition-all duration-200 ease-in-out text-gray-600 ${
-                isNameFocus ? "-top-3 text-[12px]" : "top-1.5 text-sm"
-              }`}
-            >
-              Name
-            </span>
-          </div>
-          <div className="relative">
-            <input
-              ref={emailRef}
-              className="w-full py-1 px-2 outline-0 border-b-2 border-b-green"
-              type="email"
-              onFocus={onEmailFocus}
-              onBlur={onEmailUnfocus}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <span
-              onClick={onEmailFocus}
-              className={`absolute left-2 font-montserrat transition-all duration-200 ease-in-out text-gray-600 ${
-                isEmailFocus ? "-top-3 text-[12px]" : "top-1.5 text-sm"
-              }`}
-            >
-              Email
-            </span>
-          </div>
-          <div className="relative">
-            <input
-              ref={phoneNumberRef}
-              className="w-full py-1 px-2 outline-0 border-b-2 border-b-green"
-              type="text"
-              onFocus={onPhoneNumberFocus}
-              onBlur={onPhoneNumberUnFocus}
-              onChange={(e) => setPhoneNumber(e.target.value)}
-            />
-            <span
-              onClick={onPhoneNumberFocus}
-              className={`absolute left-2 font-montserrat transition-all duration-200 ease-in-out text-gray-600 ${
-                isPhoneNumberFocus ? "-top-3 text-[12px]" : "top-1.5 text-sm"
-              }`}
-            >
-              Phone Number
-            </span>
-          </div>
-          <div className="relative">
-            <input
-              ref={messageRef}
-              className="w-full py-1 px-2 outline-0 border-b-2 border-b-green"
-              type="text"
-              onFocus={onMessageFocus}
-              onBlur={onMessageUnfocus}
-              onChange={(e) => setMessage(e.target.value)}
-            />
-            <span
-              onClick={onMessageFocus}
-              className={`absolute left-2 font-montserrat transition-all duration-200 ease-in-out text-gray-600 ${
-                isMessageFocus ? "-top-3 text-[12px]" : "top-1.5 text-sm"
-              }`}
-            >
-              I Would like to discuss
-            </span>
+    <div className="relative w-full bg-white px-6 py-24 flex flex-col justify-center items-center">
+      
+      <div className="w-full max-w-2xl bg-white rounded-3xl p-8 md:p-12 shadow-2xl shadow-green/5 border border-gray-100">
+          <div className="text-center mb-10">
+              <h2 className="text-3xl font-bold font-russo text-agency-black mb-3">Send us a Message</h2>
+              <p className="text-gray-500 font-opensans">We'll get back to you within 24 hours.</p>
           </div>
 
-          <button
-            type="submit"
-            className="border-2 border-green py-2 w-full font-montserrat font-semibold text-gray-900 cursor-pointer transition-all duration-300 ease-in hover:bg-green hover:text-user-white"
-          >
-            
-            {
-                isFormLoading ? 
-                    <ScaleLoader
-                        color="#030712"
-                        loading={isFormLoading}
-                        height={15}
-                        width={4}
+          <Popup show={popup.show} type={popup.type} message={popup.message} />
+          
+          <form className="space-y-6" onSubmit={onFormSubmit}>
+            <div className="grid md:grid-cols-2 gap-6">
+                 <div className="space-y-2">
+                    <label className="text-sm font-semibold text-gray-700 font-montserrat">Name</label>
+                    <input
+                        className="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 focus:border-green focus:ring-2 focus:ring-green/20 outline-none transition-all font-opensans"
+                        type="text"
+                        placeholder="John Doe"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        required
                     />
-                : 
-                    "Sent Request"
-            }
-          </button>
-        </form>
+                 </div>
+                 <div className="space-y-2">
+                    <label className="text-sm font-semibold text-gray-700 font-montserrat">Phone Number</label>
+                    <input
+                        className="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 focus:border-green focus:ring-2 focus:ring-green/20 outline-none transition-all font-opensans"
+                        type="tel"
+                        placeholder="+1 (555) 000-0000"
+                        value={phoneNumber}
+                        onChange={(e) => setPhoneNumber(e.target.value)}
+                    />
+                 </div>
+            </div>
+
+            <div className="space-y-2">
+                <label className="text-sm font-semibold text-gray-700 font-montserrat">Email Address</label>
+                <input
+                    className="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 focus:border-green focus:ring-2 focus:ring-green/20 outline-none transition-all font-opensans"
+                    type="email"
+                    placeholder="john@example.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                />
+            </div>
+
+            <div className="space-y-2">
+                <label className="text-sm font-semibold text-gray-700 font-montserrat">Message</label>
+                <textarea
+                    className="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 focus:border-green focus:ring-2 focus:ring-green/20 outline-none transition-all font-opensans min-h-[150px] resize-none"
+                    placeholder="Tell us about your project..."
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    required
+                />
+            </div>
+
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              type="submit"
+              className="w-full py-2.5 bg-agency-black text-white rounded-xl font-bold font-montserrat text-base hover:bg-green transition-colors shadow-lg flex justify-center items-center gap-2"
+              disabled={isFormLoading}
+            >
+              {isFormLoading ? (
+                 <ScaleLoader color="#ffffff" height={20} />
+              ) : (
+                <>
+                  Send Message <Send size={20} />
+                </>
+              )}
+            </motion.button>
+          </form>
       </div>
     </div>
   );

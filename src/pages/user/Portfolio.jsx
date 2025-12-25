@@ -8,7 +8,6 @@ const Portfolio = () => {
     <div>
       <PortfolioIntro />
       <PortfolioList />
-      <Footer />
     </div>
   )
 }

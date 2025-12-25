@@ -1,49 +1,38 @@
 import React from "react";
-import { Particles } from "../../magicui/particles";
-import logoGreen from "../../../assets/images/logo_green.png";
-import { ShinyButton } from "../../magicui/shiny-button";
-import { FaArrowRight } from "react-icons/fa6";
+import { Link } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
 
 const GetStartedNow = () => {
   return (
-    <div className="relative w-full bg-user-smokewhite flex justify-center items-center py-24">
-      <Particles
-        className="absolute inset-0 z-0"
-        quantity={300}
-        ease={80}
-        color={"#1e3a32"}
-        refresh
-      />
-      <div className="flex flex-col justify-center items-center space-y-7">
-        <h1
-          className="text-3xl md:text-5xl font-russo font-bold text-gray-900 text-center leading-relaxed"
+    <div className="relative w-full bg-white flex justify-center items-center py-32 overflow-hidden px-6">
+      
+      {/* Abstract Background Element */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-green/5 blur-[120px] rounded-full pointer-events-none" />
+
+      <div className="relative z-10 flex flex-col justify-center items-center space-y-10 text-center max-w-4xl mx-auto">
+        
+        <h2
+          className="text-4xl md:text-6xl font-russo font-bold text-agency-black leading-tight"
           data-aos="fade-up"
-          data-aos-delay={1 * 100}
         >
-          Empowering Vision, <br /> Elevating Brands
-        </h1>
-        <div data-aos="fade-up" data-aos-delay={2 * 100}>
-          <ShinyButton className="text-user-white bg-green font-montserrat">
-            Get Started Now
-            <span>
-              <FaArrowRight />
-            </span>
-          </ShinyButton>
-        </div>
-        <p
-          className="font-montserrat font-bold text-xl md:text-3xl max-w-3xl text-gray-900 text-center"
+          Ready to <span className="text-green">Elevate</span> <br /> Your Brand?
+        </h2>
+        
+        <p 
+          className="text-gray-600 font-opensans text-base md:text-lg max-w-2xl"
           data-aos="fade-up"
-          data-aos-delay={3 * 100}
+          data-aos-delay="100"
         >
-          Ignite Brand Growth With
+           Stop blending in. Let's build a digital presence that commands attention and drives real growth.
         </p>
-        <img
-          className="w-[200px]"
-          src={logoGreen}
-          alt=""
-          data-aos="fade-up"
-          data-aos-delay={4 * 100}
-        />
+
+        <div data-aos="fade-up" data-aos-delay="200">
+           <Link to="/contact" className="group flex items-center gap-3 px-6 py-2.5 bg-agency-black text-white rounded-full font-bold text-base hover:bg-green hover:text-white transition-all duration-300 shadow-xl shadow-green/10">
+             Start Your Project
+             <ArrowRight className="group-hover:translate-x-1 transition-transform" size={18}/>
+           </Link>
+        </div>
+
       </div>
     </div>
   );

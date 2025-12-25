@@ -24,45 +24,50 @@ const Dashboard = () => {
   }, [])
 
   return (
-    <div className='w-full h-[100vh] bg-light-gray-300 dark:bg-dark-blue-900'>
-      <div className="absolute top-6 right-6">
-        <ThemeToggle />
+    <div className='w-full min-h-screen bg-agency-black p-6 md:p-10'>
+      
+      {/* Header */}
+      <div className="flex justify-between items-center mb-10">
+        <div>
+           <h1 className="text-3xl font-bold font-russo text-white">Dashboard</h1>
+           <p className="text-gray-400 mt-1 font-opensans">Overview of your agency's performance.</p>
+        </div>
       </div>
-      <div className='w-full h-[100%] flex flex-col md:flex-row justify-evenly items-center'>
+
+      {/* Stats Grid */}
+      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
         {
           isTotalLoading ? (
-            <PuffLoader
-                color=""
-                className="dark:text-dark-white text-light-gray-800"
-                loading={isTotalLoading}
-                height={10}
-                width={4}
-            />
+            <div className="col-span-full flex justify-center py-20">
+                <PuffLoader color="#16a34a" size={60} />
+            </div>
           ) : totalError ? (
-              <p className="text-red-500">Error loading dashboard data</p>
+              <div className="col-span-full bg-red-50 text-red-600 p-4 rounded-xl border border-red-100 flex items-center gap-2">
+                 <p>Error loading dashboard data</p>
+              </div>
           ) : totals ? (
             <>
             <CountShow
-              title="Category"
+              title="Categories"
               count={totals.totalCategory ?? 0}
               isLoading={isTotalLoading}
               totalError={totalError}
             />
             <CountShow
-              title="Portfolio"
+              title="Portfolio Items"
               count={totals.totalportfolio ?? 0}
               isLoading={isTotalLoading}
               totalError={totalError}
             />
             <CountShow
-              title="Feedback"
+              title="Feedback / Messages"
               count={totals.totalFeedback ?? 0}
               isLoading={isTotalLoading}
               totalError={totalError}
             />
           </>
           ) : (
-            <p className="text-white">No data found</p>
+            <p className="text-gray-500">No data found</p>
           )
         }
       </div>

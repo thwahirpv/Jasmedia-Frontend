@@ -6,71 +6,92 @@ import { Globe } from "@/components/magicui/globe";
 import { motion } from 'motion/react'
 import megaphone from '../../../assets/images/megaphone.png'
 import { RiVipDiamondFill } from "react-icons/ri";
-
-
-
+import { ArrowRight, ChevronDown } from 'lucide-react'
+import { Particles } from "@/components/magicui/particles";
+import { Link } from 'react-router-dom';
 
 const HomeIntro = () => {
   return (
-    <div className="relative w-full h-screen bg-green flex justify-center rounded-b-4xl">
-      <div className="mt-[160px] space-y-[35px] transition-all">
-        <div className="px-4">
-          <p className='text-user-pale text-[11px] flex items-center justify-center text-center mb-6'>
-            <span className='mr-2'>
-              <RiVipDiamondFill />
-            </span>
-            THE MEANING OF MARKETING
-          </p>
-          <TextAnimate duration={0.4} animation="fadeIn" by="line" as="h1" className="text-xl md:text-3xl font-bold font-russo text-center text-white leading-relaxed max-w-2xl mx-auto">
-            Empowering Digital Dreams — Jasmedia Where Vision Meets Strategy
-          </TextAnimate>
-        </div>
-
-        <div className="px-5">
-          <TextAnimate
-            className="text-user-gray-100 text-center text-sm max-w-xl mx-auto"
-            animation="fadeIn"
-            by="line"
-            as="p"
-            duration={0.4}
-            delay={0.3}
-          >
-            Crafted with care for creators, dreamers, and doers — we build fast,
-            beautiful, and conversion-driven digital experiences that scale with
-            your ambition.
-          </TextAnimate>
-        </div>
+    <section className="relative w-full min-h-[90vh] flex flex-col items-center justify-center overflow-hidden bg-user-white">
+      
+      {/* Background Particles - darker color for visibility on white */}
+      <div className="absolute inset-0 z-0">
+          <Particles
+            className="absolute inset-0"
+            quantity={100}
+            staticity={50}
+            color="#0a0a0a" 
+            ease={50}
+          />
       </div>
- 
-      {/* <div className="absolute left-1/2 z-40 translate-x-[-50%] bottom-[-130px] md:bottom-[-230px] lg:bottom-[-240px] w-[200px] md:w-[500px] lg:w-[500px] h-[300px] md:h-[400px] lg:h-[500px] rounded-full bg-white opacity-20 blur-3xl"></div>
-      <Globe className="absolute left-1/2 z-40 translate-x-[-50%] bottom-[-130px] md:bottom-[-230px] lg:bottom-[-240px] max-w-[300px] sm:max-w-[400px] md:max-w-[500px] " />
-       */}
-      <motion.img
-        className='absolute top-[9%] md:top-[6%] lg:top-[11%] left-[12%] md:left-[10%] lg:left-[14%] w-auto h-[50px] rotate-[35deg]'
-        src={megaphone}
-        alt=""
-        animate={{
-          scale: [1, 1.1, 1], 
-          rotate: [0, -2, 2, 0],
-        }}
-        transition={{
-          duration: 1, 
-          ease: "easeInOut", 
-          repeat: Infinity, 
-        }}
-      />
 
-      <FloatingDot
-        position="top-[15%] right-[12%] translate-x-[50%] translate-y-[-50%]"
-        color="bg-user-pale"
-        size="p-1.5"
-      />
-      <FloatingDot
-        position="bottom-[30%] left-[10%] translate-x-[-20%] translate-y-[30%]"
-        color="bg-[#d99868]"
-        size="p-1"
-      />
-    </div>
+      <div className="relative z-10 container mx-auto px-4 flex flex-col items-center text-center space-y-8">
+        
+        {/* Tagline / Pre-heading */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green/10 text-green font-medium text-xs md:text-sm border border-green/20"
+        >
+          <span className="w-2 h-2 rounded-full bg-green animate-pulse"></span>
+          Elevating Digital Experiences
+        </motion.div>
+
+        {/* Main Heading */}
+        <motion.h1 
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="text-4xl md:text-6xl font-russo text-agency-black leading-tight tracking-tight"
+        >
+          Vision Meets <br className="hidden md:block"/>
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-green to-emerald-600">Strategy.</span>
+        </motion.h1>
+
+        {/* Subheading */}
+        <motion.p 
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="max-w-2xl text-base md:text-lg text-gray-600 font-opensans leading-relaxed"
+        >
+          We craft beautiful, high-converting digital solutions for dreamers and doers. 
+          Scale your ambition with a team that understands your vision.
+        </motion.p>
+
+        {/* CTA Buttons */}
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+          className="flex flex-col sm:flex-row gap-4 mt-8"
+        >
+          <Link to="/contact" className="group relative px-5 py-2.5 bg-agency-black text-white rounded-full font-bold text-sm overflow-hidden transition-all hover:scale-105 active:scale-95 shadow-lg hover:shadow-green/20">
+            <span className="relative z-10 flex items-center gap-2">
+              Start Your Project <ArrowRight className="group-hover:translate-x-1 transition-transform" size={16}/>
+            </span>
+          </Link>
+          
+          <Link to="/portfolio" className="px-5 py-2.5 bg-white text-agency-black border border-gray-200 rounded-full font-bold text-sm hover:bg-gray-50 transition-all hover:scale-105 active:scale-95 shadow-sm">
+            View Our Work
+          </Link>
+        </motion.div>
+
+      </div>
+
+      {/* Scroll Indicator */}
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1, y: [0, 10, 0] }}
+        transition={{ duration: 2, delay: 1, repeat: Infinity }}
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 text-gray-400 flex flex-col items-center gap-2"
+      >
+        <span className="text-xs uppercase tracking-widest">Scroll</span>
+        <ChevronDown size={20} />
+      </motion.div>
+
+    </section>
   );
 }
 

@@ -1,73 +1,60 @@
 import React from 'react'
 import white_logo from '../../../assets/images/white-logo.png'
-import { ShinyButton } from "@/components/magicui/shiny-button";
-import { FaRegCopyright } from "react-icons/fa6";
-import { NavLink } from "react-router-dom";
-
+import { Link } from "react-router-dom";
+import { Mail, Phone, MapPin, ArrowRight } from 'lucide-react';
 
 const Footer = () => {
   return (
-    <div className='w-full bg-green flex flex-col items-center justify-center px-8 py-9 space-y-8'>
-      {/* Logo */}
-      <div className='w-full flex justify-center lg:justify-start border-b'>
-        <img className='max-w-72' src={white_logo} alt="" />
-      </div>
-
-      {/* Content and Links */}
-      <div className='w-full flex flex-col gap-14 lg:flex-row justify-center lg:justify-between lg:items-start items-center px-14 py-6'>
-        <div className='space-y-8 lg:space-y-20'>
-            <h1 className='font-bold font-russo text-center lg:text-left text-user-pale text-2xl lg:text-6xl'>
-                Get Ready to <br/> Grow Your Business
-            </h1>
-
-            <div className='lg:space-x-8 space-x-0 space-y-3 lg:space-y-0  flex flex-col lg:flex-row items-center'>
-                <ShinyButton className='text-user-white'>contact@jasmedia.co</ShinyButton>
-                <ShinyButton className='text-user-white'>+1 (548) 333-2232</ShinyButton>
+    <footer className='w-full bg-agency-black text-white pt-20 pb-10 rounded-t-[3rem] mt-10'>
+      <div className='max-w-7xl mx-auto px-6'>
+        
+        {/* Top Section: CTA and Branding */}
+        <div className='flex flex-col lg:flex-row justify-between items-start mb-20 gap-10'>
+          <div className='max-w-2xl'>
+            <h2 className='font-russo text-4xl md:text-6xl mb-6 leading-tight'>
+              Let's Build Something <span className='text-green text-transparent bg-clip-text bg-gradient-to-r from-green to-emerald-400'>Amazing</span> Together.
+            </h2>
+            <div className='flex flex-col sm:flex-row gap-4 mt-8'>
+               <a href="mailto:contact@jasmedia.co" className='group flex items-center gap-3 px-5 py-2 bg-white text-agency-black rounded-full font-bold text-sm hover:bg-green hover:text-white transition-all duration-300'>
+                 <Mail size={16} />
+                 <span>contact@jasmedia.co</span>
+                 <ArrowRight className='group-hover:translate-x-1 transition-transform' size={16}/>
+               </a>
+               <a href="tel:+15483332232" className='group flex items-center gap-3 px-5 py-2 border border-white/20 text-white rounded-full font-bold text-sm hover:bg-white/10 transition-all duration-300'>
+                 <Phone size={16} />
+                 <span>+1 (548) 333-2232</span>
+               </a>
             </div>
+          </div>
+
+          <div className='flex flex-col gap-6 lg:items-end'>
+            <img className='w-48 opacity-90' src={white_logo} alt="Jasmedia" />
+            <p className='text-gray-400 max-w-xs lg:text-right'>
+              Premium digital marketing agency helping brands grow through innovation and strategy.
+            </p>
+          </div>
         </div>
 
-        <div className=''>
-            <div className='space-y-4'>
-                <h2 className='text-user-white font-bold font-montserrat text-xl'>Quick Links</h2>
-                <ul className='space-y-3 text-center lg:text-left'>
-                    <li className='text-sm font-montserrat text-user-white p-1 cursor-pointer'>
-                      <NavLink to="/">
-                        Home
-                      </NavLink>
-                    </li>
-                    <li className='text-sm font-montserrat text-user-white p-1 cursor-pointer'>
-                      <NavLink to="/portfolio">
-                        Portfolio
-                      </NavLink>
-                    </li>
-                    <li className='text-sm font-montserrat text-user-white p-1 cursor-pointer'>
-                      <NavLink to="/services">
-                        Services
-                      </NavLink>
-                    </li>
-                    <li className='text-sm font-montserrat text-user-white p-1 cursor-pointer'>
-                      <NavLink to="/about">
-                        About
-                      </NavLink>
-                    </li>
-                    <li className='text-sm font-montserrat text-user-white p-1 cursor-pointer'>
-                      <NavLink to="/contact">
-                        Contact Us
-                      </NavLink>
-                    </li>
-                </ul>
-            </div>
+        {/* Divider */}
+        <div className='h-px w-full bg-white/10 mb-10'></div>
+
+        {/* Bottom Section: Links and Copyright */}
+        <div className='flex flex-col md:flex-row justify-between items-center gap-6 text-sm text-gray-500 font-montserrat'>
+          
+          <div className='flex gap-8'>
+            <Link to="/" className='hover:text-white transition-colors'>Home</Link>
+            <Link to="/portfolio" className='hover:text-white transition-colors'>Portfolio</Link>
+            <Link to="/services" className='hover:text-white transition-colors'>Services</Link>
+            <Link to="/about" className='hover:text-white transition-colors'>About</Link>
+            <Link to="/contact" className='hover:text-white transition-colors'>Contact</Link>
+          </div>
+
+          <div className='flex items-center gap-2'>
+            <span>&copy; {new Date().getFullYear()} Jasmedia. All rights reserved.</span>
+          </div>
         </div>
       </div>
-
-      {/* Copyright */}
-      <div className='w-full pt-10 flex justify-center items-center gap-x-3'>
-        <p className='text-center text-user-gray-100'>
-          <FaRegCopyright />
-        </p>
-        <p className='text-center text-user-gray-100'>2025 Jasmedia All Rights Reserved</p>
-      </div>
-    </div>
+    </footer>
   )
 }
 

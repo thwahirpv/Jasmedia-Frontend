@@ -75,8 +75,8 @@ const PortfolioList = ({ setIsModalOpen, isModalOpen, statusSelected, searchTerm
         text: `${portfolioToggleError}`,
         icon: 'error',
         confirmButtonText: 'OK',
-        background: theme == 'dark' ? '#2f3946' : '#ecececf5',
-        color: theme == 'dark' ? "#ebf1f8" : '#030712',
+        // background: theme == 'dark' ? '#2f3946' : '#ecececf5',
+        // color: theme == 'dark' ? "#ebf1f8" : '#030712',
       });
     } finally {
       setTogglingPortfolioId(null)
@@ -85,17 +85,13 @@ const PortfolioList = ({ setIsModalOpen, isModalOpen, statusSelected, searchTerm
 
   const portfolioDelete = async (portfolio_id, title) => {
       portfolioSwal.fire({
-        title: 'Are you sure ?',
+        title: 'Are you sure?',
         icon: 'warning',
-        text: `Are you sure to delete ${title}`,
-        allowOutsideClick: true,
-        allowEscapeKey: true,
-        showConfirmButton: true,
+        text: `Delete ${title}?`,
         showCancelButton: true,
-        cancelButtonText: 'Not',
-        confirmButtonText: 'Sure',
-        background: theme == 'dark' ? '#2f3946' : '#ecececf5',
-        color: theme == 'dark' ? "#ebf1f8" : '#030712',
+        confirmButtonText: 'Yes, delete it',
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#0a0a0a',
       }).then(async (res) => {
         try{
           if(res.isConfirmed){
@@ -107,9 +103,6 @@ const PortfolioList = ({ setIsModalOpen, isModalOpen, statusSelected, searchTerm
             title: 'Delete failed',
             text: `${portfolioDeleteError}`,
             icon: 'error',
-            confirmButtonText: 'OK',
-            background: theme == 'dark' ? '#2f3946' : '#ecececf5',
-            color: theme == 'dark' ? "#ebf1f8" : '#030712',
           })
         }
       })
@@ -121,68 +114,62 @@ const PortfolioList = ({ setIsModalOpen, isModalOpen, statusSelected, searchTerm
       fetchPortfolioList();
     }
   }, [isModalOpen, statusSelected, debouncedSearchTerm, categorySelected]);
+
+
   return (
-    <div className="w-full h-[80%] overflow-auto scroll-smooth scrollbar-thin scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-thumb-light-gray-800 scrollbar-track-light-gray-300 dark:scrollbar-thumb-dark-blue-900 dark:scrollbar-track-dark-blue-300">
-      <table className="relative w-full text-sm text-left rtl:text-right text-light-gray-950 dark:text-dark-white">
-        <thead className="sticky top-0 text-xs text-light-gray-950 uppercase bg-light-gray-300 dark:bg-dark-blue-600 dark:text-dark-gray ">
+    <div className="w-full overflow-auto rounded-lg">
+      <table className="w-full text-sm text-left text-gray-300">
+        <thead className="text-xs text-white uppercase bg-white/10">
           <tr>
-            <th scope="col" className="px-6 py-3">
-              Preview
-            </th>
-            <th scope="col" className="px-6 py-3">
-              Title
-            </th>
-            <th scope="col" className="px-6 py-3">
-              Category
-            </th>
-            <th scope="col" className="px-6 py-3">
-              Status
-            </th>
-            <th scope="col" className="px-6 py-3">
-              Action
-            </th>
+            <th scope="col" className="px-6 py-4 rounded-tl-lg">Preview</th>
+            <th scope="col" className="px-6 py-4">Title</th>
+            <th scope="col" className="px-6 py-4">Category</th>
+            <th scope="col" className="px-6 py-4">Status</th>
+            <th scope="col" className="px-6 py-4 rounded-tr-lg text-center">Actions</th>
           </tr>
         </thead>
-        <tbody className="relative">
+        <tbody className="divide-y divide-white/5">
           {
             portfolios.length > 0 ? 
             portfolios.map((portfolio, index) => (
-              <tr kay={portfolio._id} className="odd:bg-light-white odd:dark:bg-dark-blue-900 even:bg-light-gray-100 even:dark:bg-dark-blue-400 border-b dark:border-dark-blue-300 border-light-gray-100">
-                <td
-                  scope="row"
-                  className="px-6 py-4 font-medium text-light-gray-950 whitespace-nowrap dark:text-dark-white"
-                >
-                  <p 
-                  className="cursor-pointer text-light-gray-950 dark:text-dark-white"
+              <tr key={portfolio._id} className="hover:bg-white/5 transition-colors">
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <button 
+                  className="p-2 bg-white/5 rounded-lg hover:bg-white/10 transition-colors text-white cursor-pointer"
                   onClick={() => NavigatePreviwe(portfolio)}
+                  title="Preview"
                   >
                     <VscPreview  size={18}/>
-                  </p>
+                  </button>
                 </td>
-                <td
-                  scope="row"
-                  className="px-6 py-4 font-medium text-light-gray-950 whitespace-nowrap dark:text-dark-white"
-                >
+                <td className="px-6 py-4 font-semibold text-white">
                   {portfolio.title}
                 </td>
-                <td className="px-6 py-4">{portfolio?.category?.name}</td>
+                <td className="px-6 py-4">
+                  <span className="px-3 py-1 bg-white/5 rounded-full text-xs font-medium text-gray-300">
+                    {portfolio?.category?.name}
+                  </span>
+                </td>
                 <td className="px-6 py-4">
                   {portfolio.status ? (
-                        <div className="flex items-center">
-                          <div class="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div>
-                          Active
+                        <div className="flex items-center gap-2">
+                          <span className="relative flex h-3 w-3">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500/75 opacity-75"></span>
+                            <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                          </span>
+                          <span className="text-green-500 font-medium">Active</span>
                         </div>
                       ) : (
-                        <div className="flex items-center">
-                          <div class="h-2.5 w-2.5 rounded-full bg-red-500 me-2"></div>
-                          Inactive
+                        <div className="flex items-center gap-2">
+                          <span className="h-3 w-3 rounded-full bg-red-500"></span>
+                          <span className="text-red-500 font-medium">Inactive</span>
                         </div>
                       )}
                 </td>
-                <td className="flex w-full justify-evenly py-4">
-                  <div>
-                    <p
-                      className="cursor-pointer font-medium text-blue-600 dark:text-blue-500"
+                <td className="px-6 py-4">
+                  <div className="flex items-center justify-center gap-4">
+                    <button
+                      className="font-medium text-blue-500 hover:text-blue-400 transition-colors cursor-pointer"
                       onClick={() => {
                         setIsModalOpenU(!isModalOpenU);
                         setPortfolioData({
@@ -196,53 +183,49 @@ const PortfolioList = ({ setIsModalOpen, isModalOpen, statusSelected, searchTerm
                       }}
                     >
                       Edit
-                    </p>
-                  </div>
-                  <div>
-                    {
-                      isRootAdmin && 
-                      <p
-                        className={`cursor-pointer font-medium ${
-                          portfolio.status ? "text-red-500" : "text-green-500"
-                        }`}
-                        onClick={() => portfolioToggle(portfolio._id)}
-                      >
-                        {
-                          togglingPortfolioId == portfolio._id ? (
-                            <ClipLoader
-                              color={theme == 'dark' ? "#ebf1f8" : '#030712'}
-                              loading={isportfolioToogleLoading}
-                              size={13}
-                            />
-                          ) : portfolio.status ? ( 
-                            "Block"
-                          ) : (
-                            "Unblock"
-                          )
-                        }
-                      </p>
-                    }
-                  </div>
-                  <div>
-                    {
-                      isRootAdmin && 
-                      <button className="cursor-pointer text-red-500"
-                      onClick={() => portfolioDelete(portfolio._id, portfolio.title)}
-                      >
-                        <MdDelete size={18} />
-                      </button>
-                    }
+                    </button>
+                    
+                    {isRootAdmin && (
+                      <>
+                        <button
+                          className={`font-medium ${
+                            portfolio.status ? "text-red-500 hover:text-red-400" : "text-green-500 hover:text-green-400"
+                          } transition-colors min-w-[60px] text-center cursor-pointer`}
+                          onClick={() => portfolioToggle(portfolio._id)}
+                        >
+                          {
+                            togglingPortfolioId == portfolio._id ? (
+                              <ClipLoader color={portfolio.status ? "#ef4444" : "#22c55e"} loading={isportfolioToogleLoading} size={15} />
+                            ) : portfolio.status ? "Block" : "Unblock"
+                          }
+                        </button>
+
+                        <button 
+                          className="text-red-500/80 hover:text-red-500 transition-colors cursor-pointer"
+                          onClick={() => portfolioDelete(portfolio._id, portfolio.title)}
+                          title="Delete"
+                        >
+                          <MdDelete size={20} />
+                        </button>
+                      </>
+                    )}
                   </div>
                 </td>
               </tr>
             ))
             :
-            <div className="absolute w-fit top-[70px] left-[47%] bg-light-gray-400 dark:bg-dark-blue-300 p-3.5 rounded-full">
-              <img className="w-[70px]" src={noDataPng} alt="" />
-            </div>
+            <tr>
+              <td colspan="5" className="px-6 py-10 text-center">
+                 <div className="flex flex-col items-center justify-center">
+                    <img className="w-24 opacity-50 mb-4" src={noDataPng} alt="No Data" />
+                    <p className="text-gray-400 font-medium">No portfolio items found</p>
+                 </div>
+              </td>
+            </tr>
           } 
         </tbody>
       </table>
+      
       <PortfolioForm 
         setIsModalOpen={setIsModalOpenU} 
         isModalOpen={isModalOpenU} 

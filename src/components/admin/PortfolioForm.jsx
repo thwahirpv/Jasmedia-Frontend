@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import ReactDOM from "react-dom";
 import { IoCloseSharp } from "react-icons/io5";
 import { IoCloudUploadOutline } from "react-icons/io5";
 import { AiFillFileImage } from "react-icons/ai";
@@ -104,8 +105,9 @@ const PortfolioForm = ({ setIsModalOpen, isModalOpen, role, data={}, setPortfoli
         allowEscapeKey: true,
         showConfirmButton: true,
         confirmButtonText: 'Refresh',
-        background: theme == 'dark' ? '#2f3946' : '#ecececf5',
-        color: theme == 'dark' ? "#ebf1f8" : '#030712',
+        background: '#1a1a1a',
+        color: '#ffffff',
+        confirmButtonColor: '#ffffff'
       }).then((res) => {
         window.location.reload()
       })
@@ -371,8 +373,9 @@ const PortfolioForm = ({ setIsModalOpen, isModalOpen, role, data={}, setPortfoli
         allowEscapeKey: false,
         showConfirmButton: true,
         confirmButtonText: 'Checked',
-        background: theme == 'dark' ? '#2f3946' : '#ecececf5',
-        color: theme == 'dark' ? "#ebf1f8" : '#030712',
+        background: '#1a1a1a',
+        color: '#ffffff',
+        confirmButtonColor: '#ffffff'
       }).then((res) => {
         if(res.isConfirmed){
           dispatch(setCDetailsIsError())
@@ -391,8 +394,8 @@ const PortfolioForm = ({ setIsModalOpen, isModalOpen, role, data={}, setPortfoli
         didOpen: () => {
           portfolioSwal.showLoading(); 
         },
-        background: theme == 'dark' ? '#2f3946' : '#ecececf5',
-        color: theme == 'dark' ? "#ebf1f8" : '#030712'
+        background: '#1a1a1a',
+        color: '#ffffff'
       })
     }
 
@@ -404,8 +407,9 @@ const PortfolioForm = ({ setIsModalOpen, isModalOpen, role, data={}, setPortfoli
         allowOutsideClick: true,
         allowEscapeKey: true,
         showConfirmButton: true,
-        background: theme == 'dark' ? '#2f3946' : '#ecececf5',
-        color: theme == 'dark' ? "#ebf1f8" : '#030712'
+        background: '#1a1a1a',
+        color: '#ffffff',
+        confirmButtonColor: '#ffffff'
       }).then((res) => {
         dispatch(setIsCreateSuccess())
         setFileName('')
@@ -433,8 +437,9 @@ const PortfolioForm = ({ setIsModalOpen, isModalOpen, role, data={}, setPortfoli
         confirmButtonText: 'Retry',
         cancelButtonText: 'Cancel',
         cancelButtonColor: '#f60013',
-        background: theme == 'dark' ? '#2f3946' : '#ecececf5',
-        color: theme == 'dark' ? "#ebf1f8" : '#030712',
+        background: '#1a1a1a',
+        color: '#ffffff',
+        confirmButtonColor: '#ffffff'
       }).then((res) => {
         if(res.isConfirmed){
             createInstance(portfolioData)
@@ -453,8 +458,9 @@ const PortfolioForm = ({ setIsModalOpen, isModalOpen, role, data={}, setPortfoli
         allowOutsideClick: true,
         allowEscapeKey: true,
         showConfirmButton: true,
-        background: theme == 'dark' ? '#2f3946' : '#ecececf5',
-        color: theme == 'dark' ? "#ebf1f8" : '#030712'
+        background: '#1a1a1a',
+        color: '#ffffff',
+        confirmButtonColor: '#ffffff'
       }).then((res) => {
         dispatch(setIsUpdateSuccess())
         setFileName('')
@@ -482,8 +488,9 @@ const PortfolioForm = ({ setIsModalOpen, isModalOpen, role, data={}, setPortfoli
         confirmButtonText: 'Retry',
         cancelButtonText: 'Cancel',
         cancelButtonColor: '#f60013',
-        background: theme == 'dark' ? '#2f3946' : '#ecececf5',
-        color: theme == 'dark' ? "#ebf1f8" : '#030712',
+        background: '#1a1a1a',
+        color: '#ffffff',
+        confirmButtonColor: '#ffffff'
       }).then((res) => {
         if(res.isConfirmed){
             updateInstace(portfolioData)
@@ -502,8 +509,8 @@ const PortfolioForm = ({ setIsModalOpen, isModalOpen, role, data={}, setPortfoli
         timer: 2000, 
         showConfirmButton: false,
         timerProgressBar: true, 
-        background: theme == 'dark' ? '#2f3946' : '#ecececf5',
-        color: theme == 'dark' ? "#ebf1f8" : '#030712'
+        background: '#1a1a1a',
+        color: '#ffffff'
       }).then((res) => {
         setFileName('')
         setMediaURL('')
@@ -536,68 +543,67 @@ const PortfolioForm = ({ setIsModalOpen, isModalOpen, role, data={}, setPortfoli
     }
 }, [data, role])
 
-  return (
+// ... existing code ...
+
+  
+  if (typeof document === 'undefined') return null;
+
+  return ReactDOM.createPortal(
     <div
-      // onClick={() => setIsModalOpen(!isModalOpen)}
-      className={`absolute left-0 right-0 opacity-10 h-screen bg-light-gray-50 dark:bg-dark-blue-100 flex justify-center transition-all overflow-hidden
-    ${
-      isModalOpen
-        ? "bottom-0 items-center opacity-100 visible"
-        : "invisible bottom-full"
-    }`}
+      className={`fixed inset-0 z-50 bg-agency-black/90 backdrop-blur-sm flex justify-center items-center transition-all duration-300
+      ${isModalOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"}`}
     >
       {isUploading ? (
-        // Uplaoding preview
-        <div className="w-[300px] md:w-[350px] h-fit bg-light-gray-300 dark:bg-dark-blue-900 rounded-md flex flex-col items-center p-4 space-y-4">
-          <div className="w-full flex flex-col items-center space-y-2">
-            <div className="w-full h-[200px]">
+        // Uploading preview
+        <div className="w-[300px] md:w-[350px] bg-[#1a1a1a] border border-white/10 rounded-2xl flex flex-col items-center p-6 space-y-6 shadow-2xl">
+          <div className="w-full flex flex-col items-center space-y-4">
+            <div className="w-full h-[200px] bg-black/20 rounded-xl flex items-center justify-center overflow-hidden">
               {Filetype == "Video" ? (
                 <video
                   src={mediaURL}
                   controls
-                  className="w-full h-full rounded object-contain shadow-md"
+                  className="w-full h-full object-contain"
                 />
               ) : (
                 <img
-                  className="w-full h-full object-contain rounded-md"
+                  className="w-full h-full object-contain"
                   src={mediaURL}
-                  alt=""
+                  alt="Upload Preview"
                 />
               )}
             </div>
             <div className="text-center">
-              <p className="text-sm font-semibold text-light-gray-950 dark:text-dark-white">
-                {mediaURL}
+              <p className="text-sm font-semibold text-white truncate max-w-[200px]">
+                {fileName}
               </p>
-              <p className="text-sm text-light-gray-950 dark:text-dark-gray">
-                {fileSize}
+              <p className="text-xs text-gray-400">
+                {fileSize} MB
               </p>
             </div>
           </div>
-          <div className="w-full mt-1 px-7">
+          <div className="w-full px-2">
             <div
-              className="flex w-full h-3 bg-gray-300 rounded-full overflow-hidden dark:bg-dark-blue-300"
+              className="flex w-full h-2 bg-gray-700 rounded-full overflow-hidden"
               role="progressbar"
               aria-valuenow={uploadingProgress}
               aria-valuemin="0"
               aria-valuemax="100"
             >
               <div
-                className="flex flex-col justify-center rounded-full overflow-hidden bg-blue-600 text-xs text-white text-center whitespace-nowrap dark:bg-blue-500 transition duration-500 text-[10px] font-semibold"
+                className="flex flex-col justify-center rounded-full bg-white text-[10px] text-agency-black font-bold text-center whitespace-nowrap transition-all duration-300"
                 style={{ width: `${uploadingProgress}%` }}
               >
-                {uploadingProgress}%
               </div>
             </div>
-            {/* <div className="w-full flex justify-center">
-              <img className="w-[60px]" src={upload_complete} alt="" />
-            </div> */}
+            <div className="flex justify-between mt-1">
+               <span className="text-xs text-white">{uploadingProgress}%</span>
+            </div>
           </div>
           <div>
-            <p className="text-gray-700 dark:text-dark-blue-300 text-sm font-medium">Please do not refresh or close the tab</p>
+            <p className="text-gray-400 text-sm font-medium animate-pulse">Do not refresh or close tab...</p>
           </div>
-          <div className={`mt-2 ${uploadingProgress >= 100 ? 'hidden': 'block'}`}>
-            <button className='bg-error p-1 px-4 rounded-md font-semibold cursor-pointer text-dark-blue-900'
+          <div className={`${uploadingProgress >= 100 ? 'hidden': 'block'}`}>
+            <button className='bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white transition-colors px-6 py-2 rounded-xl font-bold text-sm'
             onClick={cancelUPload}
             >
               Cancel
@@ -606,173 +612,147 @@ const PortfolioForm = ({ setIsModalOpen, isModalOpen, role, data={}, setPortfoli
         </div>
       ) : (
         // Creating form
-        <div className="relative h-fit bg-light-gray-300 dark:bg-dark-blue-900 rounded-md py-7 px-7 flex flex-col items-center space-y-6">
-          <span className="absolute cursor-pointer top-2 right-2 text-light-gray-950 dark:text-dark-white">
+        <div className="relative w-[90%] max-w-md bg-[#1a1a1a] border border-white/10 rounded-2xl p-8 flex flex-col items-center space-y-6 shadow-2xl">
+          <span className="absolute top-4 right-4 text-gray-400 hover:text-white cursor-pointer transition-colors p-2 hover:bg-white/5 rounded-full">
             <IoCloseSharp
-              size={20}
+              size={24}
               onClick={() => setIsModalOpen(!isModalOpen)}
             />
           </span>
-          <h1 className="font-medium text-light-gray-950 dark:text-dark-white">
-            Add Portfolio
+          <h1 className="text-2xl font-bold font-russo text-white tracking-wide">
+            {role === 'create' ? 'Add Project' : 'Edit Project'}
           </h1>
-          <div>
+          <div className="w-full">
             <form
               action=""
-              className="flex flex-col space-y-4 w-[300px] md:w-[350px]"
+              className="flex flex-col space-y-5 w-full"
               onSubmit={handleFileSubmit}
             >
-              <div className="w-full p-2 bg-light-white dark:bg-dark-blue-600 rounded-md">
-                <div className="w-full h-[200px] flex flex-col justify-center items-center space-y-1 bg-light-white dark:bg-dark-blue-600 rounded-md border-2 border-dashed border-light-gray-950 dark:border-dark-gray">
+              {/* Image Upload Area */}
+              <div className="w-full h-[220px] bg-agency-black/50 border-2 border-dashed border-gray-700 hover:border-white rounded-xl transition-colors group relative overflow-hidden flex flex-col justify-center items-center cursor-pointer">
                   {mediaURL ? (
                     Filetype == "Video" ? (
                       <video
                         src={mediaURL}
                         controls
-                        className="w-full h-full rounded object-contain shadow-md"
+                        className="w-full h-full object-contain z-10"
                       />
                     ) : (
                       <img
-                        className="w-full h-full object-contain rounded-md"
+                        className="w-full h-full object-contain z-10"
                         src={mediaURL}
-                        alt=""
+                        alt="Preview"
                       />
                     )
                   ) : (
-                    <div className="w-full h-full flex flex-col justify-center items-center space-y-1">
-                      <IoCloudUploadOutline
-                        size={30}
-                        className="text-light-gray-950 hover:text-light-gray-800 dark:text-dark-gray dark:hover:text-dark-white cursor-pointer"
-                        onClick={() => {
-                          inputFileRef.current.click();
-                        }}
-                      />
-                      <p
-                        className="cursor-pointer text-sm md:text-[14.5px] text-light-gray-950 hover:text-light-gray-800 dark:text-dark-gray dark:hover:text-dark-white"
-                        onClick={() => {
-                          inputFileRef.current.click();
-                        }}
-                      >
-                        Browse file to Upload File !
-                      </p>
+                    <div className="flex flex-col items-center justify-center space-y-3 z-10"
+                         onClick={() => inputFileRef.current.click()}>
+                      <div className="p-3 bg-white/5 rounded-full group-hover:scale-110 transition-transform duration-300">
+                         <IoCloudUploadOutline size={30} className="text-white" />
+                      </div>
+                      <div className="text-center">
+                          <p className="text-sm font-bold text-white">Click to upload</p>
+                          <p className="text-xs text-gray-500">SVG, PNG, JPG or GIF (max 800x400px)</p>
+                      </div>
                     </div>
                   )}
-                </div>
+                 {/* Overlay for change image */}
+                 {mediaURL && (
+                    <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex items-center justify-center z-20 transition-opacity cursor-pointer"
+                         onClick={() => inputFileRef.current.click()}>
+                          <span className="text-black font-bold bg-white px-4 py-2 rounded-full backdrop-blur-md">Change File</span>
+                    </div>
+                 )}
               </div>
-              <div className="flex flex-col w-full">
-                {fileError && (
-                  <p className="text-error text-[12px]">{fileError}</p>
-                )}
-                <div className="flex justify-between items-center bg-light-white dark:bg-dark-blue-600 text-light-gray-950 dark:text-dark-white border border-gray-300 dark:border-dark-blue-400 rounded-md px-2 py-1.5 space-x-2">
-                  <AiFillFileImage
-                    size={25}
-                    className={`text-light-gray-950 hover:text-light-gray-800 hover:dark:text-dark-blue-900 ${
-                      file ? "cursor-no-drop" : "cursor-pointer"
-                    }`}
-                    onClick={() => {
-                      if (!file) {
-                        inputFileRef.current.click();
-                      }
-                    }}
-                  />
-                  <div className="w-full flex flex-col items-center space-y-0.5">
-                    <p className="text-[12px] text-light-gray-950 dark:text-dark-white">
-                      {fileName ? fileName : "Not file selected"}
-                    </p>
+
+              {/* File details & Delete */}
+              <div className="flex items-center gap-3">
+                 <div className="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-3 flex items-center gap-3">
+                    <AiFillFileImage size={24} className={file ? "text-white" : "text-gray-600"} />
+                    <div className="flex-1 overflow-hidden">
+                       <p className="text-sm text-white truncate font-medium">{fileName || "No file selected"}</p>
+                       {fileSize > 0 && <p className="text-xs text-gray-500">{fileSize} MB</p>}
+                    </div>
+                 </div>
+                 {file && (
+                    <button type="button" onClick={HandleFileDelete} className="p-3 bg-red-500/10 text-red-500 rounded-xl hover:bg-red-500 hover:text-white transition-colors cursor-pointer">
+                        <MdDelete size={20} />
+                    </button>
+                 )}
+              </div>
+              {fileError && <p className="text-red-500 text-xs pl-1">{fileError}</p>}
+              <input className="hidden" type="file" ref={inputFileRef} onChange={handleFileChange} />
+
+              
+              {/* Inputs */}
+              <div className="space-y-4">
+                  <div className="space-y-1">
+                    <input
+                      className="w-full bg-agency-black/50 text-white placeholder-gray-500 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-white/50 focus:ring-1 focus:ring-white/50 transition-all"
+                      placeholder="Project Title"
+                      type="text"
+                      value={title}
+                      onChange={titleOnChange}
+                    />
+                     {titleError && <p className="text-red-500 text-xs pl-1">{titleError}</p>}
                   </div>
-                  <MdDelete
-                    size={25}
-                    className="text-light-gray-950 hover:text-error cursor-pointer"
-                    onClick={HandleFileDelete}
-                  />
-                </div>
-              </div>
-              <input
-                className="hidden"
-                type="file"
-                ref={inputFileRef}
-                onChange={handleFileChange}
-              />
-              <div className="flex flex-col w-full">
-                {titleError && (
-                  <p className="text-error text-[12px]">{titleError}</p>
-                )}
-                <input
-                  className="bg-light-white dark:bg-dark-blue-600 text-light-gray-950 dark:text-dark-white border border-gray-300 dark:border-dark-blue-400 rounded-md outline-0 focus:border-2 px-2 py-1"
-                  placeholder="Title"
-                  type="text"
-                  value={title}
-                  onChange={titleOnChange}
-                  // onBlur={titleOnChange}
-                />
-              </div>
-              <div className="flex flex-col w-full">
-                {discriptoinError && (
-                  <p className="text-error text-[12px]">{discriptoinError}</p>
-                )}
-                <textarea
-                  className="bg-light-white dark:bg-dark-blue-600 text-light-gray-950 dark:text-dark-white border border-gray-300 dark:border-dark-blue-400 rounded-md outline-0 focus:border-2 px-2 py-1"
-                  placeholder="Desciption"
-                  type="text"
-                  value={discriptoin}
-                  onChange={descriptionOnChange}
-                  onBlur={descriptionOnChange}
-                />
+
+                  <div className="space-y-1">
+                    <textarea
+                      className="w-full bg-agency-black/50 text-white placeholder-gray-500 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-white/50 focus:ring-1 focus:ring-white/50 transition-all min-h-[100px] resize-none"
+                      placeholder="Project Description"
+                      type="text"
+                      value={discriptoin}
+                      onChange={descriptionOnChange}
+                      onBlur={descriptionOnChange}
+                    />
+                     {discriptoinError && <p className="text-red-500 text-xs pl-1">{discriptoinError}</p>}
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4">
+                      <div className="space-y-1">
+                        <select
+                          className="w-full bg-agency-black/50 text-white border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-white/50 transition-all appearance-none cursor-pointer"
+                          onChange={categoryOnChange}
+                          onBlur={categoryOnChange}
+                          value={category}
+                        >
+                          <option value="" disabled>Category</option>
+                          {categories.map((item) => (
+                              <option key={item._id} value={item._id} className="bg-agency-black">{item.name}</option>
+                          ))} 
+                        </select>
+                         {categoryError && <p className="text-red-500 text-xs pl-1">{categoryError}</p>}
+                      </div>
+
+                      <div className="space-y-1">
+                        <select
+                          className="w-full bg-agency-black/50 text-white border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-white/50 transition-all appearance-none cursor-pointer"
+                          value={select}
+                          onChange={TypeOnChange}
+                          onBlur={TypeOnChange}
+                        >
+                          <option value="" disabled>Type</option>
+                          <option value="Video" className="bg-agency-black">Video</option>
+                          <option value="Image" className="bg-agency-black">Image</option>
+                        </select>
+                         {typeError && <p className="text-red-500 text-xs pl-1">{typeError}</p>}
+                      </div>
+                  </div>
               </div>
 
-              <div className="flex flex-col w-full">
-                {typeError && (
-                  <p className="text-error text-[12px]">{typeError}</p>
-                )}
-                <select
-                  className="bg-light-white dark:bg-dark-blue-600 text-light-gray-950 dark:text-dark-white border border-gray-300 dark:border-dark-blue-400 rounded-md outline-0 focus:border-2 px-2 py-1"
-                  name=""
-                  onChange={categoryOnChange}
-                  onBlur={categoryOnChange}
-                  id=""
-                >
-                  <option defaultValue={true} value={`${category._id || ''}`}>
-                    {category.name || 'Category'}
-                  </option>
-                  {
-                    categories.map((item, index) => (
-                      <option key={item._id} value={`${item._id}`}>{item.name}</option>
-                  ))} 
-                </select>
-              </div>
-
-              <div className="flex flex-col w-full">
-                {typeError && (
-                  <p className="text-error text-[12px]">{typeError}</p>
-                )}
-                <select
-                  className="bg-light-white dark:bg-dark-blue-600 text-light-gray-950 dark:text-dark-white border border-gray-300 dark:border-dark-blue-400 rounded-md outline-0 focus:border-2 px-2 py-1"
-                  name=""
-                  value={select}
-                  onChange={TypeOnChange}
-                  onBlur={TypeOnChange}
-                  id=""
-                >
-                  <option defaultValue={true} value="">
-                    Type
-                  </option>
-                  <option value="Video">Video</option>
-                  <option value="Image">Image</option>
-                </select>
-              </div>
               <button
-                className="cursor-pointer text-sm text-light-gray-300 dark:text-dark-blue-900 font-medium py-1.5 rounded-md px-2 bg-light-gray-950 dark:bg-dark-gray"
+                 className="w-full bg-white hover:bg-gray-200 text-agency-black font-bold py-3.5 rounded-xl shadow-lg transition-all transform active:scale-95 cursor-pointer"
                 type="submit"
               >
-                {
-                  role == 'create' ? 'Add' : 'Edit'
-                }
+                {role == 'create' ? 'Add Project' : 'Save Changes'}
               </button>
             </form>
           </div>
         </div>
       )}
-    </div>
+    </div>,
+    document.body
   );
 };
 

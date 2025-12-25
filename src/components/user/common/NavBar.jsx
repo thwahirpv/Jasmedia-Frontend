@@ -1,157 +1,114 @@
 import React, { useEffect, useState } from 'react'
-import logo from '../../../assets/images/logo.png'
-import { NavLink } from "react-router-dom";
-import { GrDown } from "react-icons/gr";
-import { GrUp } from "react-icons/gr";
-import { FcHome } from "react-icons/fc";
-import { IoIosHome } from "react-icons/io";
-import { GrGallery } from "react-icons/gr";
-import { FcGallery } from "react-icons/fc";
-import { FcAbout } from "react-icons/fc";
-import { TbArrowRoundaboutLeft } from "react-icons/tb";
-import { FcBusinessContact } from "react-icons/fc";
-import { RiContactsBook3Fill } from "react-icons/ri";
-import { useLocation } from 'react-router-dom';
-
-
+import logo from '../../../assets/images/logo_green.png'
+import { NavLink, useLocation } from "react-router-dom";
+import { Menu, X, Home, Briefcase, Layers, User, Phone } from 'lucide-react'; // Clean line icons
 
 const NavBar = () => {
   const [isNavOpen, setIsNavOpen] = useState(false)
-  const [currectOption, setCurrentOption] = useState('home')
+  const [scrolled, setScrolled] = useState(false)
   const location = useLocation();
-
-
-  const options = {
-    HOME: 'home',
-    PORTFOLIO: 'portfolio',
-    ABOUT: 'about',
-    CONTACT: 'contact'
-  }
-
-  const optionsIcon = {
-    [options.HOME]: <FcHome />,
-    [options.PORTFOLIO]: <FcGallery />,
-    [options.ABOUT]: <FcAbout />,
-    [options.CONTACT]: <FcBusinessContact />
-  }
 
   const onNavToggle = () => {
     setIsNavOpen(!isNavOpen)
   }
 
-  const onOptionClick = () => {
-    setIsNavOpen(!isNavOpen)
-  }
-
+  // Handle scroll effect for glass navbar
   useEffect(() => {
-    const path = location.pathname;
-
-    switch (path) {
-      case '/':
-        setCurrentOption('home');
-        break;
-      case '/portfolio':
-        setCurrentOption('portfolio');
-        break;
-      case '/about':
-        setCurrentOption('about');
-        break;
-      case '/contact':
-        setCurrentOption('contact');
-        break;
-      default:
-        setCurrentOption('home');
-        break;
+    const handleScroll = () => {
+      if (window.scrollY > 20) {
+        setScrolled(true)
+      } else {
+        setScrolled(false)
+      }
     }
-  }, [location.pathname]);
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  // Close nav on route change
+  useEffect(() => {
+    setIsNavOpen(false)
+  }, [location.pathname])
+
+  const navLinks = [
+    { name: 'Home', path: '/', icon: <Home size={18} /> },
+    { name: 'Portfolio', path: '/portfolio', icon: <Briefcase size={18} /> },
+    { name: 'Services', path: '/services', icon: <Layers size={18} /> },
+    { name: 'About', path: '/about', icon: <User size={18} /> },
+    { name: 'Contact', path: '/contact', icon: <Phone size={18} /> },
+  ]
 
   return (
-    <div className='relative w-full bg-green flex justify-center md:justify-between items-center border-b border-user-slate-grey z-50'>
-      {/* Logo side */}
-      <div>
-        {/* logo */}
-        <NavLink to="/">
-          <img className='md:w-[140px] w-[130px]' src={logo} alt="JM" />
-        </NavLink>
-      </div>
-
-      {/* Options side */}
-      <div className={`px-[20px] md:px-0 md:pr-[20px] w-full md:w-fit absolute md:static top-full transition-all duration-500 ease-in-out transform  ${isNavOpen ? "translate-y-2 opacity-100 visible" : "-translate-y-[300px] md:translate-0 opacity-0 md:opacity-100 invisible md:visible"}`}>
-        <div className='flex bg-user-white md:bg-transparent w-full rounded-md px-[10px] py-[20px]'>
-          {/* Options */}
-          <ul className='flex w-full md:flex-row flex-col md:space-x-[20px] space-y-2.5 md:space-y-0 transition-all'>
-            <li className='' onClick={onOptionClick}>
-                <NavLink to="/"
-                className={({ isActive }) => 
-                ("text-[15px] md:text-sm px-4 py-2 md:py-1.5 ransition-all duration-300 ease-in-out flex items-center text-center " + (isActive ? `bg-user-pale rounded-md md:rounded-full ${isNavOpen ? "text-gray-950" : 'text-green'}` : "text-gray-950 md:text-user-gray-100"))}>
-                  <span className='mr-2 block md:hidden'>
-                    <FcHome />
-                  </span>
-                  Home
-                </NavLink>
-            </li>
-            <li className='' onClick={onOptionClick}>
-                <NavLink to="/portfolio"
-                className={({ isActive }) => 
-                ("text-[15px] md:text-sm px-4 py-2 md:py-1.5 ransition-all duration-300 ease-in-out flex items-center text-center " + (isActive ? `bg-user-pale rounded-md md:rounded-full ${isNavOpen ? "text-gray-950" : 'text-green'}` : "text-gray-950 md:text-user-gray-100"))}>
-                  <span className='mr-2 block md:hidden'>
-                    <FcGallery />
-                  </span>
-                  Portfolio
-                </NavLink>
-            </li>
-            <li className='' onClick={onOptionClick}>
-                <NavLink to="/services"
-                className={({ isActive }) => 
-                ("text-[15px] md:text-sm px-4 py-2 md:py-1.5 ransition-all duration-300 ease-in-out flex items-center text-center " + (isActive ? `bg-user-pale rounded-md md:rounded-full ${isNavOpen ? "text-gray-950" : 'text-green'}` : "text-gray-950 md:text-user-gray-100"))}>
-                  <span className='mr-2 block md:hidden'>
-                    <FcGallery />
-                  </span>
-                  Services
-                </NavLink>
-            </li>
-            <li className='' onClick={onOptionClick}>
-                <NavLink to="/about"
-                className={({ isActive }) => 
-                ("text-[15px] md:text-sm px-4 py-2 md:py-1.5 ransition-all duration-300 ease-in-out flex items-center text-center " + (isActive ? `bg-user-pale rounded-md md:rounded-full ${isNavOpen ? "text-gray-950" : 'text-green'}` : "text-gray-950 md:text-user-gray-100"))}>
-                  <span className='mr-2 block md:hidden'>
-                    <FcAbout />
-                  </span>
-                  About
-                </NavLink>
-              </li>
-            <li className='' onClick={onOptionClick}>
-                <NavLink to="/contact"
-                className={({ isActive }) => 
-                ("text-[15px] md:text-sm px-4 py-2 md:py-1.5 ransition-all duration-300 ease-in-out flex items-center text-center " + (isActive ? `bg-user-pale rounded-md md:rounded-full ${isNavOpen ? "text-gray-950" : 'text-green'}` : "text-gray-950 md:text-user-gray-100"))}>
-                  <span className='mr-2 block md:hidden'>
-                    <FcBusinessContact />
-                  </span>
-                  Contact Us
-                </NavLink>
-            </li>
-          </ul>
+    <>
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'py-2 ' : 'py-4 bg-transparent'}`}>
+      <div className={`mx-auto transition-all duration-300 max-w-7xl md:w-[90%] w-[95%] rounded-full px-6 flex justify-between items-center ${scrolled ? 'glass shadow-sm py-2' : 'glass-transparent'}`}>
+        
+        {/* Logo side */}
+        <div className="flex items-center">
+          <NavLink to="/">
+            {/* Assuming logo needs to be visible on both backgrounds, checking if we need a filter or different logo. keeping as is for now */}
+            <img className='h-8 md:h-10 w-auto object-contain' src={logo} alt="Jasmedia" />
+          </NavLink>
         </div>
+
+        {/* Desktop Options */}
+        <div className="hidden md:flex items-center space-x-1">
+          {navLinks.map((link) => (
+             <NavLink 
+              key={link.name}
+              to={link.path}
+              className={({ isActive }) => 
+                `px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-300 flex items-center gap-2
+                ${isActive 
+                  ? 'bg-green text-white shadow-md' 
+                  : 'text-gray-700 hover:text-green hover:bg-green/10'}`
+              }
+            >
+              {link.name}
+            </NavLink>
+          ))}
+        </div>
+
+        {/* Mobile Menu Toggle */}
+        <button 
+          className="md:hidden p-2 text-gray-700 hover:text-green focus:outline-none"
+          onClick={onNavToggle}
+        >
+          {isNavOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
+
       </div>
+    </nav>
 
-      {/* menu icon */}
-      <div className='absolute right-0.5 bg-user-white p-1 rounded-full md:hidden flex justify-center items-center space-x-2' 
-      onClick={onNavToggle}>
-        <p className='bg-user-pale p-1 rounded-full text-center text-[17px] transition-all duration-500 ease-in-out'>
-          { optionsIcon[currectOption] || null }
-        </p>
-        <p className='text-[17px] p-1 transition-all duration-500 ease-in-out'>
-          {
-            isNavOpen ? 
-            <GrUp />
-            :
-            <GrDown />
-          }
-        </p>
+    {/* Mobile Mobile Menu Content */}
+    <div className={`fixed inset-0 z-40 bg-white/95 backdrop-blur-xl md:hidden transition-transform duration-300 ease-in-out ${isNavOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+      <div className="flex flex-col items-center justify-center h-full space-y-8">
+        {navLinks.map((link) => (
+             <NavLink 
+              key={link.name}
+              to={link.path}
+              onClick={() => setIsNavOpen(false)}
+              className={({ isActive }) => 
+                `px-8 py-3 rounded-full text-lg font-bold transition-all duration-300 flex items-center gap-3
+                ${isActive 
+                  ? 'bg-green text-white shadow-lg scale-105' 
+                  : 'text-gray-800 hover:text-green hover:bg-gray-100'}`
+              }
+            >
+              {link.icon}
+              {link.name}
+            </NavLink>
+          ))}
+          
+          <button 
+            className="absolute top-6 right-6 p-2 text-gray-500 hover:text-red-500"
+            onClick={onNavToggle}
+          >
+            <X size={32} />
+          </button>
       </div>
-
-
     </div>
+    </>
   )
 }
 

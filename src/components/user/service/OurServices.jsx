@@ -10,64 +10,41 @@ const sections = [
   {
     id: 1,
     img: photographyImg,
-    text: `At JasMedia, we specialize in delivering stunning, high-quality photography 
-    that brings your vision to life. From corporate branding and product showcases to real estate, 
-    events, and lifestyle shoots, we create visuals that captivate and inspire. Our experienced team 
-    ensures every detail is perfectly captured, whether it’s a wedding, a culinary masterpiece, or an 
-    automotive highlight. With quick turnarounds and a passion for excellence, JasMedia transforms moments 
-    into powerful visual stories tailored to your brand and goals.`,
+    text: {
+      title: "Commercial Photography",
+      description: "We capture visuals that speak louder than words. From high-end product photography to corporate lifestyle shoots, our lens focuses on bringing out the authentic essence of your brand. We ensure every shot is meticulously composed to tell your unique story."
+    },
   },
   {
-    id: 1,
+    id: 2,
     img: videographyImg,
-    text: `At JasMedia, we specialize in delivering stunning, high-quality photography 
-    that brings your vision to life. From corporate branding and product showcases to real estate, 
-    events, and lifestyle shoots, we create visuals that captivate and inspire. Our experienced team 
-    ensures every detail is perfectly captured, whether it’s a wedding, a culinary masterpiece, or an 
-    automotive highlight. With quick turnarounds and a passion for excellence, JasMedia transforms moments 
-    into powerful visual stories tailored to your brand and goals.`,
+    text: {
+      title: "Cinematic Videography",
+      description: "Motion creates emotion. Our videography team crafts compelling narratives through dynamic visuals and professional editing. Whether it’s a brand commercial, event coverage, or social media content, we deliver cinematic experiences that captivate your audience."
+    },
   },
   {
-    id: 1,
+    id: 3,
     img: brandingImg,
-    text: `At JasMedia, we specialize in delivering stunning, high-quality photography 
-    that brings your vision to life. From corporate branding and product showcases to real estate, 
-    events, and lifestyle shoots, we create visuals that captivate and inspire. Our experienced team 
-    ensures every detail is perfectly captured, whether it’s a wedding, a culinary masterpiece, or an 
-    automotive highlight. With quick turnarounds and a passion for excellence, JasMedia transforms moments 
-    into powerful visual stories tailored to your brand and goals.`,
+    text: {
+      title: "Strategic Branding",
+      description: "Your brand is more than just a logo. We help build comprehensive identities that resonate. From visual systems to tone of voice, we design cohesive brand experiences that stand out in a crowded market and foster lasting customer loyalty."
+    },
   },
   {
-    id: 1,
+    id: 4,
     img: motionDesign,
-    text: `At JasMedia, we specialize in delivering stunning, high-quality photography 
-    that brings your vision to life. From corporate branding and product showcases to real estate, 
-    events, and lifestyle shoots, we create visuals that captivate and inspire. Our experienced team 
-    ensures every detail is perfectly captured, whether it’s a wedding, a culinary masterpiece, or an 
-    automotive highlight. With quick turnarounds and a passion for excellence, JasMedia transforms moments 
-    into powerful visual stories tailored to your brand and goals.`,
+    text: {
+      title: "Motion Design & Animation",
+      description: "Bring your ideas to life with fluid motion. Our motion graphics transform complex concepts into engaging visual stories. Perfect for explainers, social ads, and digital interfaces, we add that extra layer of dynamism to your communication."
+    },
   },
 ];
 
 const OurServices = () => {
   return (
-    <div className="relative w-full bg-user-smokewhite py-32 px-6">
-      <Particles
-        className="absolute inset-0 z-0"
-        quantity={300}
-        ease={80}
-        color={"#1e3a32"}
-        refresh
-      />
-
+    <div className="relative w-full bg-white">
       <div className="relative w-full flex flex-col justify-center items-center">
-        {/* <h2
-          className="text-3xl md:text-4xl font-bold text-center text-gray-900 font-russo"
-          data-aos="fade-up"
-        >
-          Our Services
-        </h2> */}
-
         <div className="relative w-full">
           {sections.map((section, index) => (
             <ScrollSection
