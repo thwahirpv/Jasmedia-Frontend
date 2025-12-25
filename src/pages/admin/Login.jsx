@@ -11,8 +11,8 @@ const Login = () => {
   // Hooks
   const [isEmailFocus, setIsEmailFocus] = useState(false);
   const [isPasswordFocus, setIsPasswordFocus] = useState(false);
-  const [email, setEmail] = useState("karnan.se@gmail.com");
-  const [password, setPassword] = useState("12341234");
+  const [email, setEmail] = useState("thwahirpv@gmail.com");
+  const [password, setPassword] = useState("Thwa@123");
   const [isShowPassword, setIsShowPassword] = useState(false);
   const dispatch = useDispatch();
   const { isLoading, user, error, isBlocked } = useSelector((state) => state.auth);
