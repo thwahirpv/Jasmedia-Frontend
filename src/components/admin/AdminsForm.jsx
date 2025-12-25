@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import ReactDOM from "react-dom";
 import { useState } from "react";
 import useTheme from "../../hook/useTheme";
 import { useDispatch, useSelector } from "react-redux";
@@ -155,8 +156,8 @@ const AdminsForm = ({ setIsModalOpen, isModalOpen }) => {
         timer: 1500, 
         showConfirmButton: true,
         timerProgressBar: true, 
-        background: theme == 'dark' ? '#2f3946' : '#ecececf5',
-        color: theme == 'dark' ? "#ebf1f8" : '#030712'
+        background: '#1a1a1a',
+        color: '#ffffff'
       }).then((res) => {
         setIsModalOpen(false)
       })
@@ -171,8 +172,8 @@ const AdminsForm = ({ setIsModalOpen, isModalOpen }) => {
           text: errMessage,
           icon: 'error',
           showConfirmButton: true,
-          background: theme == 'dark' ? '#2f3946' : '#ecececf5',
-          color: theme == 'dark' ? "#ebf1f8" : '#030712'
+          background: '#1a1a1a',
+          color: '#ffffff'
         }).then((res) => {
           setName("")
           setEmail("")
@@ -220,143 +221,117 @@ const AdminsForm = ({ setIsModalOpen, isModalOpen }) => {
     setPasswordError("")
   }, [isModalOpen])
 
-  return (
+  if (typeof document === 'undefined') return null;
+
+  return ReactDOM.createPortal(
     <div
-      className={`absolute left-0 right-0 opacity-0 h-screen bg-light-gray-50 dark:bg-dark-blue-100 flex justify-center transition-all overflow-hidden
-    ${
-      isModalOpen
-        ? "bottom-0 items-center opacity-100 visible"
-        : "invisible bottom-full"
-    }`}
+      className={`fixed inset-0 z-50 bg-agency-black/90 backdrop-blur-sm flex justify-center items-center transition-all duration-300
+      ${isModalOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"}`}
     >
-      <div className="relative w-[300px] h-fit bg-light-gray-300 dark:bg-dark-blue-900 rounded-md py-6 px-7 flex flex-col items-center space-y-6">
-        <span className="absolute cursor-pointer top-2 right-2 text-light-gray-950 dark:text-dark-white">
+      <div className="relative w-[90%] max-w-md bg-[#1a1a1a] border border-white/10 rounded-2xl p-8 flex flex-col items-center space-y-6 shadow-2xl">
+        <span className="absolute top-4 right-4 text-gray-400 hover:text-white cursor-pointer transition-colors p-2 hover:bg-white/5 rounded-full">
           <IoCloseSharp
-            size={20}
+            size={24}
             onClick={() => setIsModalOpen(!isModalOpen)}
           />
         </span>
-        <h1 className="font-medium text-light-gray-950 dark:text-dark-white">
+        <h1 className="text-2xl font-bold font-russo text-white tracking-wide">
           Create Admin
         </h1>
         <div className="w-full">
           <form
             action=""
-            className="flex flex-col space-y-3"
-            // onSubmit={handleSubmit}
+            className="flex flex-col space-y-5 w-full"
+            onSubmit={handleSubmit}
           >
-            <div className="flex flex-col space-y-0.5">
+            <div className="space-y-1">
               {nameError ? (
-                <p className="text-[11px] text-error">{nameError}</p>
-              ) : (
-                <label
-                  className="ml-1 text-[11px] text-light-gray-950 dark:text-dark-white"
-                  htmlFor="category_name"
-                >
-                  Name
-                </label>
-              )}
+                <p className="text-red-500 text-xs pl-1">{nameError}</p>
+              ) : null}
               <input
-                id="category_name"
-                className="bg-light-white dark:bg-dark-blue-600 text-light-gray-950 dark:text-dark-white border border-gray-300 dark:border-dark-blue-400 rounded-md outline-0 focus:border-2 pl-2 py-1"
+                id="name"
+                className="w-full bg-agency-black/50 text-white placeholder-gray-500 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-white/50 focus:ring-1 focus:ring-white/50 transition-all"
+                placeholder="Name"
                 type="text"
                 value={name}
                 onChange={onNameChnage}
               />
             </div>
-            <div className="flex flex-col space-y-0.5">
+
+            <div className="space-y-1">
               {emailError ? (
-                <p className="text-[11px] text-error">{emailError}</p>
-              ) : (
-                <label
-                  className="ml-1 text-[11px] text-light-gray-950 dark:text-dark-white"
-                  htmlFor="category_name"
-                >
-                  Email
-                </label>
-              )}
+                <p className="text-red-500 text-xs pl-1">{emailError}</p>
+              ) : null}
               <input
-                id="category_name"
-                className="bg-light-white dark:bg-dark-blue-600 text-light-gray-950 dark:text-dark-white border border-gray-300 dark:border-dark-blue-400 rounded-md outline-0 focus:border-2 pl-2 py-1"
-                // placeholder="Email"
+                id="email"
+                className="w-full bg-agency-black/50 text-white placeholder-gray-500 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-white/50 focus:ring-1 focus:ring-white/50 transition-all"
+                placeholder="Email Address"
                 type="email"
                 value={email}
                 onChange={onEmailChange}
               />
             </div>
-            <div className="flex flex-col space-y-0.5">
+
+            <div className="space-y-1">
               {roleError ? (
-                <p className="text-[11px] text-error">{roleError}</p>
-              ) : (
-                <label
-                  className="ml-1 text-[11px] text-light-gray-950 dark:text-dark-white"
-                  htmlFor="category_name"
-                >
-                  Admin type
-                </label>
-              )}
+                <p className="text-red-500 text-xs pl-1">{roleError}</p>
+              ) : null}
               <select
-                className="bg-light-white dark:bg-dark-blue-600 text-light-gray-950 dark:text-dark-white border border-gray-300 dark:border-dark-blue-400 rounded-md outline-0 focus:border-2 px-2 py-1"
-                name=""
+                 className="w-full bg-agency-black/50 text-white border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-white/50 transition-all appearance-none cursor-pointer"
                 value={roleData}
                 onChange={onAdminRoleChange}
-                id=""
               >
-                <option defaultValue={false} value="">
-                  Select
-                </option>
-                <option value={true}>Root admin</option>
-                <option value={false}>Local admin</option>
+                <option value="" disabled className="text-gray-500">Select Admin Type</option>
+                <option value={true} className="bg-agency-black">Root Admin</option>
+                <option value={false} className="bg-agency-black">Local Admin</option>
               </select>
             </div>
 
-            <div className="flex flex-col space-y-0.5">
+            <div className="space-y-1">
               {passwordError ? (
-                  <p className="text-[11px] text-error">{passwordError}</p>
-                ) : (
-                  <label
-                    className="ml-1 text-[11px] text-light-gray-950 dark:text-dark-white"
-                    htmlFor="category_name"
-                  >
-                    Password
-                  </label>
-                )}
-              <div className="flex items-center justify-between">
+                  <p className="text-red-500 text-xs pl-1">{passwordError}</p>
+                ) : null}
+              <div className="relative">
                 <input
                   id="password"
-                  className="bg-light-white dark:bg-dark-blue-600 text-light-gray-950 dark:text-dark-white border border-gray-300 dark:border-dark-blue-400 rounded-md outline-0 focus:border-2 pl-2 py-1"
-                  type="email"
+                  className="w-full bg-agency-black/50 text-white placeholder-gray-500 border border-white/10 rounded-xl px-4 py-3 pr-12 focus:outline-none focus:border-white/50 focus:ring-1 focus:ring-white/50 transition-all"
+                  placeholder="Password"
+                  type="text"
                   value={password}
                   onChange={onPasswordChange}
                 />
-                <button className="cursor-pointer px-3 py-2 text-sm text-light-gray-300 dark:text-dark-blue-900 font-medium rounded-md bg-light-gray-950 dark:bg-dark-gray"
-                onClick={generatePassword}
+                <button 
+                  type="button"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white transition-colors cursor-pointer p-1"
+                  onClick={generatePassword}
+                  title="Generate Password"
                 >
-                <RiAiGenerate />
-              </button>
+                  <RiAiGenerate size={20} />
+                </button>
               </div>
             </div>
+
             <button
-              className="cursor-pointer text-sm text-light-gray-300 dark:text-dark-blue-900 font-medium py-1.5 rounded-md px-2 bg-light-gray-950 dark:bg-dark-gray"
+               className="w-full bg-white hover:bg-gray-200 text-agency-black font-bold py-3.5 rounded-xl shadow-lg transition-all transform active:scale-95 cursor-pointer"
               type="submit"
-              onClick={handleSubmit}
             >
               {
                 isAdminCreateLoading ? 
                 <ScaleLoader
-                  color="#030712"
+                  color="#000000"
                   loading={isAdminCreateLoading}
-                  height={10}
+                  height={15}
                   width={4}
                 />
                 : 
-                "Create"
+                "Create Admin"
               }
             </button>
           </form>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
 

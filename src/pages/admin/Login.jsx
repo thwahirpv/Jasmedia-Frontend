@@ -77,14 +77,14 @@ const Login = () => {
                 onBlur={emailUnfocus}
                 autoComplete="username"
                 value={email}
-                className="w-full bg-[#1a1a1a] text-white border border-white/10 px-4 py-3 rounded-xl focus:outline-none focus:border-green focus:ring-1 focus:ring-green transition-all placeholder-transparent"
+                className="w-full bg-[#1a1a1a] text-white border border-white/10 px-4 py-3 rounded-xl focus:outline-none focus:border-gray-400 focus:ring-1 focus:ring-gray-400 transition-all placeholder-transparent"
                 type="email"
                 id="email"
               />
               <label
                 htmlFor="email"
-                className={`absolute left-4 transition-all pointer-events-none text-gray-500
-                  ${isEmailFocus || email.length > 0 ? "-top-2.5 text-xs bg-[#1a1a1a] px-1 text-green" : "top-3.5 text-sm"}`}
+                className={`absolute left-4 transition-all pointer-events-none text-gray-400
+                  ${isEmailFocus || email.length > 0 ? "-top-2.5 text-xs bg-[#1a1a1a] px-1 text-gray-400" : "top-3.5 text-sm"}`}
               >
                 Email Address
               </label>
@@ -99,14 +99,14 @@ const Login = () => {
                 onBlur={passwordUnfocus}
                 autoComplete="current-password"
                 value={password}
-                className="w-full bg-[#1a1a1a] text-white border border-white/10 px-4 py-3 rounded-xl focus:outline-none focus:border-green focus:ring-1 focus:ring-green transition-all"
+                className="w-full bg-[#1a1a1a] text-white border border-white/10 px-4 py-3 rounded-xl focus:outline-none focus:border-gray-400 focus:ring-1 focus:ring-gray-400 transition-all"
                 type={isShowPassword ? "text" : "password"}
                 id="password"
               />
                <label
                 htmlFor="password"
-                className={`absolute left-4 transition-all pointer-events-none text-gray-500
-                  ${isPasswordFocus || password.length > 0 ? "-top-2.5 text-xs bg-[#1a1a1a] px-1 text-green" : "top-3.5 text-sm"}`}
+                className={`absolute left-4 transition-all pointer-events-none text-gray-400
+                  ${isPasswordFocus || password.length > 0 ? "-top-2.5 text-xs bg-[#1a1a1a] px-1 text-gray-400" : "top-3.5 text-sm"}`}
               >
                 Password
               </label>
@@ -120,7 +120,7 @@ const Login = () => {
             </div>
 
             <div className="flex justify-end">
-              <p className="text-gray-400 hover:text-green cursor-pointer text-sm transition-colors"
+              <p className="text-gray-400 hover:text-white cursor-pointer text-sm transition-colors"
                 onClick={() => navigate('/admin/forgot-password')}
               >
                 Forgot password?

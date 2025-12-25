@@ -70,8 +70,8 @@ const AdminsList = ({isModalOpen, statusSelected, searchTerm}) => {
           showCancelButton: true,
           cancelButtonText: 'Not',
           confirmButtonText: 'Sure',
-          background: theme == 'dark' ? '#2f3946' : '#ecececf5',
-          color: theme == 'dark' ? "#ebf1f8" : '#030712',
+          background: '#1a1a1a',
+          color: '#ffffff',
         }).then( async (res) => {
           if(res.isConfirmed) {
             try {
@@ -81,8 +81,8 @@ const AdminsList = ({isModalOpen, statusSelected, searchTerm}) => {
                   adminSwal.showLoading();
                 },
                 allowOutsideClick: false,
-                background: theme == 'dark' ? '#2f3946' : '#ecececf5',
-                color: theme == 'dark' ? "#ebf1f8" : '#030712',
+                background: '#1a1a1a',
+                color: '#ffffff',
               })
               const response = await dispatch(deleteAdminThunk({'adminId': adminID})).unwrap()
               adminSwal.fire({
@@ -90,8 +90,8 @@ const AdminsList = ({isModalOpen, statusSelected, searchTerm}) => {
                 icon: 'success',
                 showConfirmButton: false,
                 timer: 1000,
-                background: theme == 'dark' ? '#2f3946' : '#ecececf5',
-                color: theme == 'dark' ? "#ebf1f8" : '#030712',
+                background: '#1a1a1a',
+                color: '#ffffff',
               })
               fetchAdmins()
             } catch (error) {
@@ -101,8 +101,8 @@ const AdminsList = ({isModalOpen, statusSelected, searchTerm}) => {
                 text: `${deleteAdminError}`,
                 icon: 'error',
                 confirmButtonText: 'OK',
-                background: theme == 'dark' ? '#2f3946' : '#ecececf5',
-                color: theme == 'dark' ? "#ebf1f8" : '#030712',
+                background: '#1a1a1a',
+                color: '#ffffff',
               });
             }
           }
@@ -120,8 +120,8 @@ const AdminsList = ({isModalOpen, statusSelected, searchTerm}) => {
           icon: 'error',
           text: `${adminToggleError}`,
           confirmButtonText: 'OK',
-          background: theme == 'dark' ? '#2f3946' : '#ecececf5',
-          color: theme == 'dark' ? "#ebf1f8" : '#030712',
+          background: '#1a1a1a',
+          color: '#ffffff',
         });
       }
     }
