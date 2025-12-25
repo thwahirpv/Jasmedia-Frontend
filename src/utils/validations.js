@@ -15,7 +15,7 @@ export const isNotString = (data) => {
 }
 
 export const isNotValidString = (data) => {
-    const pattern = /^[a-zA-Z0-9_.@-\s()%]+$/
+    const pattern = /^[a-zA-Z0-9_.@-\s()%"']+$/
     return !pattern.test(data.trim())
 }
 
