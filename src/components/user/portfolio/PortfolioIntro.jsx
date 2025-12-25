@@ -8,12 +8,14 @@ import { ChevronDown } from 'lucide-react';
 
 const PortfolioIntro = () => {
   const [portfolios, setPortfolios] = useState([])
+  const [totalProjects, setTotalProjects] = useState(0)
   const dispatch = useDispatch()
 
   const getAllPortfolio = async () => {
     try {
       const response = await dispatch(getAllPortfolioThunk()).unwrap()
       setPortfolios(response.data)
+      setTotalProjects(response.data.length)
     } catch (error) {
       console.log(error)
     }
@@ -24,7 +26,7 @@ const PortfolioIntro = () => {
   }, [])
     
   return (
-    <div className="relative w-full min-h-[70vh] flex flex-col justify-center items-center bg-white overflow-hidden pt-20">
+    <div className="relative w-full min-h-[70vh] flex flex-col justify-center items-center bg-user-white overflow-hidden pt-20">
       
       <div className="absolute inset-0 z-0">
           <Particles
@@ -72,7 +74,7 @@ const PortfolioIntro = () => {
            className="flex items-center gap-4 px-8 py-4 bg-gray-50 rounded-2xl border border-gray-100 shadow-sm mt-8"
         >
           <div className="text-4xl font-bold font-russo text-green">
-            <CountUp end={100} duration={3} />+
+            <CountUp end={totalProjects} duration={3} />
           </div>
           <div className="text-left">
             <p className="text-sm font-bold text-gray-900 uppercase tracking-wide">Projects</p>

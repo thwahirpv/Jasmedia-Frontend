@@ -25,7 +25,7 @@ const steps = [
 
 const TeamSetupSteps = () => {
   return (
-    <section className="relative bg-white py-24 px-6 md:px-12">
+    <section className="relative bg-user-white py-24 px-6 md:px-12">
       <Particles
         className="absolute inset-0 z-0"
         quantity={80}
@@ -42,7 +42,9 @@ const TeamSetupSteps = () => {
              >
                 Our Process
              </h2>
-             <p className="text-gray-500 font-opensans max-w-2xl mx-auto text-base md:text-lg">
+             <p className="text-gray-500 font-opensans max-w-2xl mx-auto text-base md:text-lg"
+             data-aos="fade-up"
+             >
                  How we organize our expertise to deliver your vision.
              </p>
         </div>

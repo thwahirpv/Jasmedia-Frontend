@@ -17,7 +17,7 @@ const ScrollSection = ({ img, text, zIndex }) => {
     <motion.div
       ref={ref}
       style={{ opacity, zIndex }}
-      className="sticky bg-white h-screen top-0 w-full flex flex-col md:flex-row items-center justify-center gap-10 px-6"
+      className="sticky bg-user-white h-screen top-0 w-full flex flex-col md:flex-row items-center justify-center gap-10 px-6"
     >
       <Particles
         className="absolute inset-0 z-0"

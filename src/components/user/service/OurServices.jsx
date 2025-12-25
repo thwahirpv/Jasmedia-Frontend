@@ -43,9 +43,9 @@ const sections = [
 
 const OurServices = () => {
   return (
-    <div className="relative w-full bg-white">
+    <div className="relative w-full bg-user-white">
       <div className="relative w-full flex flex-col justify-center items-center">
-        <div className="relative w-full">
+        <div className="relative w-full bg-user-white">
           {sections.map((section, index) => (
             <ScrollSection
               key={section.id}

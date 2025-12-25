@@ -9,7 +9,7 @@ import FloatingDot from "@/components/user/common/FloatingDot";
 
 const UserLayout = () => {
   return (
-    <div className="scroll-smooth min-h-screen bg-user-white text-user-gray-900 font-opensans selection:bg-green selection:text-white">
+    <div className="scroll-smooth min-h-screen bg-user-white text-user-gray-900 font-opensans selection:bg-green selection:text-white overflow-x-hidden">
       {/* Navigation bar - wrapper removed as NavBar handles its own positioning */}
       <NavBar />
       

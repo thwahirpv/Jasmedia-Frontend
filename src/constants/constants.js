@@ -4,8 +4,6 @@ export const BASE_URL='https://jasmedia-backend.onrender.com/admin'
 export const USER_URL='https://jasmedia-backend.onrender.com/user'
 
 
-
-
 export const EMAIL='email'
 export const NETWORK='network'
 export const PASSWORD='password'
@@ -14,16 +12,15 @@ export const SOMETHING='something'
 export const SUCCESS='success'
 export const FAILED='Failed'
 
-
 export const collection = {
-    ADMIN: 'admin',
-    CATEGORY: 'category',
-    PORTFOLIO: 'portfolio',
-    FEEDBACK: 'feedback'
+  ADMIN: 'admin',
+  CATEGORY: 'category',
+  PORTFOLIO: 'portfolio',
+  FEEDBACK: 'feedback'
 }
 
- export const actions = {
-    UPDATE: 'update',
-    BLOCK: 'block',
-    UNBLOCK: 'unblock',
-  }
+export const actions = {
+  UPDATE: 'update',
+  BLOCK: 'block',
+  UNBLOCK: 'unblock',
+}

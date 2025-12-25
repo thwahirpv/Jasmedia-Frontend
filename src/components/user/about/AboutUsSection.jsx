@@ -31,7 +31,7 @@ const items = [
 
 const AboutUsSection = () => {
   return (
-    <section className="relative bg-gray-50 py-24 px-6 md:px-12">
+    <section className="relative bg-user-white py-24 px-6 md:px-12">
       <Particles
         className="absolute inset-0 z-0"
         quantity={80}

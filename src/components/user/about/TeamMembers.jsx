@@ -18,7 +18,7 @@ const TeamMembers = () => {
      // Added more placeholders if needed or stick to 2
   ];
   return (
-    <section className="relative w-full bg-gray-50 py-24 px-6">
+    <section className="relative w-full bg-user-white py-24 px-6">
       <Particles
         className="absolute inset-0 z-0"
         quantity={80}
@@ -34,7 +34,9 @@ const TeamMembers = () => {
              >
                 Meet The Team
              </h2>
-             <p className="text-gray-500 font-opensans">
+             <p className="text-gray-500 font-opensans"
+                data-aos="fade-up"
+             >
                  The creative minds behind the magic.
              </p>
         </div>
@@ -59,7 +61,7 @@ const TeamMembers = () => {
                 <h3 className="text-2xl font-bold text-white font-russo">
                   {member.name}
                 </h3>
-                <p className="text-green font-medium font-montserrat">
+                <p className="text-white font-medium font-montserrat">
                   {member.position}
                 </p>
               </div>

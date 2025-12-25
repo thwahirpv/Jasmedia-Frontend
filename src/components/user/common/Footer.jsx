@@ -15,14 +15,14 @@ const Footer = () => {
               Let's Build Something <span className='text-green text-transparent bg-clip-text bg-gradient-to-r from-green to-emerald-400'>Amazing</span> Together.
             </h2>
             <div className='flex flex-col sm:flex-row gap-4 mt-8'>
-               <a href="mailto:contact@jasmedia.co" className='group flex items-center gap-3 px-5 py-2 bg-white text-agency-black rounded-full font-bold text-sm hover:bg-green hover:text-white transition-all duration-300'>
+               <a href="mailto:contact@gmail.com" className='group flex items-center gap-3 px-5 py-2 bg-white text-agency-black rounded-full font-bold text-sm hover:bg-green hover:text-white transition-all duration-300'>
                  <Mail size={16} />
-                 <span>contact@jasmedia.co</span>
+                 <span>contact@gmail.com</span>
                  <ArrowRight className='group-hover:translate-x-1 transition-transform' size={16}/>
                </a>
-               <a href="tel:+15483332232" className='group flex items-center gap-3 px-5 py-2 border border-white/20 text-white rounded-full font-bold text-sm hover:bg-white/10 transition-all duration-300'>
+               <a href="tel:+15551234567" className='group flex items-center gap-3 px-5 py-2 border border-white/20 text-white rounded-full font-bold text-sm hover:bg-white/10 transition-all duration-300'>
                  <Phone size={16} />
-                 <span>+1 (548) 333-2232</span>
+                 <span>+1 (555) 123-4567</span>
                </a>
             </div>
           </div>
@@ -41,7 +41,7 @@ const Footer = () => {
         {/* Bottom Section: Links and Copyright */}
         <div className='flex flex-col md:flex-row justify-between items-center gap-6 text-sm text-gray-500 font-montserrat'>
           
-          <div className='flex gap-8'>
+          <div className='flex flex-wrap gap-x-8 gap-y-4 justify-center md:justify-start'>
             <Link to="/" className='hover:text-white transition-colors'>Home</Link>
             <Link to="/portfolio" className='hover:text-white transition-colors'>Portfolio</Link>
             <Link to="/services" className='hover:text-white transition-colors'>Services</Link>

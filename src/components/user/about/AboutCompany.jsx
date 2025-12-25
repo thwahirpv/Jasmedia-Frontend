@@ -4,7 +4,7 @@ import { TextReveal } from '../../magicui/text-reveal';
 
 const AboutCompany = () => {
   return (
-    <section className="relative w-full min-h-[80vh] bg-white flex items-center justify-center px-6 py-24">
+    <section className="relative w-full min-h-[80vh] bg-user-white flex items-center justify-center px-6 py-24 z-20">
       <Particles
         className="absolute inset-0 z-0"
         quantity={80}
@@ -15,12 +15,9 @@ const AboutCompany = () => {
       <div className="relative w-full max-w-6xl flex flex-col space-y-20 z-10">
         {/* Heading */}
         <div className="w-full flex items-center justify-center text-center">
-            {/* Using a smaller font size for the reveal or different styling if possible to fit theme */}
-           <div className="h-[200px] flex items-center justify-center">
              <TextReveal className="text-4xl md:text-5xl font-russo leading-relaxed text-center text-agency-black">
                 Redefining Brands Through Creative Precision and Purposeful Innovation
               </TextReveal>
-           </div>
         </div>
         
         <div className="grid lg:grid-cols-2 gap-12 items-center border-t border-gray-100 pt-12">

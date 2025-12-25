@@ -47,7 +47,7 @@ const Testimonial = () => {
   }, [testimonials]);
 
   return (
-    <section className="relative w-full px-6 overflow-hidden py-24 bg-white space-y-16">
+    <section className="relative w-full px-6 overflow-hidden py-24 bg-user-white space-y-16">
       <Particles
         className="absolute inset-0 z-0"
         quantity={80}

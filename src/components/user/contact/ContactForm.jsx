@@ -54,7 +54,7 @@ const ContactForm = () => {
     }
 
   return (
-    <div className="relative w-full bg-white px-6 py-24 flex flex-col justify-center items-center">
+    <div className="relative w-full bg-user-white px-6 py-24 flex flex-col justify-center items-center">
       
       <div className="w-full max-w-2xl bg-white rounded-3xl p-8 md:p-12 shadow-2xl shadow-green/5 border border-gray-100">
           <div className="text-center mb-10">

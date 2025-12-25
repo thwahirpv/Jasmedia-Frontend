@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 const ContactIntro = () => {
   return (
-    <section className="relative w-full min-h-[60vh] flex flex-col items-center justify-center bg-white overflow-hidden pt-20">
+    <section className="relative w-full min-h-[60vh] flex flex-col items-center justify-center bg-user-white overflow-hidden pt-20">
       
        <div className="absolute inset-0 z-0">
           <Particles
@@ -58,7 +58,7 @@ const ContactIntro = () => {
                    <Mail size={20} />
                 </div>
                 <h3 className="font-bold text-agency-black font-montserrat">Email Us</h3>
-                <p className="text-sm text-gray-500 font-opensans">contact@jasmedia.co</p>
+                <p className="text-sm text-gray-500 font-opensans">contact@gmail.com</p>
             </motion.div>
 
              <motion.div 
@@ -71,7 +71,7 @@ const ContactIntro = () => {
                    <Phone size={20} />
                 </div>
                 <h3 className="font-bold text-agency-black font-montserrat">Call Us</h3>
-                <p className="text-sm text-gray-500 font-opensans">+1 (548) 333-2232</p>
+                <p className="text-sm text-gray-500 font-opensans">+1 (555) 123-4567</p>
             </motion.div>
 
              <motion.div 

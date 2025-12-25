@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 
 const GetStartedNow = () => {
   return (
-    <div className="relative w-full bg-white flex justify-center items-center py-32 overflow-hidden px-6">
+    <div className="relative w-full bg-user-white flex justify-center items-center py-32 overflow-hidden px-6">
       
       {/* Abstract Background Element */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-green/5 blur-[120px] rounded-full pointer-events-none" />

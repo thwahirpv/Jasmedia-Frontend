@@ -10,7 +10,7 @@ import LoadingScreen from '@/components/user/common/LoadingScreen'
 
 const Home = () => {
   return (
-    <div>
+    <div className="overflow-x-hidden">
       <HomeIntro />
       <HomeAbout />
       <WhyChooseUs />

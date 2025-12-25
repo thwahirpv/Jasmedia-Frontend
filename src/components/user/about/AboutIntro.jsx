@@ -24,7 +24,7 @@ const AboutIntro = () => {
     }, [])
 
   return (
-    <section className="relative w-full min-h-screen bg-white flex flex-col justify-center items-center overflow-hidden pt-20">
+    <section className="relative w-full min-h-screen bg-user-white flex flex-col justify-center items-center overflow-hidden pt-20">
       
        <div className="absolute inset-0 z-0">
           <Particles
@@ -71,7 +71,7 @@ const AboutIntro = () => {
          initial={{ opacity: 0 }}
          animate={{ opacity: 1 }}
          transition={{ duration: 1, delay: 0.8 }}
-         className="w-full mt-24 border-y border-gray-100 bg-gray-50/50 backdrop-blur-sm py-8"
+         className="w-full mt-10 border-y border-gray-100 bg-gray-50/50 backdrop-blur-sm py-8"
       >
         <p className="text-center text-xs font-bold text-gray-400 uppercase tracking-widest mb-6">Clients & Projects</p>
         <Marquee pauseOnHover className="[--duration:40s]">
