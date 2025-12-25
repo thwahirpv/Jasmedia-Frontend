@@ -5,7 +5,6 @@ export const USER_URL='https://jasmedia-backend.onrender.com/user'
 
 
 
-
 export const EMAIL='email'
 export const NETWORK='network'
 export const PASSWORD='password'
