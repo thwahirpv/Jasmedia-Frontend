@@ -15,7 +15,7 @@ const Category = () => {
   
 
   return (
-    <div className="w-full min-h-screen bg-agency-black p-6 md:p-10">
+    <div className="w-full h-screen overflow-hidden bg-agency-black p-6 md:p-10">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4">
         <div>
            <h1 className="text-3xl font-bold font-russo text-white">Categories</h1>

@@ -134,9 +134,9 @@ const FeedbackList = ({isModalOpen, statusSelected, searchTerm}) => {
     }, [isModalOpen, isModalopenU, statusSelected, debouncedSearchTerm])
 
   return (
-    <div className="w-full h-[80%] overflow-auto scroll-smooth scrollbar-thin scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-thumb-gray-800 scrollbar-track-gray-900">
+    <div className="w-full h-[calc(100vh-280px)] overflow-y-auto scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent rounded-xl border border-white/10">
       <table className="relative w-full text-sm text-left text-gray-300">
-        <thead className="sticky top-0 text-xs text-white uppercase bg-white/10">
+        <thead className="sticky top-0 z-10 text-xs text-white uppercase bg-[#1a1a1a]">
           <tr>
             <th scope="col" className="px-6 py-4 rounded-tl-lg">
               Preview

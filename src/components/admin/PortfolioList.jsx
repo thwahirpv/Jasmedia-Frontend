@@ -117,9 +117,9 @@ const PortfolioList = ({ setIsModalOpen, isModalOpen, statusSelected, searchTerm
 
 
   return (
-    <div className="w-full overflow-auto rounded-lg">
+    <div className="w-full h-[calc(100vh-280px)] overflow-y-auto scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent rounded-xl border border-white/10">
       <table className="w-full text-sm text-left text-gray-300">
-        <thead className="text-xs text-white uppercase bg-white/10">
+        <thead className="sticky top-0 z-10 text-xs text-white uppercase bg-[#1a1a1a]">
           <tr>
             <th scope="col" className="px-6 py-4 rounded-tl-lg">Preview</th>
             <th scope="col" className="px-6 py-4">Title</th>

@@ -94,7 +94,7 @@ const PortPreview = ({ isPreview, setIsPreview }) => {
         </div>
 
         {/* content */}
-        <div className="w-full h-[300px] md:h-[400px] bg-black/20 rounded-xl mb-8 flex justify-center items-center overflow-hidden border border-white/5">
+        <div className="w-full h-[300px] md:h-[400px] bg-black/20 rounded-xl mb-8 flex justify-center items-center border border-white/5">
           {contentLink ? (
             type == "Video" ? (
               <video
