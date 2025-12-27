@@ -19,6 +19,7 @@ const latestPortfolioSlice = createSlice({
     name: 'latestPortfoio',
     initialState: {
         isLoading: false,
+        portfolios: [], // Added state
         errorLatestPortfolio: null
     },
     extraReducers: (builder) => {
@@ -29,6 +30,7 @@ const latestPortfolioSlice = createSlice({
         })
         .addCase(latestPortfolioThunk.fulfilled, (state, actoin) => {
             state.isLoading = false
+            state.portfolios = actoin.payload.data // Added data assignment
             state.errorLatestPortfolio = null
         })
         .addCase(latestPortfolioThunk.rejected, (state, actoin) => {

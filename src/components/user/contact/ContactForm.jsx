@@ -116,7 +116,7 @@ const ContactForm = () => {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               type="submit"
-              className="w-full py-2.5 bg-agency-black text-white rounded-xl font-bold font-montserrat text-base hover:bg-green transition-colors shadow-lg flex justify-center items-center gap-2"
+              className="w-full py-2.5 bg-agency-black cursor-pointer text-white rounded-xl font-bold font-montserrat text-base transition-colors shadow-lg flex justify-center items-center gap-2"
               disabled={isFormLoading}
             >
               {isFormLoading ? (

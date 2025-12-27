@@ -10,12 +10,12 @@ const CountShow = ({ title, count, isLoading, totalError }) => {
         <h1 className="font-montserrat font-semibold text-gray-400 text-sm uppercase tracking-wider">
             {title}
         </h1>
-        <div className="p-2 bg-white/5 rounded-lg group-hover:bg-green/20 transition-colors">
-             <div className="w-5 h-5 bg-green/50 rounded-full group-hover:bg-green transition-colors"></div>
+        <div className="p-2 bg-white/5 rounded-lg group-hover:bg-white/20 transition-colors">
+             <div className="w-5 h-5 bg-white/50 rounded-full group-hover:bg-white transition-colors"></div>
         </div>
       </div>
       
-      <div className="text-4xl font-russo font-bold text-white group-hover:text-green transition-colors">
+      <div className="text-4xl font-russo font-bold text-white transition-colors">
         {isLoading ? (
             <ScaleLoader color="#16a34a" loading={isLoading} height={25} width={4} />
           ) : totalError ? (

@@ -8,6 +8,7 @@ import verifyEmailReducer from '../features/auth/verifyEmailSlice'
 import verifyOtpReducer from '../features/auth/verifyOtpSlice'
 import changePasswordReducer from '../features/auth/changePasswordSlice'
 import contactFormReducer from '../features/auth/ContactFormSlice'
+import getLatestContactsReducer from '../features/contact/getLatestContacts'
 
 // Dashboard
 import totalCountReducer from '../features/dashboard/totalCount'
@@ -125,6 +126,9 @@ const rootReducer = combineReducers({
     
     // History
     listHistory: listHistoryReducer,
+
+    // Contact
+    latestContact: getLatestContactsReducer,
 })
 
 const persistConfig = {

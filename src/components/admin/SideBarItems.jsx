@@ -8,7 +8,8 @@ const   SideBarItems = ({ icon, text, destination }) => {
     <li className="relative group">
       <NavLink to={destination} className={({isActive}) => {
         return (
-            "flex items-center w-full rounded-xl py-3 px-4 transition-all duration-300 " +
+            "flex items-center w-full rounded-xl py-3 transition-all duration-300 " +
+            (isOpen ? "px-4 justify-start " : "px-0 justify-center ") +
             (isActive ? "bg-white/10 text-white shadow-lg shadow-black/20"
             :
             "text-gray-400 hover:bg-white/5 hover:text-white")

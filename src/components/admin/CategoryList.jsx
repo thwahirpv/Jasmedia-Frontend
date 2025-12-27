@@ -26,20 +26,20 @@ const CategoryList = ({ isModalOpen, selected, searchTerm }) => {
   const { isRootAdmin } = useSelector((state) => state.auth)
   const debouncedSearchTerm = useDebounce(searchTerm, 500)
   const [theme, setTheme] = useTheme()
-  const [isPreview, setIsPreview] = useState(false) 
+  const [isPreview, setIsPreview] = useState(false)
   const [togglingCategoryId, setTogglingCategoryId] = useState(null)
 
 
   const fetchCategoryList = async () => {
     try {
       const response = await dispatch(listCategory()).unwrap();
-      if(selected == 'Active'){
+      if (selected == 'Active') {
         setCategories(response.category.filter(item => item.status == true && item.name.toLowerCase().includes(debouncedSearchTerm.toLowerCase())))
       }
-      else if(selected == 'Deactive'){
+      else if (selected == 'Deactive') {
         setCategories(response.category.filter(item => item.status == false && item.name.toLowerCase().includes(debouncedSearchTerm.toLowerCase())))
       }
-      else{
+      else {
         setCategories(response.category.filter(item => item.name.toLowerCase().includes(debouncedSearchTerm.toLowerCase())));
       }
     } catch (err) {
@@ -56,7 +56,7 @@ const CategoryList = ({ isModalOpen, selected, searchTerm }) => {
   const categoryToggle = async (category_id) => {
     setTogglingCategoryId(category_id)
     try {
-      await dispatch(categoryStatusToggle({'categoryId': category_id})).unwrap()
+      await dispatch(categoryStatusToggle({ 'categoryId': category_id })).unwrap()
       fetchCategoryList()
     } catch (error) {
       categorySwal.fire({
@@ -70,7 +70,7 @@ const CategoryList = ({ isModalOpen, selected, searchTerm }) => {
     } finally {
       setTogglingCategoryId(null)
     }
-  } 
+  }
 
   const NavigatePreviwe = (category) => {
     dispatch(setCategoryPreview(category))
@@ -142,13 +142,16 @@ const CategoryList = ({ isModalOpen, selected, searchTerm }) => {
                 <td className="px-6 py-4">{category.totolPortfolio}</td>
                 <td className="px-6 py-4">
                   {category.status ? (
-                    <div className="flex items-center">
-                      <div className="h-2.5 w-2.5 rounded-full bg-green-500 me-2 shadow-[0_0_10px_rgba(34,197,94,0.5)]"></div>
+                    <div className="flex items-center gap-2">
+                      <span className="relative flex h-3 w-3">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500/75 opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                      </span>
                       <span className="text-green-500 font-medium">Active</span>
                     </div>
                   ) : (
-                    <div className="flex items-center">
-                      <div className="h-2.5 w-2.5 rounded-full bg-red-500 me-2"></div>
+                    <div className="flex items-center gap-2">
+                      <span className="h-3 w-3 rounded-full bg-red-500"></span>
                       <span className="text-red-500 font-medium">Inactive</span>
                     </div>
                   )}
@@ -169,9 +172,8 @@ const CategoryList = ({ isModalOpen, selected, searchTerm }) => {
 
                   {isRootAdmin && (
                     <p
-                      className={`cursor-pointer font-medium transition-colors ${
-                        category.status ? "text-red-500 hover:text-red-400" : "text-green-500 hover:text-green-400"
-                      }`}
+                      className={`cursor-pointer font-medium transition-colors ${category.status ? "text-red-500 hover:text-red-400" : "text-green-500 hover:text-green-400"
+                        }`}
                       onClick={() => categoryToggle(category._id)}
                     >
                       {togglingCategoryId === category._id ? (
@@ -192,7 +194,7 @@ const CategoryList = ({ isModalOpen, selected, searchTerm }) => {
             ))
           ) : (
             <div className="absolute w-full flex justify-center mt-10 opacity-50">
-               <img className="w-[100px] grayscale invert" src={noDataPng} alt="No data" />
+              <img className="w-[100px] grayscale invert" src={noDataPng} alt="No data" />
             </div>
           )}
         </tbody>

@@ -3,7 +3,7 @@ import { BASE_URL, USER_URL } from "../constants/constants";
 import { ACCESS_TOKEN } from "../constants/constants";
 import storage from 'redux-persist/lib/storage'
 
-const AdminApi = axios.create({
+export const AdminApi = axios.create({
     baseURL: BASE_URL,
     withCredentials: true
 })
